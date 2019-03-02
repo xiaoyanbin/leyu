@@ -1,0 +1,218 @@
+@mixin transformy($color,$border:1){
+    content:"";
+    height:200%;
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    border-right: 1px*$border solid $color;
+    z-index:100;
+    transform:scaleY(.5);
+    transform-origin:0 0;
+    -webkit-transform:scaleY(.5);
+    -webkit-transform-origin:0 0;
+
+}
+.countdown{
+    width:100%;
+    
+}
+// .isright{
+//     padding-top:60px;
+//     width:54px;
+//     height:54px;
+//     margin:0 auto;  
+//     .right-on{    
+//           @include bj-center(url(../../images/right.png),52px);
+//     }
+//     .err-on{ 
+//          @include bj-center(url(../../images/err.png),52px);
+//     }
+// }
+//33ccff
+.at-progress__outer-inner{
+    border-radius: 0;
+}
+.at-progress__outer-inner-background{
+  background-color: #33ccff;
+}
+.at-progress__content{
+    display:none
+}
+@mixin bj-center($url,$width:100%,$height:$width){
+    width:$width;
+    height:$height;
+    background-image:$url;
+    background-size:$width $height;
+}
+.btns{
+    color:#fff;
+    background: #2BC2F4;
+}
+.btn-a{
+     color: #838383;
+     background-color:#eee;
+     position: relative;
+     border-bottom:1px solid #D0D0D0;
+
+}
+.btn-a:hover{
+             background-color:#ddd;
+     }
+.add-subtract{
+    width:100%;
+    height: auto;
+    position: absolute;
+    bottom:0px;
+    display:none;
+    left:0px;
+
+}
+.add-btn{
+    width:100%;
+    height:120px;
+    text-align:center;
+    font-size:48px;
+	line-height: 120px;
+}
+
+.num-keyboard{
+    width:100%;
+    position: absolute;
+    font-size:48px;
+    left:0px;	
+    bottom:0px;
+}
+.num-keyboard-list{
+    width:100%;
+    height:480px;
+    text-align:center;
+    overflow:hidden;
+    position: relative;
+
+}
+.num-btn{
+    width:25%;
+    line-height:120px;
+    float:left;
+    text-align: center;
+    position: relative;
+
+}
+.num-btn:after{
+      @include transformy(#D0D0D0);
+
+}
+.isright{
+            span{
+                height:8px;
+                display:block; 
+                float:left;
+                position: relative;
+            }
+            span:after{
+                @include transformy(#fff,1);
+            }
+            .right{
+                background-color:#7ED321;
+            }
+            .err{
+               background-color:#FF6D6D;
+            }
+	width:100%;
+	height:80px;
+}
+
+.isright-style{
+       padding-top:60px;
+       width:52px;
+       height:52px;
+       margin:0 auto;  
+       .right-on{    
+             @include bj-center(url(../../images/right.png),52px);
+       }
+       .err-on{ 
+            @include bj-center(url(../../images/err.png),52px);
+       }
+}
+.mathquill-rendered-math .denominator{
+  margin:0;
+  padding:0;
+}
+.mathquill-rendered-math .numerator{
+  margin:0;
+  padding:0;
+}
+.countdown{
+	width:100%;
+	height:82px;
+	padding-top:32px;
+	line-height:50px;
+	font-size:36px;
+	text-align:center;
+	color: #999999;
+       letter-spacing: -0.86px;
+       .counttime{
+          width:140px;
+          height:50px;
+          line-height:50px;
+          margin: 0 auto;
+          padding-left:40px;
+          background-image:url(../../images/time.png);
+          background-repeat:no-repeat;
+          background-position:left center; 
+          background-size:38px 42px;
+       }
+}
+.content{ 
+    width:100%;
+    height:120px;
+    display:flex;
+    flex-flow: row wrap;
+    justify-content:center;
+    font-size: 48px;
+    color:#4F4F4F;
+    margin-top:160px;
+    text-align:center;
+    line-height: 66px;    
+}
+.navs{display:block}
+.goods-li{
+    width:100%;
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    align-content:center;
+    .lis{
+        text-align:center;
+    }
+    .nav{
+        display: inline-block;
+        padding:10px;
+        min-width: 64px;
+        min-height: 64px;
+        border:1px solid #0CD1A5;
+        margin:0 10px;
+    }
+}
+
+.edu_fillin {
+    display: inline-block;
+    width: 48px;
+    height: 64px;
+    padding-top:4px;
+    line-height:48px;
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    background-repeat: no-repeat;
+    text-align: center;
+    min-width: 464px;
+    margin:  0 4px;
+    vertical-align: middle;
+    outline: none;
+}
+.focus {
+     border: 1px dashed #0CD1A5;
+}

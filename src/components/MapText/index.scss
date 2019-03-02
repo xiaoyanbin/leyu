@@ -1,0 +1,19 @@
+
+@import "../../styles/mixin";
+
+.poetry-ul{
+  width:100%;
+  display: flex;
+  flex-flow: row wrap; 
+  
+  .poetry-li{
+    font-size:40px;
+    padding:0 10px;
+    margin:10px;
+  }
+  .sele{
+    color:#fff;
+    border:1px solid #ccc;
+    
+  }
+}

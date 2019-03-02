@@ -1,0 +1,34 @@
+
+@import "../../styles/mixin";
+
+.con{
+  font-size:30px;
+  line-height: 55px;
+}
+.con_list{
+   padding: 0 20px 50px 0;
+
+   .con_li{
+       padding: 29px 0;
+       font-size:24px;
+       display:flex;
+       flex-flow:row wrap;
+       border-bottom:1px solid #eee;
+     .letter{
+       width:40px;
+       height:40px;
+       border-radius: 20px;
+       text-align: center;
+       font-size:22px;
+       text-align: center;
+       line-height: 38px;
+       border:1px solid #ccc;
+       margin-right:20px;
+     }
+   }
+   .con_li :hover{
+       color:#ff0000;
+       display: block;
+   }
+   .nav{color:#ff0000;}
+}

@@ -1,0 +1,27 @@
+.catelist{
+    .list{
+         width:690px; 
+         padding:13px 30px;
+         font-size:30px;
+         line-height:80px;
+         border-bottom:1px solid #ccc
+        }
+}
+.slider{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:space-between;
+    padding:30px;
+    .slider_left{
+        width:120px;
+        line-height:60px;
+    }
+    .slider_mid{
+        width:530px;
+        height:100px;
+    }
+    .slider_right{
+        width: 40px;
+        line-height:60px;
+    }
+}

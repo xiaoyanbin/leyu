@@ -1,0 +1,80 @@
+.imgclass{
+    width:400px;
+    height:400px;
+    margin:0 auto;
+    margin-top:50px;
+    border-radius: 20px;
+    overflow: hidden;
+    .taro_img{height:auto}
+    img{width:400px; height:400px; }
+}
+.info_show{
+    width:100%;
+    line-height: 60px;
+    text-align: center;
+}
+.kno_list{
+    padding:20px;
+}
+.taro_img{width:auto; height:auto}
+.kno_img{
+    .taro-img{height:auto; width:100%}
+    width:250px;
+    height:250px;
+    margin:0 auto;
+    border-radius:125px;
+    overflow: hidden;
+}
+.words{
+    padding:20px;
+    width:100%;
+}
+.updata{
+    width:50%;
+    height:80px;
+    margin:40px auto;
+    line-height: 80px;
+    background-color: #00b26a;
+    border-radius: 16px;
+    color:#fff;
+    text-align: center;
+}
+.text{
+    padding:10px;
+}
+.title{text-align: center; font-size:40px; line-height: 50px; }
+.kno_des{
+    width:80%;
+    height:auto;
+    padding:10%;
+    float:left;
+    font-size:32px;
+    line-height: 40px;
+    padding-bottom:50px;
+    overflow: hidden;
+}
+.content_a{
+    display:flex;
+    padding:40px 0;
+    height:200px;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    //flex-start | flex-end | center | space-between | space-around
+    align-items:flex-start;
+    .img1{
+        width:120px;
+        height:120px;   
+        overflow: hidden;
+        order:0;
+        flex-grow:0;
+        flex-shrink:1;
+        flex-basis:auto;
+        align-self:auto;
+        .taro-img{
+            height:auto;
+            .taro-img__mode-scaletofill{height:auto}
+        }
+        
+    }
+}
