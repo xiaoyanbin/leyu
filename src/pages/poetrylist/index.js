@@ -18,22 +18,38 @@ class poetrylist extends Component {
       pid: 0,
       list:[],
       typeName:'',
+      page:1,
     }
 
   }
-  async getArticleCate (cateId) {
+  nextPage(){
+      const { pid,page } = this.state
+      this.getArticleCate(pid,page)
+  }
+  async getArticleCate (cateId,page) {
     //获取文章详情
-    console.log(cateId)
-    const res = await articleApi.article({
-      pid: cateId
-    });
-    if (res.status == 'ok') {
-      this.setState({
-          list: res.data.list,
-     },()=>{
-        //this.getpoetry()
-      })
-    }
+      const { list } = this.state
+      const res = await articleApi.article({
+        pid: cateId,
+        page:page,
+      });
+      if (res.status == 'ok' && res.data.list.length) {
+            if(page==1){
+              this.setState({
+                list: res.data.list,
+                page: page+1,
+              })
+            }else{
+              let val = list.concat(res.data.list)
+              this.setState({
+                list: val,
+                page: page+1,
+              })   
+            }
+
+      } else{
+          console.log("没有更多数据了")
+      }
   }  
   goDetail(data){
     const { typeName } = this.state
@@ -78,7 +94,7 @@ class poetrylist extends Component {
       pid: this.$router.params.pid,
       typeName: this.$router.params.typeName,
     })
-    this.getArticleCate(this.$router.params.pid)
+    this.getArticleCate(this.$router.params.pid,1)
     // this.setState({
     //   pid: '5c721e90d2660b78319b47f7',
     //   typeName: 'radio',
@@ -86,12 +102,22 @@ class poetrylist extends Component {
     // this.getArticleCate('5c721e90d2660b78319b47f7')
 
   };
+  onPullDownRefresh(){
+    this.getArticleCate(this.$router.params.pid,1)
+    setTimeout(()=>{
+      Taro.stopPullDownRefresh()
+    },200)
+  
+  }
+  onReachBottom(){
+    this.nextPage()
+  }
   componentDidHide () { }
   render () {
     const { list,pid } = this.state;
     return (
-      <View className="home-page">
-        <View className="catelist">
+      <View className="home-page" >
+        <View className="catelist"  >
           {list.map((item,index) => (
             <View key={index} className="list" onClick={this.goDetail.bind(this,item._id)} >{item.title}</View>
           ))}

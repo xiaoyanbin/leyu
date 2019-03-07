@@ -9,6 +9,7 @@ class RadioText extends Component {
     title:PropTypes.string,
     answerList:PropTypes.array,
     onQuestion:PropTypes.func,
+    itemIndex:PropTypes.number,
   }
 
   static defaultProps = {

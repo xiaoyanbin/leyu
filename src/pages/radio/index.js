@@ -29,7 +29,6 @@ class radio extends Component {
       dataJson:'',
       rightAnswer:'',
       question:[],
-      title:'',
       questionNum:10,
       isRight:0,
       answerList:[],
@@ -66,8 +65,6 @@ class radio extends Component {
     var column = this.state.column;
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
-       
-
       this.setState({
           detail: res.data.list,
           dataList:data.data,
@@ -296,22 +293,22 @@ class radio extends Component {
            </View>
 
            <View className="content">
-             {/* <RadioText question={question} title={title}  answerList={answerList} itemIndex={itemIndex} onQuestion={this.nextQuestion}/>
-               */}
+              <RadioText question={question} title={title}  answerList={answerList} itemIndex={itemIndex} onQuestion={this.nextQuestion.bind(this)}/>
               
-              <View className="title">
-                      单选题
-              </View>
-              <View className="con">
-                     {title}
-              </View>
-              <View className="con_list">
-              {question.map((item,index) => (
-                <View key={index} className={"con_li " +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={this.nextQuestion.bind(this,item)} >
-                    <View className="letter"> {item.value}</View>{item.title}
-                </View>
-              ))}
-              </View>  
+                
+                {/* <View className="title">
+                       单选题
+               </View>
+               <View className="con">
+                      {title}
+               </View>
+               <View className="con_list">
+               {question.map((item,index) => (
+                 <View key={index} className={"con_li " +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={this.nextQuestion.bind(this,item)} >
+                     <View className="letter"> {item.value}</View>{item.title}
+                 </View>
+               ))}
+              </View>    */}
               <View className="analysis" onClick={this.isAnalysis.bind(this)} >
                      答案解析>
               </View>     

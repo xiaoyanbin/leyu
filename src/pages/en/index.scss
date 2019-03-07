@@ -105,7 +105,15 @@
         }
         .con{
            font-size:30px;
-           line-height: 55px;  
+           line-height: 55px;
+           .con_img{
+               width:70px;
+               height:70px;
+               background-image: url(https://wx.minsusuan.com/img/vido.jpg);
+               background-repeat: no-repeat;
+               background-position: right 0; 
+               background-size:70px 70px;   
+           }   
            .big_img{
                width:316px;
                height:240px;
@@ -200,11 +208,7 @@
                     background-size:45px 45px;
                 }           
             }
-            .right{
-                 border:4px solid #00cc99;
-                 color:#00cc99; 
-                 background-color: #fff;
-                }
+            .right{border:4px solid #00cc99; color:#00cc99; background-color: #fff;}
             .err{border:4px solid #ff6666; color: #ff6666; background-color: #fff;}
             .block{display:block;}
             .none{display:none!important;}
@@ -262,7 +266,7 @@
         border-top:1px solid #ccc;
         font-size:25px;
         .btn{
-            width:50%; 
+            width:100%; 
             line-height: 87px;
          }
         .red{

@@ -68,9 +68,6 @@ class Index extends Component {
       <View className="home-page">
       <MySwiper banner={banner} home />
       <Top />
-      <View className="">
-     
-      </View>
       <View className="index_text" onClick={this.toEnglish.bind(this)}>答题</View>
       <GoodsList list={list} loading="" ontoEnglish={this.toEnglish}/>
       </View>

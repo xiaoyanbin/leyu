@@ -1,0 +1,170 @@
+
+@import "../../../styles/mixin";
+
+.content{
+  width:714px;
+  padding:18px;
+  margin-top:18px;
+  font-size:30px;
+  display:flex;
+  flex-flow:column wrap;
+  background-color: #fff;
+  margin-bottom:20px;
+  .title{
+     padding-bottom:30px;
+     font-size:32px;
+     line-height: 100px;
+  }
+  .con{
+     font-size:30px;
+     line-height: 55px;
+     .con_img{
+         width:70px;
+         height:70px;
+         background-image: url(https://wx.minsusuan.com/img/vido.jpg);
+         background-repeat: no-repeat;
+         background-position: right 0; 
+         background-size:70px 70px;   
+     }   
+     .big_img{
+         width:316px;
+         height:240px;
+         border:1px solid #00cc99;
+         margin:10px auto;
+         image{
+             height:240px;
+         }
+     }
+     .none{display:none!important;}
+  }
+  .con_list{
+      padding: 0 20px 50px 0;
+      display:flex;
+      flex-flow:row wrap;
+      justify-content:space-between;
+      .img_li{
+          width:320px;
+          height:240px;
+          border:4px solid #33ccff;
+          margin:15px 0;
+          position: relative;
+          image{
+              height:240px;
+          }
+          .img_right{
+              width:45px;
+              height:45px;
+              position: absolute;
+              right:5px;
+              top:5px;
+              z-index:20;
+              background-image: url(https://wx.minsusuan.com/img/right.jpg);
+              background-repeat: no-repeat;
+              background-position: right 0; 
+              background-size:45px 45px;
+          }   
+          .img_err{
+              width:45px;
+              height:45px;
+              position: absolute;
+              right:5px;
+              top:5px;
+              z-index:20;
+              background-image: url(https://wx.minsusuan.com/img/err.jpg);
+              background-repeat: no-repeat;
+              background-position: right 0; 
+              background-size:45px 45px;
+          }           
+      }
+      .text_li{
+          width:100%;
+          height:80px;
+          display:flex;
+          flex-flow:row wrap;
+          align-items:center;
+          border-radius: 10px;
+          background-color: #efefef;
+          color:#000;
+          border:4px solid #ccc;
+          margin:15px 0;
+          position: relative;
+          .letter{
+              border-radius: 20px;
+              text-align: center;
+              line-height: 38px;
+              padding-left:40px;
+              margin-right:20px;
+            }
+          .img_right{
+              width:45px;
+              height:45px;
+              position: absolute;
+              right:10px;
+              top:20px;
+              z-index:20;
+              background-image: url(https://wx.minsusuan.com/img/right.jpg);
+              background-repeat: no-repeat;
+              background-position: right 0; 
+              background-size:45px 45px;
+          }   
+          .img_err{
+              width:45px;
+              height:45px;
+              position: absolute;
+              right:10px;
+              top:20px;
+              z-index:20;
+              background-image: url(https://wx.minsusuan.com/img/err.jpg);
+              background-repeat: no-repeat;
+              background-position: right 0; 
+              background-size:45px 45px;
+          }           
+      }
+      .right{
+           border:4px solid #00cc99;
+           color:#00cc99; 
+           background-color: #fff;
+          }
+      .err{border:4px solid #ff6666; color: #ff6666; background-color: #fff;}
+      .block{display:block;}
+      .none{display:none!important;}
+      .con_li{
+          width:100%;
+          padding: 29px 0;
+          font-size:24px;
+          display:flex;
+          flex-flow:row wrap;
+          border-bottom:1px solid #eee;
+        .letter{
+          width:40px;
+          height:40px;
+          border-radius: 20px;
+          text-align: center;
+          font-size:22px;
+          line-height: 38px;
+          border:1px solid #ccc;
+          margin-right:20px;
+        }
+      }
+      .nav{color:#ff0000;}
+  }
+  .analysis{
+       width:170px;
+       height:48px;
+       background-color: #eee;
+       border-radius: 24px;
+       margin:10px auto;
+       line-height: 48px;
+       text-align:center;
+       color:#ff0000;
+
+  }
+  .anal{
+      padding:30px;
+      color:#33ccff;
+      display:none;
+  }
+  .navs{
+     display:block;
+  }
+}

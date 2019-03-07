@@ -38,14 +38,18 @@ class App extends Component {
       'pages/result/index',
       'pages/radio/index',
       'pages/english/index',
+      'pages/en/index',
       
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      backgroundTextStyle: 'dark',
+      enablePullDownRefresh: true,
     },
+    
     tabBar: {
       list: [{
         pagePath: "pages/index/index",

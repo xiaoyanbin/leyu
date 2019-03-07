@@ -2,10 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button,Image,Audio } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtToast , AtCountdown,AtProgress } from "taro-ui"
-import EnglishText from '../../components/English/EnglishText'
-import EnglishStyle from '../../components/English/EnglishStyle'
 import * as detailApi from './service'
-
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
 @connect(({ home}) => ({
@@ -27,7 +24,7 @@ class English extends Component {
       seconds:15,
       itemIndex:0,        //当前题索引 
       percent:15, 
-      questionOther:{},
+      questionOther:'',
       dataList:[],
       dataJson:'',
       rightAnswer:'',
@@ -58,7 +55,6 @@ class English extends Component {
       this.setState({
         isanaly: !an
       })
-
   }
   isCard(){
     const { card } =this.state
@@ -70,7 +66,7 @@ class English extends Component {
   async getArticleInfo (articleId) {
     //获取文章详情
     const res = await detailApi.getDetail({
-      id: articleId,
+      id: articleId 
     });
 
     var column = this.state.column;
@@ -84,6 +80,8 @@ class English extends Component {
 
       let val =this.mackQuestion(data)
       let result = [...val,...val]
+      console.log(result)
+
       this.setState({
           detail: res.data.list,
           dataList: result,
@@ -92,6 +90,23 @@ class English extends Component {
       })
     }
   }  
+  makeData(){
+    let c = {}
+    let  newc = []
+
+    c.data.forEach((item,i)=>{
+          let b = {}
+          let c = this.rendoms(0,item.sentence_desc_word.length)-1
+          b.title = item.sentence_desc_word
+          b.chinese = item.sentence_translate
+          b.imgUrl = item.word_img
+          b.audio = item.voice_word_obj.voice_url
+          b.analysis = item.sentence_desc_head
+          b.splits = item.sentence_desc_word.slice(c,c+1)
+          newc.push(b)
+    })
+    return newc
+  }
   goDetail(data){
       Taro.navigateTo({
         url: `/pages/poetrylist/index?pid=${data}`,
@@ -183,7 +198,7 @@ class English extends Component {
           },()=>{
             setTimeout(() => {
               //this.addQuestion([...dataList][this.state.itemIndex]) 
-             // this.downQuestion(itemIndex)
+              this.downQuestion(itemIndex)
             }, 500);
           })
 
@@ -257,10 +272,7 @@ class English extends Component {
     downQuestion(data){
       const { itemIndex, answerList } = this.state
       const list = answerList
-     
-      this.setState({
-        isanaly: false
-      })
+
       if(itemIndex<list.length){
           this.setState({
             itemIndex:data+1,
@@ -294,6 +306,7 @@ class English extends Component {
 
     }
     mackQuestion(val){
+      console.log(val)
         var data = new Array()
         val.forEach((item,i) =>{
                 data.push({"question":this.mackRadio(val,val.length,i)})
@@ -301,29 +314,28 @@ class English extends Component {
         return data
     }
     mackRadio(data,length,rand){
-       
-      // var  data = data.sort(function(){
-      //       return Math.random()>0.5
-      //   })
-
-        let letter = ["A","B","C","D"]
-        letter = JSON.parse(JSON.stringify(letter))
+        data = data.sort(function(){
+            return Math.random()>0.5
+        })
+        const letter = ["A","B","C","D"]
         const b = {}
         b.title = data[rand].title
         b.imgUrl = data[rand].imgUrl
         b.chinese = data[rand].chinese
         b.audio =  data[rand].audio
         b.splits = data[rand].splits
-        b.analysis = data[rand].analysis
         let rands = this.rendoms(0,length-4)
-        let part = data.slice(rands,rands+4)
+        let part = [...data.slice(rands,rands+4)]
         part = JSON.parse(JSON.stringify(part))
+        
+      //  let  ter =this.addLetter()
         part.map((item,ins)=>{
             item.value = letter[ins] 
         })
         let isv =part.findIndex((item,i)=> item.title==b.title)
         if(isv!==-1){
             b.answer = letter[isv]
+            
         } else{
             let nn = this.rendoms(0,3)
             data[rand].value = letter[nn]
@@ -332,9 +344,6 @@ class English extends Component {
         }
         b.list = part
         return b
-  }
-  onPlayAudio(data){
-    this.playAudio(data)
   }
   playAudio(data){
       innerAudioContext.src=data
@@ -367,10 +376,18 @@ class English extends Component {
     },1000)
   // this.init();
 
-  };
+  }
+  addLetter(){
+    let letter =['a','b','c','d','e','f','g','h','i','g','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+    let rands = this.rendoms(0,letter.length)
+  
+    return letter[rands]
+  
+  }
   componentDidHide () { }
   render () {
-    const { val,question ,answerList, card,detail,isanaly,questionNum, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state;
+    const { val,question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state;
     return (
       <View className="container">
             {/* <AtProgress percent={percent} /> */}
@@ -387,36 +404,52 @@ class English extends Component {
            </View>
           
            <View className="content">
-            { itemIndex<(questionNum/2) &&  <EnglishText question={question} title={title} questionOther={questionOther}  answerList={answerList} itemIndex={itemIndex} 
-           rightAnswer={rightAnswer}
-           onQuestion={this.nextQuestion.bind(this)}
-           onPlayAudio={this.onPlayAudio.bind(this)}
-           /> }
+           
+              <View className="con">
+                   <View  onClick={this.playAudio.bind(this,questionOther.audio)} className={(itemIndex<5 ? "block " : "none ")}>{questionOther.title}</View>  
+                  <View onClick={this.playAudio.bind(this,questionOther.audio)} className="con_img">
+                  
+                  </View>
+                  {/* <Audio src={questionOther.audio} controls={true} autoplay={true} loop={false} muted={false} initialTime='30' id='audio' onError={this.funError.bind(this)}/>
+                     */}
+                     
+               
+                  <View className={"big_img " +(itemIndex>=10 ? "block" : "none")} ><Image  src= {questionOther.imgUrl}></Image></View>
 
-         { itemIndex>=(questionNum/2) && <EnglishStyle  question={question} 
-                        title={title} 
-                        questionOther={questionOther}  
-                        answerList={answerList}
-                        itemIndex={itemIndex} 
-                        rightAnswer={rightAnswer}
-                        onQuestion={this.nextQuestion.bind(this)}
-                        onPlayAudio={this.onPlayAudio.bind(this)}
-                        />}
+              </View>
 
- 
-          <View className={"anal " +(isanaly ? 'navs' : '')}>
-                   <View>  {questionOther.title}</View> 
-                   <View>  {questionOther.chinese}</View> 
-                   <View> {questionOther.analysis}</View> 
-          </View>              
+              <View className="con_list">
+              {question.map((item,index) => (
+                <View key={index} className={(itemIndex<10 ? "img_li " : "text_li ") +(answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'err ' : ' ')+(rightAnswer == item.value&&answerList[itemIndex].val ? 'right' :'')} onClick={this.nextQuestion.bind(this,item)} >
+                    <View className={rightAnswer == item.value&&answerList[itemIndex].val ? 'img_right' : ''} ></View>
+                    <View className={answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'img_err' : ''} ></View>
+                     <Image className={(itemIndex<10 ? "block " : "none ")} src={item.imgUrl}></Image>
+                     
+                        <View className={"letter " +(itemIndex>=10 ? "block " : "none ")}> {item.value}</View><View className={(itemIndex>=10 ? "block " : "none ")}>{item.title}</View>
+                     
 
+                </View>
+              ))}
+             {/* {question.map((item,index) => (
+                <View key={index} className={"text_li " +(answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'err ' : ' ')+(rightAnswer == item.value&&answerList[itemIndex].val ? 'right' :'')} onClick={this.nextQuestion.bind(this,item)} >
+                    <View className={rightAnswer == item.value&&answerList[itemIndex].val ? 'img_right' : ''} ></View>
+                    <View className={answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'img_err' : ''} ></View>
+                    <View className="letter"> {item.value}</View>{item.title}
+                </View>
+              ))} */}
+              </View>  
+              {/* <View className="analysis" onClick={this.isAnalysis.bind(this)} >
+                     答案解析>
+              </View>     
+              <View className={"anal " +(isanaly ? 'navs' : '')}>
+                     {analysis}
+              </View>              */}
            </View>
-           <View className={"hid " +(answerList[itemIndex].val!=="" ? 'block' : '')}>
+            {/* <View className={"hid " +(answerList[itemIndex].val!=="" ? 'block' : '')}>
                 <View className="bottoms">
-                     <View className="btn" onClick={this.isAnalysis.bind(this)}>提示</View>
                       <View className="btn red" onClick={this.downQuestion.bind(this,itemIndex)}>下一题</View>
                 </View>
-           </View>
+            </View> */}
            <View className={"card " +(card ? 'pro' : '')} >
               {answerList.map((item,index) => (
                 <View key={index} className={"card_li " +(item.val ? 'nav' : '')} onClick={this.radioQuestion.bind(this,item)} >{index+1}</View>
