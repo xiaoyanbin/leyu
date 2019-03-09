@@ -5,7 +5,7 @@
     overflow: hidden;
     display: flex;
     flex-flow: row nowrap;
-    justify-content:left;
+    justify-content:space-between;
     align-items:center;
     .scrollview{
         .card-li{
@@ -16,34 +16,59 @@
             font-size:20px;
             text-align:center;
             position: relative;
-            image{margin:0 auto}
+            display: flex;
+            flex-flow: column nowrap;
+            image{margin:0 auto; height:120px;}
             transform:rotate(90deg);
         }
         .nav{border:4px solid #ff3333;}
     }
 
     .card-right{
-        width:400px;
-        height:400px;
+        width:440px;
+        height:440px;
+        padding-right:20px;
         border:4px solid #33ccff;
-        margin:15px 20px;
         text-align:center;
         position: relative;
-        image{margin:0 auto}
+        display: flex;
+        flex-flow: column nowrap;
+
+        align-content:flex-start;
+        .card-right-img{width:300px;margin-left:50px; height:260px;}
         .card-right-text{
             display: flex;
             flex-flow: row nowrap;
-            justify-content:center;
+            justify-content:space-between;
             align-items:center;
+            padding:10px 30px;
+            .btn-2{flex-shrink:0}
             .con_img{
                 width:70px;
                 height:70px;
-                background-image: url(https://wx.minsusuan.com/img/vido.gif);
+                background-image: url(https://wx.minsusuan.com/img/vido.png);
                 background-repeat: no-repeat;
                 background-position: right 0; 
                 background-size:70px 70px; 
-                margin-right:15px;  
+            }
+            .play{background-image: url(https://wx.minsusuan.com/img/vido.gif);}
+            .con_play{
+                width:70px;
+                height:70px;
+                background-image: url(https://wx.minsusuan.com/img/bofang.png);
+                background-repeat: no-repeat;
+                background-position: right 0; 
+                background-size:70px 70px; 
             } 
+            .con_lu{
+                width:70px;
+                height:70px;
+                background-image: url(https://wx.minsusuan.com/img/luyin.png);
+                background-repeat: no-repeat;
+                background-position: right 0; 
+                background-size:70px 70px;  
+            }
+            .navs{ background-image: url(https://wx.minsusuan.com/img/ziyuan.png); }
         }
 
         transform:rotate(90deg);

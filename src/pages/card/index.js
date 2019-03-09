@@ -3,9 +3,12 @@ import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView }
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import { webUrl } from '../../config'
+import { AtToast , AtCountdown,AtProgress } from "taro-ui"
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
 const RecorderManager = Taro.getRecorderManager()
+
+
 @connect(({ home ,detail}) => ({
   ...home,
 }))
@@ -22,7 +25,12 @@ class Card extends Component {
       dataList:[],
       tempFilePath:'',
       home:true,
-      card:{}
+      card:{"title":" "},
+      playtext:{"text":"录音","status":1},
+      isPlay:true,
+      isOpened:false,
+      text:'',
+      duration:500,
     }
 
   }
@@ -66,17 +74,33 @@ class Card extends Component {
          this.onPlayAudio(this.state.card.audio)
   }
   onPlayAudio(data) {
-    console.log(data)
     innerAudioContext.src=data
     innerAudioContext.loop=false
     innerAudioContext.obeyMuteSwitch =false
     innerAudioContext.onPlay((res)=>{
-         
+       this.setState({
+        isplay:true
+       })
     })
     innerAudioContext.onEnded((res)=>{
-       
+       this.setState({
+        isplay:false
+       })  
     }) 
     innerAudioContext.play()
+  }
+  onRecorder(data){
+         if(data==1){
+           this.setState({
+            playtext:{"text":"暂停","status":2}
+           })
+           this.onStartRecorder()
+         } else if(data==2){
+            this.setState({
+              playtext:{"text":"录音","status":1}
+            })
+            this.onStopRecorder()
+         }
   }
   onStartRecorder(){
       const options = {
@@ -98,6 +122,7 @@ class Card extends Component {
         console.log(333)
       })
       RecorderManager.onStop((res)=>{
+        console.log(335)
             this.setState({tempFilePath : res.tempFilePath})
       })
       RecorderManager.onError((res)=>{
@@ -117,7 +142,10 @@ class Card extends Component {
   }
   onStopRecorder(){
     RecorderManager.stop()
-
+    RecorderManager.onStop((res)=>{
+      console.log(336)
+          this.setState({tempFilePath : res.tempFilePath})
+    })
   } 
   onResumeRecorder(){
      RecorderManager.resume()
@@ -127,6 +155,24 @@ class Card extends Component {
   }
   onScroll(){
   }
+  close(){
+    this.setState({
+      isOpened:false,
+      text:'',
+      duration:500,
+    })
+  }
+  onPlayRecorder(data){
+      if(!data){
+        this.setState({
+          isOpened:true,
+          text:'请您先录音',
+          duration:500,
+        })
+        return
+      }
+      this.onPlayAudio(data)
+  }
   onUpData(item){
      this.setState({
        card:item
@@ -135,9 +181,10 @@ class Card extends Component {
      })
   }
   render () {
-    const { dataList,detail} = this.state;
+    const { dataList,detail,playtext,tempFilePath,isplay,card} = this.state;
     return (
       <View className="card-page">
+      
       <ScrollView
             className='scrollview'
             scrollY
@@ -155,9 +202,30 @@ class Card extends Component {
                 </View>
              ))}
         </ScrollView>
-        <View className="card-right" onClick={this.onPlayAudio.bind(this,card.audio)} >
-            <Image   mode="widthFix" src={card.imgUrl}></Image>     
-            <View className="card-right-text"> <View className="con_img"></View>  {card.title}</View>
+        <View className="card-right" >
+        <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>
+          <View className="card-right-img"> 
+            <Image  onClick={this.onPlayAudio.bind(this,card.audio)} mode="widthFix" src={card.imgUrl}></Image>    
+           </View>
+           {card.title}
+            <View className="card-right-text"> 
+            <View className="btn">
+              <View className={"con_img " +(isplay ? 'play' : '')} onClick={this.onPlayAudio.bind(this,card.audio)}></View>
+               重读
+              </View>
+             <View className="btn">
+              <View className={"con_lu " +(playtext.status==2 ? 'navs' : '')} onClick={this.onRecorder.bind(this,playtext.status)}></View>
+              {playtext.text}
+              </View>
+              <View className="btn">
+              <View className="con_play" onClick={this.onPlayRecorder.bind(this,tempFilePath)} ></View>
+              播放
+              </View>
+              
+              
+          
+            </View>
+            
         </View>
        
 
