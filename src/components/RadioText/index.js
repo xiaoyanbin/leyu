@@ -21,7 +21,7 @@ class RadioText extends Component {
   render() {
     const { title, question,answerList,itemIndex,onQuestion} = this.props;
     return (
-    <View>
+    <View className="content">
         <View className="title">
               单选题
         </View>

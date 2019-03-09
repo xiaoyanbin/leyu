@@ -26,7 +26,7 @@ class result extends Component {
   }
   toIndex () {
     Taro.navigateTo({
-      url: `/pages/index/index`,
+      url: `/pages/home/index`,
     })
   }
   componentWillReceiveProps (nextProps) {

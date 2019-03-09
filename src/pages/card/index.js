@@ -1,118 +1,30 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Form } from '@tarojs/components'
+import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import * as baiduApi from './service'
+import * as detailApi from './service'
 import { webUrl } from '../../config'
 import './index.scss'
-import add_img from '../../images/icon/add_img.jpg'
-import img1 from '../../images/icon/new.png'
-import img2 from '../../images/icon/nochose.png'
-import img3 from '../../images/icon/selecte-icon.png'
+const innerAudioContext = Taro.createInnerAudioContext()
+const RecorderManager = Taro.getRecorderManager()
 @connect(({ home ,detail}) => ({
   ...home,
 }))
 
-class Words extends Component {
+class Card extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '卡片'
   }
   constructor() {
     super(...arguments);
     this.state = {
-      current: 0,
-      info:[],
-      imgUrl:add_img,
-      imgShow:'../../public/admin/upload/20190213/1550047826846.jpg_400x400.jpg',
-      uri:webUrl+'/api/doAdd',
-      infoText:'上传图片展示结果',
-      articleId:'',
-      keywords:'accurateBasic',
-      landmark:'',
+      articleId: '',
+      detail:[],
+      dataList:[],
+      tempFilePath:'',
+      home:true,
+      card:{}
     }
 
-  }
-  upLoadImg (name, url) {
-
-    const form = new FormData(); //formData 对象
-    var _this =this;
-    var  oReq = new XMLHttpRequest();
-      //  oReq.append("files", name);
-        oReq.open("POST", url, true);
-        oReq.onload = function(data){
-           if (oReq.status == 200){
-                _this.img = JSON.parse(data.currentTarget.response);
-                console.log(_this.img);
-             } else {
-              console.log(data)
-            }
-        };
-        oReq.send(JSON.stringify({"data":{'filePath': name}}));
-  }
-  async detail(id){
-    const res = await baiduApi.getDetail({
-       id:id
-    });
-    if(res){
-      console.log(res);
-      this.setState({
-        keywords: res.data.list.keywords,
-        infoText: res.data.list.title,
-       })
-
-      
-    }
-  }
-  async getImageInfo(typename,paths,options) {
-    const res = await baiduApi.wordsClass({
-      typename: typename,
-      paths:paths,
-      options:options
-    });
-    if(res){
-        console.log(res)
-    }
-
-  }  
-  uploadFile(tempFilePaths){
-      var _this =this; 
-      if(Taro.getEnv()=="WEB"){
-          
-          _this.upLoadImg(tempFilePaths[0], webUrl+'/api/doAdd');
-         
-      }else{
-          Taro.uploadFile({
-            url: webUrl+'/api/doAdd', // 仅为示例，非真实的接口地址
-            filePath: tempFilePaths[0],
-            name: 'file',
-            formData: {
-              user: 'test'
-            },
-            success(res) {
-              const data = JSON.parse(res.data);
-              _this.setState({
-                imgUrl: webUrl + data.file + "_400x400.jpg",
-                imgShow:"../.." + data.file + "_400x400.jpg"
-              },()=>{
-                setTimeout(() => {
-                  _this.getImageInfo(_this.state.keywords,_this.state.imgShow,{});
-                }, 500);
-              })
-              // do something
-            }
-          })
-      }
-
-  }
-  chooseImage (){
-    var _this =this; 
-    Taro.chooseImage({
-      count: 1, // 默认9
-      success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
-        _this.uploadFile(tempFilePaths);
-      }
-    })
   }
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
@@ -124,51 +36,134 @@ class Words extends Component {
   componentDidShow () { 
   }
   componentDidMount = () => {
-    console.log(Taro.getEnv(),111)
     this.setState({
-      articleId: this.$router.params.id,
+      articleId: this.$router.params.id || '5c7775bbd2660b78319b47fd',
+    },()=>{
+      this.getArticleInfo(this.state.articleId)
     })
-    //this.detail(this.$router.params.id)
+    
 
   };
   componentDidHide () { }
+  async getArticleInfo (articleId) {
+    //获取文章详情
+    const res = await detailApi.getDetail({
+      id: articleId,
+    });
+    var column = this.state.column;
+    if (res.status == 'ok') {
+      const data = JSON.parse(res.data.list.description)
+      this.setState({
+          detail: res.data.list,
+          dataList: data,
+          card:data[0]
+      },()=>{
+        this.init()
+      })
+    }
+  }  
+  init(){
+         this.onPlayAudio(this.state.card.audio)
+  }
+  onPlayAudio(data) {
+    console.log(data)
+    innerAudioContext.src=data
+    innerAudioContext.loop=false
+    innerAudioContext.obeyMuteSwitch =false
+    innerAudioContext.onPlay((res)=>{
+         
+    })
+    innerAudioContext.onEnded((res)=>{
+       
+    }) 
+    innerAudioContext.play()
+  }
+  onStartRecorder(){
+      const options = {
+        duration: 10000,//指定录音的时长，单位 ms
+        sampleRate: 16000,//采样率
+        numberOfChannels: 1,//录音通道数
+        encodeBitRate: 96000,//编码码率
+        format: 'mp3',//音频格式，有效值 aac/mp3
+        frameSize: 50,//指定帧大小，单位 KB
+      }
+      RecorderManager.start(options)
+      RecorderManager.onStart(()=>{
+          console.log(111)
+      })
+      RecorderManager.onResume((res)=>{
+            console.log(res,222)
+      })
+      RecorderManager.onPause((res)=>{
+        console.log(333)
+      })
+      RecorderManager.onStop((res)=>{
+            this.setState({tempFilePath : res.tempFilePath})
+      })
+      RecorderManager.onError((res)=>{
+        console.log(res,444)
+      })
+  }
+  onPauseRecorder(){
+    RecorderManager.pause()
+    RecorderManager.onPause((res)=>{
+      console.log(3)
+    })  
+    RecorderManager.onStop((res)=>{
+      this.setState({tempFilePath : res.tempFilePath},()=>{
+           this.playAudio(this.state.tempFilePath) 
+      })
+    })
+  }
+  onStopRecorder(){
+    RecorderManager.stop()
+
+  } 
+  onResumeRecorder(){
+     RecorderManager.resume()
+  }
+  onScrolltoupper(){
+       console.log(111)
+  }
+  onScroll(){
+  }
+  onUpData(item){
+     this.setState({
+       card:item
+     },()=>{
+      this.onPlayAudio(item.audio)
+     })
+  }
   render () {
-    const { info,imgUrl,infoText,landmark } = this.state;
+    const { dataList,detail} = this.state;
     return (
-      <View className="home-page">
-      <View className="imgclass" onClick={this.chooseImage.bind(this)}>
-          <Image src={imgUrl}></Image>
-      </View>
-      <View className="content_a">
-         <View className="img1">
-          <Image src={img1}></Image>
+      <View className="card-page">
+      <ScrollView
+            className='scrollview'
+            scrollY
+            scrollWithAnimation
+            scrollLeft="0"
+            style='height: 100%; width:120px'
+            lowerThreshold='20'
+            upperThreshold='20'
+            onScrolltoupper={this.onScrolltoupper}
+            onScroll={this.onScroll}>
+              { dataList.map((item, index) => (
+                <View className={"card-li " +(card.title==item.title ? 'nav' : '')} key={index}>
+                  <Image  onClick={this.onUpData.bind(this,item)}  mode="widthFix" src={item.imgUrl}></Image>     
+                  <View>{item.title}</View>
+                </View>
+             ))}
+        </ScrollView>
+        <View className="card-right" onClick={this.onPlayAudio.bind(this,card.audio)} >
+            <Image   mode="widthFix" src={card.imgUrl}></Image>     
+            <View className="card-right-text"> <View className="con_img"></View>  {card.title}</View>
         </View>
-        <View className="img1">
-          <Image src={img2}></Image>
-        </View>
-        <View className="img1">
-          <Image src={img3}></Image>
-        </View>
-      </View>
-      <View className="info_show">{infoText}</View>
-       <View className="list_img">
-        {landmark}
-       { info.map((item, index) => (
-         <View key={index}>
-               <View className="kno_list">
-               
-              {item.baike_info && <View className="kno_img">
-                <Image src={item.baike_info.image_url}></Image>
-              </View> }
-                <View class="title"> {item.name} </View>
-                <View className="kno_des">{item.baike_info.description}</View>
-               </View>
-         </View>
-       ))}
-      </View>
+       
+
       </View>
     )
   }
 }
 
-export default Words
+export default Card

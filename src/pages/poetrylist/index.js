@@ -53,25 +53,15 @@ class poetrylist extends Component {
   }  
   goDetail(data){
     const { typeName } = this.state
-    if(typeName=='idiom'){
+    if(typeName){
       Taro.navigateTo({
-        url: `/pages/idiom/index?id=${data}`,
+        url: `/pages/${typeName}/index?id=${data}`,
       })
-    } else if(typeName=='radio'){
-      Taro.navigateTo({
-        url: `/pages/radio/index?id=${data}`,
-      })
-    } else if(typeName=='english'){
-      Taro.navigateTo({
-        url: `/pages/english/index?id=${data}`,
-      })
-    } else{
+    }else{
       Taro.navigateTo({
         url: `/pages/poetry/index?id=${data}`,
       })
-    }
-
-    
+    } 
   }
   getClipboard(){
       Taro.getClipboardData({

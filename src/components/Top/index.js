@@ -6,6 +6,8 @@ import ionc1 from '../../images/icon/ionc1.png'
 import ionc2 from '../../images/icon/ionc2.png'
 import ionc3 from '../../images/icon/ionc3.png'
 import ionc4 from '../../images/icon/ionc4.png'
+import ionc5 from '../../images/icon/chuang.png'
+import ionc6 from '../../images/icon/card.png'
 class Top extends Component {
   static propTypes ={
   }
@@ -33,7 +35,8 @@ class Top extends Component {
   render() {
     const { list, loading } = this.props;
     return (
-          <View className="top">
+      <View>
+       <View className="top">
           <View className="ionc1"> 
               <View className="ionc_img col1" onClick={this.toUrl.bind(this)}> 
                   <Image src={ionc1}> </Image>
@@ -52,13 +55,29 @@ class Top extends Component {
               </View>
               <View className="fonts">速算</View>
           </View>
-          <View className="ionc1"> 
+
+      </View>
+      <View className="top">
+      <View className="ionc1"> 
               <View className="ionc_img col4" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio")}> 
                   <Image src={ionc4}> </Image>
               </View>
               <View className="fonts">答题</View>
-          </View>
       </View>
+      <View className="ionc1"> 
+          <View className="ionc_img col5" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english")}> 
+              <Image src={ionc5}> </Image>
+          </View>
+          <View className="fonts"> 单词</View>
+      </View>
+      <View className="ionc1"> 
+          <View className="ionc_img col6" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=card")}> 
+              <Image src={ionc6}> </Image>
+          </View>
+          <View className="fonts" > 卡片</View>
+      </View>
+  </View>
+  </View>
     );
   }
 }

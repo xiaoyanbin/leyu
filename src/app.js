@@ -26,7 +26,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/card/index',
       'pages/index/index',
+      'pages/english/index',
       'pages/poetrylist/index',
       'pages/answerlist/index',
       'pages/answer/index',
@@ -37,8 +39,9 @@ class App extends Component {
       'pages/idiom/index',
       'pages/result/index',
       'pages/radio/index',
-      'pages/english/index',
       'pages/en/index',
+      'pages/words/index',
+      'pages/home/index',
       
     ],
     window: {

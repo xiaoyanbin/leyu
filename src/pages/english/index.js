@@ -4,10 +4,12 @@ import { connect } from '@tarojs/redux'
 import { AtToast , AtCountdown,AtProgress } from "taro-ui"
 import EnglishText from '../../components/English/EnglishText'
 import EnglishStyle from '../../components/English/EnglishStyle'
+import { webUrl } from '../../config'
 import * as detailApi from './service'
 
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
+const RecorderManager = Taro.getRecorderManager()
 @connect(({ home}) => ({
   ...home,
 }))
@@ -45,7 +47,8 @@ class English extends Component {
       card: false,
       status:true,
       isAudio:true,
-      val:[]
+      val:[],
+      tempFilePath:'',
     }
 
   }
@@ -300,6 +303,7 @@ class English extends Component {
         })
         return data
     }
+
     mackRadio(data,length,rand){
        
       // var  data = data.sort(function(){
@@ -336,6 +340,78 @@ class English extends Component {
   onPlayAudio(data){
     this.playAudio(data)
   }
+  startRecorder(){
+    const options = {
+      duration: 10000,//指定录音的时长，单位 ms
+      sampleRate: 16000,//采样率
+      numberOfChannels: 1,//录音通道数
+      encodeBitRate: 96000,//编码码率
+      format: 'mp3',//音频格式，有效值 aac/mp3
+      frameSize: 50,//指定帧大小，单位 KB
+    }
+    RecorderManager.start(options)
+    RecorderManager.onStart(()=>{
+         console.log(111)
+    })
+    RecorderManager.onResume((res)=>{
+          console.log(res,222)
+    })
+    RecorderManager.onPause((res)=>{
+      console.log(res,333)
+    })
+    RecorderManager.onStop((res)=>{
+     
+           this.setState({tempFilePath : res.tempFilePath},()=>{
+               console.log(this.state.tempFilePath)
+                this.playAudio(this.state.tempFilePath) 
+          })
+     
+          
+        // Taro.uploadFile({
+        //   url: webUrl+'/api/doAdd', // 仅为示例，非真实的接口地址
+        //   filePath: res.tempFilePath,
+        //   name: 'file',
+        //   header: {  
+        //     'content-type': 'multipart/form-data'  
+        //   }, 
+        //   formData: {
+        //     user: 'test'
+        //   },
+        //   success(res) {
+        //     console.log(data)
+        //     const data = JSON.parse(res.data);
+        //     console.log(data)
+        //     // do something
+        //   }
+        // })
+    })
+    RecorderManager.onError((res)=>{
+      console.log(res,444)
+    })
+  }
+  pauseRecorder(){
+    console.log(222)
+    RecorderManager.pause()
+    RecorderManager.onPause((res)=>{
+      console.log(res,3)
+    })  
+
+    RecorderManager.onStop((res)=>{
+     
+      this.setState({tempFilePath : res.tempFilePath},()=>{
+          console.log(this.state.tempFilePath)
+           this.playAudio(this.state.tempFilePath) 
+      })
+    })
+    
+  }
+  stopRecorder(){
+    RecorderManager.stop()
+
+  } 
+  resumeRecorder(){
+     RecorderManager.resume()
+  }
   playAudio(data){
       innerAudioContext.src=data
       innerAudioContext.loop=false
@@ -343,9 +419,6 @@ class English extends Component {
       innerAudioContext.onPlay((res)=>{
          
       })
-      innerAudioContext.onPlay((res)=>{
-
-      }) 
       innerAudioContext.onEnded((res)=>{
         
       }) 
@@ -376,13 +449,13 @@ class English extends Component {
             {/* <AtProgress percent={percent} /> */}
             <View className="header">
               <View className="header_left">
-                  <View className="title">{detail.title} </View>
-                  <View className="time"> 
+                  <View className="title" onClick={this.startRecorder.bind(this)}>{detail.title} </View>
+                  <View className="time"  onClick={this.pauseRecorder.bind(this)}> 
                   <View className="ionc1"></View>{thisTime}s </View>
               </View>
               <View className="header_right">
-              <View className="answer_card"  onClick={this.isCard.bind(this)}>答题卡</View>
-                    <View className="right">{itemIndex+1}</View> /{answerList.length}
+              <View className="answer_card"  onClick={this.stopRecorder.bind(this)}>答题卡</View>
+                    <View className="right" onClick={this.resumeRecorder.bind(this)}>{itemIndex+1}</View> /{answerList.length}
               </View>
            </View>
           
