@@ -107,6 +107,18 @@ class Baidu extends Component {
     console.log(Taro.getEnv(),111)
 
   };
+  getUserInfo = (userInfo) => {
+      console.log('userinfo',userInfo)
+      if(userInfo.detail.userInfo){   //同意
+         // this.props.setBasicInfo(userInfo.detail.userInfo) //将用户信息存入redux
+          Taro.setStorage({key:'userInfo',data:userInfo.detail.userInfo}).then(rst => {  //将用户信息存入缓存中
+
+              Taro.navigateBack()
+          })
+      } else{ //拒绝,保持当前页面，直到同意 
+        console.log(222)
+      }
+  }
   componentDidHide () { }
   render () {
     const { info,imgUrl } = this.state;
@@ -117,6 +129,11 @@ class Baidu extends Component {
       <View className="face">
       <AtAvatar className="face_img" image={imgUrl} circle={true}></AtAvatar>
        <View class="btn"  onClick={this.chooseImage.bind(this)}>上传</View> 
+      </View>
+
+      <View>
+        <Text>申请获取你的公开信息（昵称、头像等）</Text> 
+        <Button open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 微信授权 </Button>
       </View>
            
        <View>

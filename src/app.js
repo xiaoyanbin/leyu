@@ -26,6 +26,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/user/index',
       'pages/index/index',
       'pages/movable/index',
       'pages/card/index',
@@ -34,7 +35,6 @@ class App extends Component {
       'pages/answerlist/index',
       'pages/answer/index',
       'pages/detail/index',
-      'pages/user/index',
       'pages/poetry/index',
       'pages/plist/index',
       'pages/idiom/index',

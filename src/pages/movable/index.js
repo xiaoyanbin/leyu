@@ -187,7 +187,7 @@ class Movable extends Component {
 
       <MovableArea className="card-page">
 
-             <MovableView className="card-right" >
+      <MovableView className="card-right" >
         <View className="card-right-img"> 
             <Image  onClick={this.onPlayAudio.bind(this,card.audio)} mode="widthFix" src={card.imgUrl}></Image>    
            </View>
@@ -197,6 +197,7 @@ class Movable extends Component {
               {card.title}
             </View>
        </MovableView>
+       
       { dataList.map((item, index) => (
                 <MovableView direction='all' className={"card-li " +(card.title==item.title ? 'nav' : '')} key={index}>
                   <Image  onClick={this.onUpData.bind(this,item)}  mode="widthFix" src={item.imgUrl}></Image>  

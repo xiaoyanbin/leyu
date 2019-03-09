@@ -449,12 +449,12 @@ class English extends Component {
             {/* <AtProgress percent={percent} /> */}
             <View className="header">
               <View className="header_left">
-                  <View className="title" onClick={this.startRecorder.bind(this)}>{detail.title} </View>
-                  <View className="time"  onClick={this.pauseRecorder.bind(this)}> 
+                  <View className="title">{detail.title} </View>
+                  <View className="time"> 
                   <View className="ionc1"></View>{thisTime}s </View>
               </View>
               <View className="header_right">
-              <View className="answer_card"  onClick={this.stopRecorder.bind(this)}>答题卡</View>
+              <View className="answer_card"  onClick={this.isCard.bind(this)}>答题卡</View>
                     <View className="right" onClick={this.resumeRecorder.bind(this)}>{itemIndex+1}</View> /{answerList.length}
               </View>
            </View>
