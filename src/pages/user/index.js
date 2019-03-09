@@ -24,6 +24,7 @@ class Baidu extends Component {
       imgUrl:touxiang,
       imgShow:'../../public/admin/upload/20190213/1550047826846.jpg_400x400.jpg',
       uri:webUrl+'/api/doAdd',
+      phone:'',
     }
 
   }
@@ -106,7 +107,48 @@ class Baidu extends Component {
   componentDidMount = () => {
     console.log(Taro.getEnv(),111)
 
-  };
+  }
+  getGeo (e) {
+    const ak = 'RmKXCpjKlwyFUVVXSCXcLF4KUsOimuuy'
+    let url = 'http://api.map.baidu.com/geocoder/v2/'
+    if (e.target.value) {
+      wx.getLocation({
+        success: geo => {
+          wx.request({
+            url,
+            data: {
+              ak,
+              location: `${geo.latitude},${geo.longitude}`,
+              output: 'json'
+            },
+            success: res => {
+              console.log(res)
+              if (res.data.status === 0) {
+                this.location = res.data.result.addressComponent.city
+              } else {
+                this.location = '未知地点'
+                // console.log('出错了')
+              }
+            }
+          })
+        }
+      })
+    } else {
+      this.location = ''
+    }
+  }
+  getPhone (e) {
+    console.log(111)
+    if (e.target.value) {
+      console.log(111)
+      const phoneInfo = wx.getSystemInfoSync()
+      this.phone = phoneInfo.model
+      console.log(phoneInfo)
+    } else {
+      // 没选中
+      this.phone = ''
+    }
+  }
   getUserInfo = (userInfo) => {
       console.log('userinfo',userInfo)
       if(userInfo.detail.userInfo){   //同意
@@ -121,7 +163,7 @@ class Baidu extends Component {
   }
   componentDidHide () { }
   render () {
-    const { info,imgUrl } = this.state;
+    const { info,imgUrl ,phone } = this.state;
     const tabList = [{ title: "文章列表" }]
     return (
 
@@ -130,18 +172,24 @@ class Baidu extends Component {
       <AtAvatar className="face_img" image={imgUrl} circle={true}></AtAvatar>
        <View class="btn"  onClick={this.chooseImage.bind(this)}>上传</View> 
       </View>
-
+        {phone}
       <View>
         <Text>申请获取你的公开信息（昵称、头像等）</Text> 
         <Button open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 微信授权 </Button>
       </View>
+      <View>
+      <button open-type='share' class="btn">转发给好友</button>
+      </View>
            
-       <View>
+       <View onClick={this.getPhone.bind(this)}>
+       1212
+
        { info.map((item, index) => (
          <View key={index}>
                <View> {item.name}</View>
          </View>
        ))}
+
        </View>
       </View>
 
