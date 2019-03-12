@@ -8,7 +8,7 @@ import './index.scss'
 }))
 class idiom extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '成语'
   }
   constructor() {
     super(...arguments);

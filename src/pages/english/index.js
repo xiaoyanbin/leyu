@@ -16,7 +16,7 @@ const RecorderManager = Taro.getRecorderManager()
 
 class English extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '单词练习'
   }
   constructor() {
     super(...arguments);
@@ -209,7 +209,7 @@ class English extends Component {
 
     }
     accuracyRate(right,question,time){
-      return ((0.6*(right/question)+(right/question)*0.4*((question/time) < 1 ? (question/time) : 0.9 )).toFixed(4)*100).toFixed(2)
+      return ((0.8*(right/question)+(right/question)*0.2*((question/time) < 1 ? (question/time) : 0.9 )).toFixed(4)*100).toFixed(2)
     }
     doComplete(){
       const { dataList,answerList,questionNum,rightNum,thisTime } = this.state

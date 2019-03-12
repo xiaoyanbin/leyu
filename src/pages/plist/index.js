@@ -10,13 +10,14 @@ import './index.scss'
 
 class Words extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '列表'
   }
   constructor() {
     super(...arguments);
     this.state = {
       pid: 0,
       list:[],
+      typeName:'',
     }
 
   }
@@ -35,23 +36,19 @@ class Words extends Component {
     }
   }  
   goDetail(data){
+     const { typeName } =this.state
       Taro.navigateTo({
-        url: `/pages/poetrylist/index?pid=${data}`,
+        url: `/pages/poetrylist/index?pid=${data}&typeName=${typeName}`,
       })
     
   }
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
   }
-  componentWillUnmount () {
-        
-  }
-
-  componentDidShow () { 
-  }
   componentDidMount = () => {
     this.setState({
       pid: this.$router.params.pid,
+      typeName:this.$router.params.typeName,
     })
     this.getArticleCate(this.$router.params.pid)
 

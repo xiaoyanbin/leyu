@@ -9,7 +9,7 @@ import './index.scss'
 
 class Answer extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '数算'
   }
   constructor() {
     super(...arguments);
@@ -39,17 +39,12 @@ class Answer extends Component {
       thisTime:0,
       rightNum:0,
       timer:null,
-
     }
 
   }
   init(data){
     const { itemIndex } = this.state;
-    //this.addQuestion();
-    //questionNum 在这定义
     this.listQuestion(data);
-
-
   }
   onTimeUp () {
         this.nextQuestion(1)
@@ -264,7 +259,7 @@ class Answer extends Component {
 
   }
   accuracyRate(right,question,time){
-    return ((0.6*(right/question)+(right/question)*0.4*((question/time) < 1 ? (question/time) : 0.9 )).toFixed(4)*100).toFixed(2)
+    return ((0.8*(right/question)+(right/question)*0.2*((question/time) < 1 ? (question/time) : 0.9 )).toFixed(4)*100).toFixed(2)
   }
   doComplete(){
     const { dataList,answerList,questionNum,rightNum,thisTime } = this.state
@@ -312,8 +307,6 @@ class Answer extends Component {
 	           //  })
 	          return rightAnswer.split(';').indexOf(userAnswer) > -1;
 	}
-  componentWillReceiveProps (nextProps) {
-  }
   componentWillUnmount () {
     if(this.state.timer!= null) {
       clearInterval(this.state.timer);
@@ -327,17 +320,8 @@ class Answer extends Component {
       val:'',
     })
   }
-  componentDidShow () { 
-  }
   componentDidMount = () => {
-    // this.setState({
-    //   num: this.$router.params.num,
-    //   difficulty: this.$router.params.difficulty,
-    //   qNum: this.$router.params.qNum,
-    // })
-    
-    // const { thisTime } =this.state
-     var time = this.state.thisTime
+    var time = this.state.thisTime
     this.state.timer=setInterval(() =>{
       this.setState({
         thisTime: time++,
@@ -364,14 +348,6 @@ class Answer extends Component {
     }else{
           num = parseInt(num/2);
     }
-//     this.init({
-//       type:"plus",
-//       min: parseInt(0),
-//       max: parseInt(10),
-//       difficulty: parseInt(1),
-//       qNum: parseInt(5),
-//  })
-
     this.init({
          type:this.$router.params.type,
          min: parseInt(min),
@@ -411,6 +387,7 @@ class Answer extends Component {
                 ))
               }
           </View>
+          
 
           {/* <View className={'add-subtract ' +(expect==='1' ? 'navs':'')}>
               <View className="add-btn btns"  onClick={this.nextQuestion.bind(this)}>{nexts}</View>
@@ -429,6 +406,7 @@ class Answer extends Component {
           </View> */}
           <View className={'add-subtract ' +(expect==='3' ? 'navs':'')}>
               <View className="add-btn btns"  onClick={this.nextQuestion.bind(this)}>{nexts}</View>  
+             <View className="border-l">
               <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,1)}>1</View>
               <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,2)}>2</View>
               <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,3)}>3</View>
@@ -441,6 +419,7 @@ class Answer extends Component {
               <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,0)}>0</View>
               <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,".")}>.</View>
               <View className="num-btn btn-a" onClick={this.handleRemove.bind(this)}>C</View>
+              </View>
           </View>
           <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>
       </View>

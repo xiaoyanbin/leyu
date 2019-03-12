@@ -17,6 +17,11 @@ export const article = data => Request({
   method: 'GET',
   data,
 });
+export const poetrylist = data => Request({
+  url: '/api/article',
+  method: 'GET',
+  data,
+});
 
 export const baidu = data => Request({
   url: '/api/baidu',

@@ -1,0 +1,75 @@
+
+@import "../../../styles/mixin";
+
+.list_module{
+
+    .title_text{
+        width:710px;
+        height:103px;
+        padding-left:25px;
+        line-height: 103px;
+        font-size:30px;
+        color:#666;
+        .title_right{
+            width:103px;
+            height:103px;
+            float:right;
+            color:#ccc;
+            font-size:22px;
+        }  
+    }
+    .module_ul{
+        width:100%;
+        display: flex;
+        flex-flow: row nowrap;
+        height:148px;
+        .module_li{
+            width:146px;
+            height:146px;
+            flex:0 0 auto;
+            background-color: #eee;
+            margin-left:25px;
+            margin-right:10px;
+            font-size:24px;
+            text-align:center;
+            color:#666;
+           .text{width:100%; font-size:32px; line-height:146px;text-align: center;} 
+        }
+        .col0{
+            background-color: #dc5c73;
+            color:#fff;
+        }
+        .col1{
+            background-color: #d8a532;
+            color:#fff;
+        }
+        .col2{
+            background-color: #14618d;
+            color:#fff;
+        }
+        .col3{
+            background-color: #aa54b7;
+            color:#fff;
+        }
+        .col4{
+            background-color: #dc5c73;
+            color:#fff;
+        }
+        .col5{
+            background-color: #108a1d;
+            color:#fff;
+        }
+        .col6{
+            background-color: #d8a532;
+            color:#fff;
+        }
+        .col7{
+            background-color: #14618d;
+            color:#fff;
+        }
+        .col8{
+            background-color: #aa54b7;
+            color:#fff;
+        }
+    }
+}

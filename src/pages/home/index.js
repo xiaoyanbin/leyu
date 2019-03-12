@@ -3,6 +3,7 @@ import { View, Button,Form,Input, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MySwiper from '../../components/MySwiper'
 import GoodsList from '../../components/GoodsList'
+import ListModule from '../../components/Common/ListModule'
 import Top from '../../components/Top'
 import './index.scss'
 
@@ -68,6 +69,7 @@ class home extends Component {
       <View className="home-page">
       <MySwiper banner={banner} home />
       <Top />
+      <ListModule dataList={poetryList} titleName="诗词大会" listUrl="poetrypk"/>
       <View className="index_text" onClick={this.toEnglish.bind(this)}>答题</View>
       <GoodsList list={list} loading="" ontoEnglish={this.toEnglish}/>
       </View>

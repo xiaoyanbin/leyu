@@ -26,8 +26,9 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/user/index',
       'pages/index/index',
+      'pages/poetrypk/index',
+      'pages/user/index',
       'pages/movable/index',
       'pages/card/index',
       'pages/english/index',
@@ -43,7 +44,6 @@ class App extends Component {
       'pages/en/index',
       'pages/words/index',
       'pages/home/index',
-      
     ],
     window: {
       backgroundTextStyle: 'light',

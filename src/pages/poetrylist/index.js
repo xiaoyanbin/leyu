@@ -10,7 +10,7 @@ import './index.scss'
 
 class poetrylist extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '列表'
   }
   constructor() {
     super(...arguments);

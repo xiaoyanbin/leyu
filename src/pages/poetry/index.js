@@ -9,7 +9,7 @@ import './index.scss'
 }))
 class poetry extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '古诗'
   }
   constructor() {
     super(...arguments);

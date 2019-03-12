@@ -11,7 +11,7 @@ import './index.scss'
 
 class Words extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '转文字'
   }
   constructor() {
     super(...arguments);

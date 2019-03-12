@@ -1,0 +1,26 @@
+
+@import "../../../styles/mixin";
+
+.footers{
+    width:100%;
+    height:100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top:1px solid #eee;
+    .c-li{
+        width:50%;
+        height:100px;
+        text-align:center;
+        font-size:24px;
+   }
+    
+}
+.share{ border-radius: 0px; border:0px;  
+    outline: none;  background-color: #fff; height:100px; line-height:50px; font-size:24px; }  
+    button::after {
+        border: none;
+}

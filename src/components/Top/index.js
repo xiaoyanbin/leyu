@@ -18,7 +18,7 @@ class Top extends Component {
 
   toUrl () {
     Taro.navigateTo({
-      url: "/pages/plist/index?pid=5bcee18b3263442e3419080e",
+      url: "/pages/plist/index?pid=5bcee18b3263442e3419080e&typeName=poetrypk",
     })
   }
   toList () {

@@ -9,7 +9,7 @@ import './index.scss'
 
 class answerlist extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '数算选择'
   }
   constructor() {
     super(...arguments);

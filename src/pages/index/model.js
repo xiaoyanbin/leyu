@@ -8,6 +8,7 @@ export default {
     products_list: [],
     page: 1,
     list:[],
+    poetryList:[],
   },
   effects: {
     * load(_, {call, put}) {
@@ -34,6 +35,16 @@ export default {
         } });
       }
     },
+    * poetrylist(_, {call, put, select}) {
+      const { status, data } = yield call(homeApi.poetrylist, {pid:'5c864ac72203b61b1e0e3f6d'
+      });
+      console.log( status,111, data)
+      if (status === 'ok') {
+        yield put({ type: 'save',payload: {
+          poetryList: data.list,
+        } });
+      }
+    },
     * article(_, {call, put, select}) {
       const { status, data } = yield call(homeApi.article, {
       });
@@ -47,7 +58,6 @@ export default {
     * focus(_, {call, put, select}) {
       const { status, data } = yield call(homeApi.focus, {
       });
-      console.log(data,111)
       if (status === 'ok') {
         yield put({ type: 'save',payload: {
           banner: data,

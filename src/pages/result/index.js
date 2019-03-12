@@ -10,7 +10,7 @@ import './index.scss'
 
 class result extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '完成'
   }
   constructor() {
     super(...arguments);

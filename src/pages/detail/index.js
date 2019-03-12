@@ -9,7 +9,7 @@ import Websocket from '../../utils/websocket'
 }))
 class Detail extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '详情'
   }
   constructor() {
     super(...arguments);
