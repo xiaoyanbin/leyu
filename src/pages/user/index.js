@@ -6,8 +6,7 @@ import { webUrl } from '../../config'
 import { AtAvatar } from 'taro-ui'
 import './index.scss'
 import touxiang from '../../images/icon/mr-touxiang.png'
-import ShareApp from '../../components/Common/ShareApp'
-import Poster from '../../components/Common/Poster'
+import Login from '../../components/Common/Login'
 @connect(({ home ,detail}) => ({
   ...home,
 }))
@@ -50,7 +49,8 @@ class Baidu extends Component {
 
     if (res.status == 'ok') {
       this.setState({
-        userInfo : res.data,
+        userInfo : res.data.user_info,
+        userId:value.user_id,
      },()=>{
         //this.getpoetry()
       })
@@ -60,9 +60,11 @@ class Baidu extends Component {
     console.log(Taro.getEnv(),111)
     try {
       const value = wx.getStorageSync('userInfo')
+
       if (value) {
          this.setState({
-          userInfo: value
+          userInfo: value.user_info,
+          userId:value.user_id,
          },()=>{
 
          })
@@ -105,8 +107,8 @@ class Baidu extends Component {
       <AtAvatar className="face_img" image={userInfo.avatarUrl} ></AtAvatar>
       <View className="nick_name">{userInfo.nickName}</View> 
       <Text>申请获取你的公开信息（昵称、头像等）</Text> 
-      <Button className="user_info" open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button>
-    
+      {/* <Button className="user_info" open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button> */}
+      <Login />
       </View>
 
       

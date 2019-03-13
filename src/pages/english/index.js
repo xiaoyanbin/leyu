@@ -8,8 +8,6 @@ import { webUrl } from '../../config'
 import * as detailApi from './service'
 
 import './index.scss'
-const innerAudioContext = Taro.createInnerAudioContext()
-const RecorderManager = Taro.getRecorderManager()
 @connect(({ home}) => ({
   ...home,
 }))
@@ -144,7 +142,7 @@ class English extends Component {
           
         //  current:[...this.state.answerList][itemIndex].val,
         },()=>{
-           this.playAudio(data.question.audio)
+          // this.playAudio(data.question.audio)
         })
     }  
     //下一题
@@ -337,93 +335,6 @@ class English extends Component {
         b.list = part
         return b
   }
-  onPlayAudio(data){
-    this.playAudio(data)
-  }
-  startRecorder(){
-    const options = {
-      duration: 10000,//指定录音的时长，单位 ms
-      sampleRate: 16000,//采样率
-      numberOfChannels: 1,//录音通道数
-      encodeBitRate: 96000,//编码码率
-      format: 'mp3',//音频格式，有效值 aac/mp3
-      frameSize: 50,//指定帧大小，单位 KB
-    }
-    RecorderManager.start(options)
-    RecorderManager.onStart(()=>{
-         console.log(111)
-    })
-    RecorderManager.onResume((res)=>{
-          console.log(res,222)
-    })
-    RecorderManager.onPause((res)=>{
-      console.log(res,333)
-    })
-    RecorderManager.onStop((res)=>{
-     
-           this.setState({tempFilePath : res.tempFilePath},()=>{
-               console.log(this.state.tempFilePath)
-                this.playAudio(this.state.tempFilePath) 
-          })
-     
-          
-        // Taro.uploadFile({
-        //   url: webUrl+'/api/doAdd', // 仅为示例，非真实的接口地址
-        //   filePath: res.tempFilePath,
-        //   name: 'file',
-        //   header: {  
-        //     'content-type': 'multipart/form-data'  
-        //   }, 
-        //   formData: {
-        //     user: 'test'
-        //   },
-        //   success(res) {
-        //     console.log(data)
-        //     const data = JSON.parse(res.data);
-        //     console.log(data)
-        //     // do something
-        //   }
-        // })
-    })
-    RecorderManager.onError((res)=>{
-      console.log(res,444)
-    })
-  }
-  pauseRecorder(){
-    console.log(222)
-    RecorderManager.pause()
-    RecorderManager.onPause((res)=>{
-      console.log(res,3)
-    })  
-
-    RecorderManager.onStop((res)=>{
-     
-      this.setState({tempFilePath : res.tempFilePath},()=>{
-          console.log(this.state.tempFilePath)
-           this.playAudio(this.state.tempFilePath) 
-      })
-    })
-    
-  }
-  stopRecorder(){
-    RecorderManager.stop()
-
-  } 
-  resumeRecorder(){
-     RecorderManager.resume()
-  }
-  playAudio(data){
-      innerAudioContext.src=data
-      innerAudioContext.loop=false
-      innerAudioContext.obeyMuteSwitch =false
-      innerAudioContext.onPlay((res)=>{
-         
-      })
-      innerAudioContext.onEnded((res)=>{
-        
-      }) 
-      innerAudioContext.play()
-  }
   componentDidMount = () => {
     this.setState({
       id: this.$router.params.id || '5c7775bbd2660b78319b47fd',
@@ -463,7 +374,6 @@ class English extends Component {
             { itemIndex<(questionNum/2) &&  <EnglishText question={question} title={title} questionOther={questionOther}  answerList={answerList} itemIndex={itemIndex} 
            rightAnswer={rightAnswer}
            onQuestion={this.nextQuestion.bind(this)}
-           onPlayAudio={this.onPlayAudio.bind(this)}
            /> }
 
          { itemIndex>=(questionNum/2) && <EnglishStyle  question={question} 
@@ -473,7 +383,6 @@ class English extends Component {
                         itemIndex={itemIndex} 
                         rightAnswer={rightAnswer}
                         onQuestion={this.nextQuestion.bind(this)}
-                        onPlayAudio={this.onPlayAudio.bind(this)}
                         />}
 
  

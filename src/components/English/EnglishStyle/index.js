@@ -14,7 +14,6 @@ class EnglishStyle extends Component {
     questionOther:PropTypes.object,
     rightAnswer:PropTypes.string,
     onQuestion:PropTypes.func,
-    onPlayAudio:PropTypes.func,
     
   }
 
@@ -29,9 +28,7 @@ class EnglishStyle extends Component {
     return (
     <View className="content">
         <View className="con">
-                  <AudioCom questionOther={questionOther}  onPlayAudio={onPlayAudio.bind(this)} />
-                  {/* <View onClick={onPlayAudio.bind(this,questionOther.audio)} className="con_img">
-                  </View>    */}
+                  <AudioCom questionOther={questionOther}  />
                   <View className="big_img"><Image  src= {questionOther.imgUrl}></Image></View>      
         </View>
         <View className="con_list">

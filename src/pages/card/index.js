@@ -4,11 +4,11 @@ import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import { webUrl } from '../../config'
 import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import AudioCom from '../../components/Common/AudioCom'
+import Recorder from '../../components/Common/Recorder'
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
 const RecorderManager = Taro.getRecorderManager()
-
-
 @connect(({ home ,detail}) => ({
   ...home,
 }))
@@ -35,7 +35,7 @@ class Card extends Component {
 
   }
   componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
+     console.log(this.props, nextProps)
   }
   componentWillUnmount () {
         
@@ -49,8 +49,6 @@ class Card extends Component {
     },()=>{
       this.getArticleInfo(this.state.articleId)
     })
-    
-
   };
   componentDidHide () { }
   async getArticleInfo (articleId) {
@@ -71,84 +69,7 @@ class Card extends Component {
     }
   }  
   init(){
-         this.onPlayAudio(this.state.card.audio)
-  }
-  onPlayAudio(data) {
-    innerAudioContext.src=data
-    innerAudioContext.loop=false
-    innerAudioContext.obeyMuteSwitch =false
-    innerAudioContext.onPlay((res)=>{
-       this.setState({
-        isplay:true
-       })
-    })
-    innerAudioContext.onEnded((res)=>{
-       this.setState({
-        isplay:false
-       })  
-    }) 
-    innerAudioContext.play()
-  }
-  onRecorder(data){
-         if(data==1){
-           this.setState({
-            playtext:{"text":"暂停","status":2}
-           })
-           this.onStartRecorder()
-         } else if(data==2){
-            this.setState({
-              playtext:{"text":"录音","status":1}
-            })
-            this.onStopRecorder()
-         }
-  }
-  onStartRecorder(){
-      const options = {
-        duration: 10000,//指定录音的时长，单位 ms
-        sampleRate: 16000,//采样率
-        numberOfChannels: 1,//录音通道数
-        encodeBitRate: 96000,//编码码率
-        format: 'mp3',//音频格式，有效值 aac/mp3
-        frameSize: 50,//指定帧大小，单位 KB
-      }
-      RecorderManager.start(options)
-      RecorderManager.onStart(()=>{
-          console.log(111)
-      })
-      RecorderManager.onResume((res)=>{
-            console.log(res,222)
-      })
-      RecorderManager.onPause((res)=>{
-        console.log(333)
-      })
-      RecorderManager.onStop((res)=>{
-        console.log(335)
-            this.setState({tempFilePath : res.tempFilePath})
-      })
-      RecorderManager.onError((res)=>{
-        console.log(res,444)
-      })
-  }
-  onPauseRecorder(){
-    RecorderManager.pause()
-    RecorderManager.onPause((res)=>{
-      console.log(3)
-    })  
-    RecorderManager.onStop((res)=>{
-      this.setState({tempFilePath : res.tempFilePath},()=>{
-           this.playAudio(this.state.tempFilePath) 
-      })
-    })
-  }
-  onStopRecorder(){
-    RecorderManager.stop()
-    RecorderManager.onStop((res)=>{
-      console.log(336)
-          this.setState({tempFilePath : res.tempFilePath})
-    })
-  } 
-  onResumeRecorder(){
-     RecorderManager.resume()
+
   }
   onScrolltoupper(){
        console.log(111)
@@ -162,35 +83,22 @@ class Card extends Component {
       duration:500,
     })
   }
-  onPlayRecorder(data){
-      if(!data){
-        this.setState({
-          isOpened:true,
-          text:'请您先录音',
-          duration:500,
-        })
-        return
-      }
-      this.onPlayAudio(data)
-  }
   onUpData(item){
      this.setState({
        card:item
      },()=>{
-      this.onPlayAudio(item.audio)
      })
   }
   render () {
-    const { dataList,detail,playtext,tempFilePath,isplay,card} = this.state;
+    const { dataList,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
     return (
       <View className="card-page">
-      
       <ScrollView
             className='scrollview'
             scrollY
             scrollWithAnimation
             scrollLeft="0"
-            style='height: 100%; width:120px'
+            style='height: 650px; width:120px'
             lowerThreshold='20'
             upperThreshold='20'
             onScrolltoupper={this.onScrolltoupper}
@@ -201,31 +109,23 @@ class Card extends Component {
                   <View>{item.title}</View>
                 </View>
              ))}
+           
         </ScrollView>
         <View className="card-right" >
-        <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>
+          <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>
           <View className="card-right-img"> 
-            <Image  onClick={this.onPlayAudio.bind(this,card.audio)} mode="widthFix" src={card.imgUrl}></Image>    
+            <Image mode="widthFix" src={card.imgUrl}></Image>    
            </View>
            {card.title}
             <View className="card-right-text"> 
-            <View className="btn">
-              <View className={"con_img " +(isplay ? 'play' : '')} onClick={this.onPlayAudio.bind(this,card.audio)}></View>
+              <View className="btn">
+                  <AudioCom questionOther={card}   />
                重读
               </View>
-             <View className="btn">
-              <View className={"con_lu " +(playtext.status==2 ? 'navs' : '')} onClick={this.onRecorder.bind(this,playtext.status)}></View>
-              {playtext.text}
-              </View>
               <View className="btn">
-              <View className="con_play" onClick={this.onPlayRecorder.bind(this,tempFilePath)} ></View>
-              播放
+                  <Recorder coderData={playtext} />
               </View>
-              
-              
-          
-            </View>
-            
+            </View> 
         </View>
        
 

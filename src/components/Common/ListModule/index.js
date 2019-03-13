@@ -14,7 +14,7 @@ class ListModule extends Component {
 
   }
   componentDidMount = () => {
-        console.log(this.props.dataList,122)
+        
   } 
   nextQuestion (e) {
         //  this.nextQuestion()
@@ -51,7 +51,6 @@ class ListModule extends Component {
                 <View className={"module_li col"+index} key={index} onClick={this.toUrl.bind(this,listUrl,item._id)}>
                   {!item.article_img && <View className="text">{item.keywords}</View> }
                   <Image  src={item.article_img ? `https://weixue.minsusuan.com${item.article_img}_400x400.jpg` : ''}></Image>     
-                   
                 </View>
              ))}
              </View>

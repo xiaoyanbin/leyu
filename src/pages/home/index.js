@@ -64,7 +64,7 @@ class home extends Component {
   }
   componentDidHide () { }
   render () {
-    const { banner,list } = this.props;
+    const { banner,list,poetryList } = this.props;
     return (
       <View className="home-page">
       <MySwiper banner={banner} home />

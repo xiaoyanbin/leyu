@@ -12,12 +12,11 @@ class EnglishText extends Component {
     questionOther:PropTypes.object,
     rightAnswer:PropTypes.string,
     onQuestion:PropTypes.func,
-    onPlayAudio:PropTypes.func,
     
   }
 
   static defaultProps = {
-
+         questionOther:{}
   };
   nextQuestion (e) {
         //  this.nextQuestion()
@@ -27,7 +26,7 @@ class EnglishText extends Component {
     return (
     <View className="content">
         <View className="con">
-        <AudioCom questionOther={questionOther}  onPlayAudio={onPlayAudio.bind(this)} />
+        <AudioCom questionOther={questionOther}   />
         {/* <View onClick={onPlayAudio.bind(this,questionOther.audio)} className="con_img">
          </View>         */}
         </View>
