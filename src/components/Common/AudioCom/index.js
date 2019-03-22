@@ -2,8 +2,11 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image,Audio } from '@tarojs/components';
 import PropTypes from 'prop-types';
 import './index.scss';
-const innerAudioContext = Taro.createInnerAudioContext()
-const RecorderManager = Taro.getRecorderManager()
+
+  const innerAudioContext = Taro.createInnerAudioContext()
+  const RecorderManager = Taro.getRecorderManager()
+
+
 
 class AudioCom extends Component {
   static propTypes ={
@@ -29,17 +32,23 @@ class AudioCom extends Component {
   }
 
   onAudioPlay(data){
-    innerAudioContext.src=data
-    innerAudioContext.loop=false
-    innerAudioContext.obeyMuteSwitch =false
-    innerAudioContext.onPlay((res)=>{   
-       this.setState({isplay:true})
-    })
-    innerAudioContext.onEnded((res)=>{ 
-      console.log(222) 
-       this.setState({isplay:false})
-    }) 
-    innerAudioContext.play()
+      try {
+        innerAudioContext.src=data
+        innerAudioContext.loop=false
+        innerAudioContext.obeyMuteSwitch =false
+        innerAudioContext.onPlay((res)=>{   
+          this.setState({isplay:true})
+        })
+        innerAudioContext.onEnded((res)=>{ 
+          console.log(222) 
+          this.setState({isplay:false})
+        }) 
+        innerAudioContext.play()  
+      } catch (error) {
+        
+      }
+
+
   }
   render() {
     const { questionOther } = this.props;

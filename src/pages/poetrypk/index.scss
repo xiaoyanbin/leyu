@@ -142,7 +142,7 @@
             color:#fff;
         }
         .poetry_list{
-             padding:100px 0 20px 0;
+             padding:60px 0 20px 0;
              display: flex; 
              flex-flow:row nowrap;
              justify-content:center;
@@ -178,7 +178,7 @@
         .w630{ width: 630px;}
         .w500{width:500px;}
         .answer_list{
-            padding:100px 0;
+            padding:50px 0;
             display: flex; 
             margin:0 auto;
             flex-flow:row wrap;
@@ -231,13 +231,15 @@
              border-radius: 24px;
              margin:10px auto;
              line-height: 48px;
+             display:block;
              text-align:center;
-             color:#ff0000;
+             color:#4fb746;
 
         }
         .anal{
-            padding:30px;
-            color:#33ccff;
+            padding:20px;
+            text-align: center;
+            color:#aaa;
             display:none;
         }
         .navs{

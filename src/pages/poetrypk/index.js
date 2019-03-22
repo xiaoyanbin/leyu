@@ -4,7 +4,9 @@ import { connect } from '@tarojs/redux'
 import MapText from '../../components/MapText'
 import * as detailApi from './service'
 import ShareApp from '../../components/Common/ShareApp'
+import WxJssdk from '../../components/Common/WxJssdk'
 import { AtIcon, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from "taro-ui"
+const wx = require('weixin-js-sdk');
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
@@ -53,6 +55,8 @@ class poetry extends Component {
       dataList:[],
       curIndex:0,
       content:'',
+      url:'',
+      cpNewPoetry:'',
     }
 
   }
@@ -61,12 +65,13 @@ class poetry extends Component {
       clearInterval(this.state.timer)
     }
   }
+
   componentDidMount = () =>   {
 
     let curIndex =  parseInt(this.$router.params.curIndex) || 0
     this.setState({
       articleId: this.$router.params.id || '5c864ae22203b61b1e0e3f6e',
-      curIndex: curIndex
+      curIndex: curIndex,
     },()=>{
       this.getArticleInfo(this.state.articleId)
     }) 
@@ -77,7 +82,7 @@ class poetry extends Component {
       })
     },1000)
   }
-  tipsShow(data){
+  ontipsShow(data){
     const { tips } =this.state
     const t = tips
     this.setState({
@@ -94,7 +99,7 @@ class poetry extends Component {
   getpoetry(data){
       var _this =this;
       //拆分古诗
-      const { textNum } = this.state 
+      const { textNum,answerList } = this.state 
       const keywords = data
       const dd =  JSON.parse(JSON.stringify(data))
       
@@ -110,8 +115,10 @@ class poetry extends Component {
       })
       console.log(keywords,curindex)
       let a = 5
+      let ee = 6
       if(dd[0].length==5){
            a =4
+           ee = 4
         this.setState({
           textNum:4,
           answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4}]
@@ -122,16 +129,24 @@ class poetry extends Component {
             answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4},{"value":"","num":5},{"value":"","num":6}]
           })
       }
-    
+      //var listVal = answerList
+
       data[curindex-1].forEach((d,i)=>{
+       
         Ckeywords.push({"play":false,"val":d,"num":i})
+       // listVal[i].value = d
       }) 
+     
+      // this.setState({
+      //   answerList: listVal
+      // })    
 
       data[curindex].forEach((d,i)=>{
         if(i<a){
           Ckeywords.push({"play":false,"val":d,"num":i+7})
         } 
       })  
+
      // let  ee = JSON.parse(JSON.stringify(Ckeywords)
       const h = [...Ckeywords].sort(() => Math.random() - 0.5)
       this.setState({
@@ -139,6 +154,7 @@ class poetry extends Component {
         keywords:keywords,
         Ckeywords:Ckeywords,
         newPoetry:dd[curindex-1],
+        cpNewPoetry:dd[curindex-1].substr(0,ee),
         title:"《"+dd[curindex]+"》的上一句是什么?",
         index: h.findIndex(data => data.play===false),
       },() =>{
@@ -343,7 +359,7 @@ class poetry extends Component {
     })
   }
   render () {
-    const {articleId, dataList,curIndex,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state;
+    const {articleId, dataList,curIndex,cpNewPoetry,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state;
     return (
       <View className="container">
        <View className={isOpened ? 'block' : 'none'}>
@@ -359,6 +375,9 @@ class poetry extends Component {
       </AtModalAction>
     </AtModal>
 </View>
+ 
+ <WxJssdk title={detail.title} desc={detail.keywords} imgUrl={detail.article_img}/>
+
  <ShareApp  shareTitle={title} shareUrl={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}/>
 
 
@@ -391,12 +410,12 @@ class poetry extends Component {
         ))}
         </View>  
 
-        {/* <View className="analysis" onClick={this.tipsShow.bind(this)}>
-               答案解析>
+        <View className="analysis" onClick={this.ontipsShow.bind(this)}>
+               答案提示> 
         </View>     
         <View className={"anal " +(tips ? 'navs' : '')}>
-            {detail.description}
-        </View>              */}
+        {cpNewPoetry}
+        </View>   
      </View>
 
 

@@ -49,7 +49,7 @@ class ListModule extends Component {
             <View style="width:180%" className='module_ul'>
               { dataList.map((item, index) => (
                 <View className={"module_li col"+index} key={index} onClick={this.toUrl.bind(this,listUrl,item._id)}>
-                  {!item.article_img && <View className="text">{item.keywords}</View> }
+                  {!item.article_img && <View className="text">{item.title}</View> }
                   <Image  src={item.article_img ? `https://weixue.minsusuan.com${item.article_img}_400x400.jpg` : ''}></Image>     
                 </View>
              ))}

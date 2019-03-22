@@ -5,3 +5,4 @@ export const getDetail = data => Request({
   method: 'GET',
   data,
 });
+

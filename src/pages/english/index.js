@@ -366,7 +366,7 @@ class English extends Component {
               </View>
               <View className="header_right">
               <View className="answer_card"  onClick={this.isCard.bind(this)}>答题卡</View>
-                    <View className="right" onClick={this.resumeRecorder.bind(this)}>{itemIndex+1}</View> /{answerList.length}
+                    <View className="right" >{itemIndex+1}</View> /{answerList.length}
               </View>
            </View>
           

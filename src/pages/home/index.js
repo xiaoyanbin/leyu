@@ -52,7 +52,9 @@ class home extends Component {
     this.props.dispatch({
       type: 'home/focus',
     });
-
+    this.props.dispatch({
+      type: 'home/poetrylist',
+    });
 
   }
   toEnglish (a) {

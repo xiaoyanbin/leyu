@@ -1,0 +1,19 @@
+
+@import "../../../styles/mixin";
+
+
+.menuShareAppMessage{
+    width:60px;
+    height:60px;
+    line-height:60px;
+    border-radius: 30px;
+    font-size:20px;
+    margin-left:0px;
+    position: fixed;
+    text-align: center;
+    background-color: #33bb7a;
+    color:#fff;
+    z-index:100;
+    bottom:120px;
+    right:10px;
+}

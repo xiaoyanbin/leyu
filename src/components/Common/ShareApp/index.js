@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View,Button } from '@tarojs/components';
 import PropTypes from 'prop-types';
+
 import { AtIcon} from "taro-ui"
 import './index.scss';
 
