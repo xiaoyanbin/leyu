@@ -65,7 +65,7 @@ class Top extends Component {
               <View className="fonts">答题</View>
       </View>
       <View className="ionc1"> 
-          <View className="ionc_img col5" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english")}> 
+          <View className="ionc_img col5" onClick={this.toAnswer.bind(this,"/pages/wordslist/index")}> 
               <Image src={ionc5}> </Image>
           </View>
           <View className="fonts"> 单词</View>

@@ -2,7 +2,14 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image,Audio } from '@tarojs/components';
 import PropTypes from 'prop-types';
 import * as WxJssdkApi from './service'
-import wx from 'weixin-js-sdk'
+let wx = {}
+try {
+   wx = require('weixin-js-sdk')
+} catch (error) {
+  
+}
+
+
 import './index.scss'
 
 class WxJssdk extends Component {
@@ -39,6 +46,7 @@ class WxJssdk extends Component {
 
   }
   async getInfo(data)   {
+    if(!Taro.ENV_TYPE.WEB) return
     let url = location.href.split('#')[0]
     let imgUrl = data.imgUrl ? "https://weixue.minsusuan.com" + data.imgUrl + "_180x180.jpg" : "https://wx.minsusuan.com/img/share.jpg"
     const res = await WxJssdkApi.wxjssdk({
@@ -82,7 +90,7 @@ class WxJssdk extends Component {
   render() {
     const { title,desc,imgUrl, } = this.props;
     return (
-       <View >
+       <View>
                 {/* className={'menuShareAppMessage'} onClick={this.onShareAppMessage.bind(this,title)}分享 */}
        </View> 
     );

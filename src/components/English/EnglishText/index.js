@@ -12,21 +12,22 @@ class EnglishText extends Component {
     questionOther:PropTypes.object,
     rightAnswer:PropTypes.string,
     onQuestion:PropTypes.func,
+    siteSwitch: PropTypes.string,
     
   }
 
   static defaultProps = {
-         questionOther:{}
+         questionOther:{},
   };
   nextQuestion (e) {
         //  this.nextQuestion()
   }
   render() {
-    const { title, question,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props;
+    const { title, question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props;
     return (
     <View className="content">
         <View className="con">
-        <AudioCom questionOther={questionOther}   />
+        {siteSwitch=="1" ? <AudioCom questionOther={questionOther}  /> : questionOther.title}   
         {/* <View onClick={onPlayAudio.bind(this,questionOther.audio)} className="con_img">
          </View>         */}
         </View>

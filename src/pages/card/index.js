@@ -31,6 +31,7 @@ class Card extends Component {
       isOpened:false,
       text:'',
       duration:500,
+      siteSwitch:0,
     }
 
   }
@@ -44,6 +45,7 @@ class Card extends Component {
   componentDidShow () { 
   }
   componentDidMount = () => {
+    this.getSetting ()
     this.setState({
       articleId: this.$router.params.id || '5c7775bbd2660b78319b47fd',
     },()=>{
@@ -51,12 +53,22 @@ class Card extends Component {
     })
   };
   componentDidHide () { }
+  async getSetting (){
+    //获取文章详情
+    const res = await detailApi.getSetting();
+    console.log(res.site_switch)
+    if (res.status=="ok") {
+      this.setState({
+        siteSwitch: res.data.site_switch,
+      })
+
+    }
+  }
   async getArticleInfo (articleId) {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId,
     });
-    var column = this.state.column;
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
       this.setState({
@@ -90,7 +102,7 @@ class Card extends Component {
      })
   }
   render () {
-    const { dataList,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
+    const { dataList,siteSwitch,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
     return (
       <View className="card-page">
       <ScrollView
@@ -117,7 +129,7 @@ class Card extends Component {
             <Image mode="widthFix" src={card.imgUrl}></Image>    
            </View>
            {card.title}
-            <View className="card-right-text"> 
+           {siteSwitch=='1' && <View className="card-right-text"> 
               <View className="btn">
                   <AudioCom questionOther={card}   />
                重读
@@ -125,7 +137,7 @@ class Card extends Component {
               <View className="btn">
                   <Recorder coderData={playtext} />
               </View>
-            </View> 
+            </View> }
         </View>
        
 

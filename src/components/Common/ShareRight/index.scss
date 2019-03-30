@@ -1,0 +1,36 @@
+
+@import "../../../styles/mixin";
+
+.footers{
+    width:100%;
+    height:100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top:1px solid #eee;
+    .c-li{
+        width:50%;
+        height:100px;
+        text-align:center;
+        font-size:24px;
+   }
+    
+}
+.share1{ border-radius: 20px; border:0px;  
+    outline: none;  background-color: #ccc;
+    width:24px;
+    height:24px;
+    position:fixed;
+    top:50%;
+    right:0px;
+    background-image: url(https://wx.minsusuan.com/img/fx1.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size:100%; 
+    height:100px; line-height:50px; font-size:24px; }  
+    button::after {
+        border: none;
+}

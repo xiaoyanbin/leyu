@@ -11,3 +11,9 @@ export const getSetting = data => Request({
   method: 'GET',
   data,
 });
+
+export const words = data => Request({
+  url: '/api/words/words',
+  method: 'GET',
+  data,
+});

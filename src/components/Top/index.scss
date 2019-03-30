@@ -13,18 +13,18 @@
       width:90px;
       height:140px;
       .ionc_img{
-        width:40px;
-        height:40px; 
+        width:56px;
+        height:56px; 
         display: block;
         overflow: hidden;
-        background-color:#eee;
+        background-color:#5dcaa3;
         padding:25px;
-        border-radius: 50px;
-        image{width:100%; height:40px;}
+        border-radius: 20px;
+        image{width:100%; height:56px;}
       }
       .ionc_img1{
-        width:80px;
-        height:80px; 
+        width:88px;
+        height:88px; 
         display: block;
         overflow: hidden;
         image{width:100%; height:80px;}
@@ -35,10 +35,10 @@
       .col4{background-color:#ffcead}
       .col5{background-color:#fcb097}
       .col6{background-color:#97cefc}
-      // .col1{background-color:#3284F4}
-      // .col2{background-color:#52BF84}
-      // .col3{background-color:#ED9535}
-      // .col4{background-color:#DA3FF4}
+      .col1{background-color:#3284F4}
+      .col2{background-color:#52BF84}
+      .col3{background-color:#ED9535}
+      .col4{background-color:#DA3FF4}
       .fonts{text-align:center; font-size:22px; line-height:40px;color:#666}
   }
   

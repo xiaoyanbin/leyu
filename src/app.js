@@ -44,6 +44,10 @@ class App extends Component {
       'pages/en/index',
       'pages/words/index',
       'pages/home/index',
+      'pages/wordslist/index',
+      'pages/word/index',
+      'pages/wordcard/index',
+      'pages/wordsenglish/index',
     ],
     window: {
       backgroundTextStyle: 'light',

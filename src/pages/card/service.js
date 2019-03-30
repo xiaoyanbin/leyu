@@ -11,3 +11,9 @@ export const getDetail = data => Request({
   method: 'GET',
   data,
 });
+
+export const getSetting = data => Request({
+  url: '/api/wx/setting',
+  method: 'GET',
+  data,
+});

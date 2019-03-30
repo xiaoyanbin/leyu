@@ -1,7 +1,7 @@
 import Request from '../../utils/request';
 
-export const getDetail = data => Request({
-  url: '/api/detail',
+export const words = data => Request({
+  url: '/api/words/words',
   method: 'GET',
   data,
 });

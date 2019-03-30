@@ -6,12 +6,11 @@ import * as detailApi from './service'
 import ShareApp from '../../components/Common/ShareApp'
 import WxJssdk from '../../components/Common/WxJssdk'
 import { AtIcon, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from "taro-ui"
-const wx = require('weixin-js-sdk');
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
 }))
-class poetry extends Component {
+class Poetrypk extends Component {
   config = {
     navigationBarTitleText: '飞花令'
   }
@@ -375,12 +374,11 @@ class poetry extends Component {
       </AtModalAction>
     </AtModal>
 </View>
+  {process.env.TARO_ENV === 'h5' ? <WxJssdk title={detail.title} desc={detail.keywords} imgUrl={detail.article_img}/> :''}
+
+
+ <ShareApp shareTitle={title} shareUrl={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}/>
  
- <WxJssdk title={detail.title} desc={detail.keywords} imgUrl={detail.article_img}/>
-
- <ShareApp  shareTitle={title} shareUrl={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}/>
-
-
       <View className="header">
         <View className="header_left">
             <View className="title">{detail.title}</View>
@@ -425,4 +423,4 @@ class poetry extends Component {
   }
 }
 
-export default poetry
+export default Poetrypk

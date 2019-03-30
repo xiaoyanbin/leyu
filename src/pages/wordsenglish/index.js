@@ -12,7 +12,7 @@ import './index.scss'
   ...home,
 }))
 
-class English extends Component {
+class WordsEnglish extends Component {
   config = {
     navigationBarTitleText: '单词练习'
   }
@@ -48,6 +48,8 @@ class English extends Component {
       val:[],
       tempFilePath:'',
       siteSwitch:'0',
+      book:'',
+      count:0,
     }
 
   }
@@ -80,26 +82,22 @@ async getSetting (){
 
   }
 }
-  async getArticleInfo (articleId) {
+  async getBookInfo (d) {
     //获取文章详情
-    
-    const res = await detailApi.getDetail({
-      id: articleId,
-    });
+    d.where = decodeURIComponent(this.$router.params.book)
+    const res = await detailApi.words(d);
 
-    var column = this.state.column;
     if (res.status == 'ok') {
-      const data = JSON.parse(res.data.list.description)
-      const configure = [{"con":"title","itemList":"imgUrl"},{"con":"imgUrl","itemList":"title"}] 
-     
-      const one = new Array();
-      const tow = new Array();
-      const Three = new Array();
-
+      let data = res.data
+      data.forEach((d,i) =>{
+              data[i].audio = `https://wx.minsusuan.com/english/xiaoxue/beijing/1/${d.english}.mp3`
+              data[i].title = d.english
+              data[i].chinese = d.chinese.split(";")[0]
+      })
       let val =this.mackQuestion(data)
-      let result = [...val,...val]
+      let result = [...val]
       this.setState({
-          detail: res.data.list,
+          detail: res.data,
           dataList: result,
       },()=>{
         this.init()
@@ -107,9 +105,10 @@ async getSetting (){
     }
   }  
   goDetail(data){
-      Taro.navigateTo({
-        url: `/pages/poetrylist/index?pid=${data}`,
-      })
+    const {book,count} = this.state
+    Taro.navigateTo({
+      url: `/pages/word/index?book=${book}&count=${count}`,
+    })
     
   }
   onTimeUp(){
@@ -349,12 +348,14 @@ async getSetting (){
         return b
   }
   componentDidMount = () => {
-    this.setState({
-      id: this.$router.params.id || '5c7775bbd2660b78319b47fd',
-    },()=>{       
-      this.getArticleInfo(this.state.id)
-    })
+
     this.getSetting()
+    this.setState({
+      book: this.$router.params.book,
+      count: this.$router.params.count,
+    },()=>{
+      this.getBookInfo({where:this.$router.params.book,offset:this.$router.params.count})
+    })
 
     var time = this.state.thisTime
     this.state.timer=setInterval(() =>{
@@ -384,13 +385,9 @@ async getSetting (){
            </View>
           
            <View className="content">
-            { itemIndex<(questionNum/2) &&  <EnglishText question={question} title={title} questionOther={questionOther}  answerList={answerList} itemIndex={itemIndex} 
-           rightAnswer={rightAnswer}
-           siteSwitch={siteSwitch}
-           onQuestion={this.nextQuestion.bind(this)}
-           /> }
+  
 
-         { itemIndex>=(questionNum/2) && <EnglishStyle  question={question} 
+          <EnglishStyle  question={question} 
                         title={title} 
                         questionOther={questionOther}  
                         answerList={answerList}
@@ -398,7 +395,7 @@ async getSetting (){
                         siteSwitch={siteSwitch}
                         rightAnswer={rightAnswer}
                         onQuestion={this.nextQuestion.bind(this)}
-                        />}
+                        />
 
  
           <View className={"anal " +(isanaly ? 'navs' : '')}>
@@ -425,4 +422,4 @@ async getSetting (){
   }
 }
 
-export default English
+export default WordsEnglish
