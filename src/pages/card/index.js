@@ -7,8 +7,6 @@ import { AtToast , AtCountdown,AtProgress } from "taro-ui"
 import AudioCom from '../../components/Common/AudioCom'
 import Recorder from '../../components/Common/Recorder'
 import './index.scss'
-const innerAudioContext = Taro.createInnerAudioContext()
-const RecorderManager = Taro.getRecorderManager()
 @connect(({ home ,detail}) => ({
   ...home,
 }))

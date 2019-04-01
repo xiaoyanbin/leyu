@@ -7,8 +7,6 @@ import { AtToast , AtCountdown,AtProgress } from "taro-ui"
 import AudioCom from '../../components/Common/AudioCom'
 import Recorder from '../../components/Common/Recorder'
 import './index.scss'
-const innerAudioContext = Taro.createInnerAudioContext()
-const RecorderManager = Taro.getRecorderManager()
 @connect(({ home ,detail}) => ({
   ...home,
 }))
@@ -33,10 +31,11 @@ class Card extends Component {
       duration:500,
       siteSwitch:0,
       book:'',
-      count:0,
+      setoff:0,
       itemIndex:0,
       play:false,
       playTexts:'自动',
+      book_level:'',
     }
 
   }
@@ -56,9 +55,10 @@ class Card extends Component {
 
     this.setState({
       book: this.$router.params.book,
-      count: this.$router.params.count,
+      setoff: this.$router.params.setoff,
+      book_level:this.$router.params.book_level,
     },()=>{
-      this.getBookInfo({where:this.$router.params.book,offset:this.$router.params.count})
+      this.getBookInfo({where:this.$router.params.book,book_level:this.$router.params.book_level,offset:this.$router.params.setoff})
     })
 
   };
@@ -77,6 +77,7 @@ class Card extends Component {
   async getBookInfo (d) {
     //获取文章详情
     d.where = decodeURIComponent(this.$router.params.book)
+    d.book_level = decodeURIComponent(this.$router.params.book_level)
     console.log(d,1111)
     const res = await detailApi.words(d);
     if (res.status == 'ok') {
@@ -111,9 +112,9 @@ class Card extends Component {
     })
   }
   doComplete(){
-   const {book,count} = this.state
+   const {book,setoff,book_level} = this.state
     Taro.navigateTo({
-      url: `/pages/word/index?book=${book}&count=${count}`,
+      url: `/pages/word/index?book=${book}&book_level=${book_level}&setoff=${setoff}`,
     })
   }
   autoPlay(){
@@ -188,7 +189,6 @@ class Card extends Component {
                   <Recorder coderData={playtext} />
               </View>
             </View> }
-           <AudioCom questionOther={card}   />
            <View> {card.english}</View>
            <View> {card.britishAccent}</View>
            <View> {card.chinese}</View>

@@ -1,5 +1,5 @@
 import * as homeApi from './service';
-
+import dva from '../../utils/dva';
 export default {
   namespace: 'home',
   state: {
@@ -9,6 +9,7 @@ export default {
     page: 1,
     list:[],
     poetryList:[],
+    pid:'',
   },
   effects: {
     * load(_, {call, put}) {
@@ -36,9 +37,10 @@ export default {
       }
     },
     * poetrylist(_, {call, put, select}) {
-      const { status, data } = yield call(homeApi.poetrylist, {pid:'5c864ac72203b61b1e0e3f6d'
+       
+      const { pid } = yield select(state => state.home);  
+      const { status, data } = yield call(homeApi.poetrylist, {pid:pid
       });
-      console.log( status,111, data)
       if (status === 'ok') {
         yield put({ type: 'save',payload: {
           poetryList: data.list,
@@ -67,8 +69,11 @@ export default {
   },
   
   reducers: {
-    save(state, { payload }) {
-      return {...state, ...payload};
+    // save(state, { payload }) {
+    //   return {...state, ...payload};
+    // },
+    save(state, { payload: data }) {
+      return { ...state, ...data };
     },
   },
 };

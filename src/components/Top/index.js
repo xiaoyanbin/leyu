@@ -2,82 +2,84 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 import PropTypes from 'prop-types';
 import './index.scss';
-import ionc1 from '../../images/icon/ionc1.png'
-import ionc2 from '../../images/icon/ionc2.png'
-import ionc3 from '../../images/icon/ionc3.png'
-import ionc4 from '../../images/icon/ionc4.png'
-import ionc5 from '../../images/icon/chuang.png'
-import ionc6 from '../../images/icon/card.png'
+import * as TopApi from './service'
 class Top extends Component {
   static propTypes ={
+      pid:PropTypes.pid
   }
 
   static defaultProps = {
-    list: [],
+    pid:'',
   };
-
-  toUrl () {
-    Taro.navigateTo({
-      url: "/pages/plist/index?pid=5bcee18b3263442e3419080e&typeName=poetrypk",
-    })
+  constructor() {
+    super(...arguments)
+    this.state = {
+       list:[],
+       list2:[],
+    }
+  }  
+  async getArticleCate (cateId) {
+    //获取文章详情
+    console.log(cateId)
+    const res = await TopApi.articleCate({
+      pid: cateId
+    });
+    if (res.status == 'ok') {
+      this.setState({
+          list: res.data.slice(0,3),
+          list2: res.data.slice(3,6),
+     },()=>{
+         console.log(this.state.list)
+        //this.getpoetry()
+      })
+    }
+  }  
+  goDetail(data){
+     const { typeName } =this.state
+      Taro.navigateTo({
+        url: `/pages/poetrylist/index?pid=${data}&typeName=${typeName}`,
+      })
+    
   }
-  toList () {
-    Taro.navigateTo({
-      url: "/pages/poetrylist/index?pid=5c6b7815de24016a19796c7d&typeName=idiom",
-    })
+  componentWillReceiveProps (nextProps) {
+    console.log(this.props, nextProps)
   }
-  toAnswer (data) {
+  componentDidMount = () => {
+    this.getArticleCate(this.props.pid)
+  }
+  toUrl (data) {
     Taro.navigateTo({
       url: data,
     })
   }
-
   render() {
-    const { list, loading } = this.props;
+    const { loading } = this.props;
+    const { list,list2 } = this.state;
     return (
       <View>
        <View className="top">
-          <View className="ionc1"> 
-              <View className="ionc_img col1" onClick={this.toUrl.bind(this)}> 
-                  <Image src={ionc1}> </Image>
-              </View>
-              <View className="fonts"> 古诗</View>
-          </View>
-          <View className="ionc1"> 
-              <View className="ionc_img col2" onClick={this.toList.bind(this)}> 
-                  <Image src={ionc2}> </Image>
-              </View>
-              <View className="fonts" > 成语</View>
-          </View>
-          <View className="ionc1"> 
-              <View className="ionc_img col3" onClick={this.toAnswer.bind(this,"/pages/answerlist/index")}> 
-                  <Image src={ionc3}> </Image>
-              </View>
-              <View className="fonts">速算</View>
-          </View>
+          {list.map((item,index) => (
+            <View key={index} className={"ionc1"}> 
+                <View className={"ionc_img col"+(index+1)} onClick={this.toUrl.bind(this,item.link)}> 
+                    <Image src={"https://weixue.minsusuan.com"+item.cate_img}></Image>
+                </View>
+                <View className="fonts"> {item.title}</View>
+           </View>   
+        ))}
 
-      </View>
-      <View className="top">
-      <View className="ionc1"> 
-              <View className="ionc_img col4" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio")}> 
-                  <Image src={ionc4}> </Image>
-              </View>
-              <View className="fonts">答题</View>
-      </View>
-      <View className="ionc1"> 
-          <View className="ionc_img col5" onClick={this.toAnswer.bind(this,"/pages/wordslist/index")}> 
-              <Image src={ionc5}> </Image>
-          </View>
-          <View className="fonts"> 单词</View>
-      </View>
-      <View className="ionc1"> 
-          <View className="ionc_img col6" onClick={this.toAnswer.bind(this,"/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=card")}> 
-              <Image src={ionc6}> </Image>
-          </View>
-          <View className="fonts" > 卡片</View>
-      </View>
-  </View>
-  </View>
+       </View>
+       <View className="top">
+          {list2.map((item,index) => (
+            <View key={index} className={"ionc1"}> 
+                <View className={"ionc_img col"+(index+4)} onClick={this.toUrl.bind(this,item.link)}> 
+                    <Image src={"https://weixue.minsusuan.com"+item.cate_img}></Image>
+                </View>
+                <View className="fonts"> {item.title}</View>
+           </View>   
+        ))}
+
+       </View>
+      </View> 
     );
   }
 }

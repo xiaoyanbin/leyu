@@ -23,12 +23,13 @@ class answerlist extends Component {
       difficulty:2,
       qNum:10,
       checkpoint:[],
+      book_level:'',
     }
 
   }
-  async getwords (cateId) {
+  async getwords (query) {
     //获取文章详情
-    const res = await wordsApi.words();
+    const res = await wordsApi.words(query);
     if (res.status == 'ok') {
       this.setState({
           list: res.data,
@@ -38,10 +39,10 @@ class answerlist extends Component {
     }
   }  
   goDetail(d,m){
-    const { book } = this.state
+    const { book,book_level } = this.state
 
     Taro.navigateTo({
-        url: `/pages/${m}/index?book=${book}&setoff=${d.setoff}`,
+        url: `/pages/${m}/index?book=${book}&book_level=${book_level}&setoff=${d.setoff}`,
     })
     
   }
@@ -81,13 +82,14 @@ class answerlist extends Component {
       let count = this.$router.params.count
       let num =  Math.ceil(parseInt(count)/20)
       let checkpoint = [];
-      for(let i =1;i<=num;i++){
-        checkpoint.push({customs:`第${i}关`,setoff:i*20})
+      for(let i =0;i<num;i++){
+        checkpoint.push({customs:`第${i+1}关`,setoff:i*20})
       }
       console.log(checkpoint,num)
       this.setState({
         book: this.$router.params.book,
         count: this.$router.params.count,
+        book_level: this.$router.params.book_level,
         checkpoint: checkpoint,
       },()=>{
         

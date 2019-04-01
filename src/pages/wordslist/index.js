@@ -25,9 +25,10 @@ class answerlist extends Component {
     }
 
   }
-  async getwords (cateId) {
+  async getwords (query) {
     //获取文章详情
-    const res = await wordsApi.index();
+    console.log(query)
+    const res = await wordsApi.index(query);
     if (res.status == 'ok') {
       this.setState({
           list: res.data,
@@ -38,7 +39,7 @@ class answerlist extends Component {
   }  
   goDetail(d){
     Taro.navigateTo({
-        url: `/pages/word/index?book=${d.book}&count=${d.count}`,
+        url: `/pages/word/index?book=${d.book}&book_level=${d.book_level}&count=${d.count}`,
     })
     
   }
@@ -75,12 +76,10 @@ class answerlist extends Component {
   componentDidShow () { 
   }
   componentDidMount = () => {
-    // this.setState({
-    //   pid: this.$router.params.pid,
-    //   typeName: this.$router.params.typeName,
-    // })
-    this.getwords()
-   // this.getArticleCate(this.$router.params.pid)
+    let query =  this.$router.params
+    console.log(query)
+    query.book ? query.book : query.book ='《小学英语》'
+    this.getwords(query)
 
   };
   componentDidHide () { }
@@ -121,7 +120,7 @@ class answerlist extends Component {
      
         <View className="catelist">
           {list.map((item,index) => (
-            <View key={index} className="list" onClick={this.goDetail.bind(this,item)} >{item.book} <View className="count">({item.count})</View></View>
+            <View key={index} className="list" onClick={this.goDetail.bind(this,item)} >{item.book_level} <View className="count">({item.count})</View></View>
           ))} 
         </View>
       </View>

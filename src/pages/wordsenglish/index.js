@@ -49,7 +49,7 @@ class WordsEnglish extends Component {
       tempFilePath:'',
       siteSwitch:'0',
       book:'',
-      count:0,
+      setoff:0,
     }
 
   }
@@ -85,6 +85,7 @@ async getSetting (){
   async getBookInfo (d) {
     //获取文章详情
     d.where = decodeURIComponent(this.$router.params.book)
+    d.book_level = decodeURIComponent(this.$router.params.book_level)
     const res = await detailApi.words(d);
 
     if (res.status == 'ok') {
@@ -92,7 +93,7 @@ async getSetting (){
       data.forEach((d,i) =>{
               data[i].audio = `https://wx.minsusuan.com/english/xiaoxue/beijing/1/${d.english}.mp3`
               data[i].title = d.english
-              data[i].chinese = d.chinese.split(";")[0]
+              data[i].chinese = d.chinese.split(",")[0]
       })
       let val =this.mackQuestion(data)
       let result = [...val]
@@ -105,9 +106,9 @@ async getSetting (){
     }
   }  
   goDetail(data){
-    const {book,count} = this.state
+    const {book,setoff,book_level} = this.state
     Taro.navigateTo({
-      url: `/pages/word/index?book=${book}&count=${count}`,
+      url: `/pages/word/index?book=${book}&book_level=${book_level}&setoff=${setoff}`,
     })
     
   }
@@ -352,9 +353,10 @@ async getSetting (){
     this.getSetting()
     this.setState({
       book: this.$router.params.book,
-      count: this.$router.params.count,
+      setoff: this.$router.params.setoff,
+      book_level:this.$router.params.book_level,
     },()=>{
-      this.getBookInfo({where:this.$router.params.book,offset:this.$router.params.count})
+      this.getBookInfo({where:this.$router.params.book,offset:this.$router.params.setoff})
     })
 
     var time = this.state.thisTime

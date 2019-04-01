@@ -48,6 +48,7 @@ class App extends Component {
       'pages/word/index',
       'pages/wordcard/index',
       'pages/wordsenglish/index',
+      'pages/treasure/index',
     ],
     window: {
       backgroundTextStyle: 'light',
