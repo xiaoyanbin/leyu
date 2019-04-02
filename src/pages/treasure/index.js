@@ -3,16 +3,15 @@ import { View, Button, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MapText from '../../components/MapText'
 import * as detailApi from './service'
-import ShareApp from '../../components/Common/ShareApp'
 import WxJssdk from '../../components/Common/WxJssdk'
-import { AtIcon, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from "taro-ui"
+import { AtIcon, AtToast,AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from "taro-ui"
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
 }))
 class Treasure extends Component {
   config = {
-    navigationBarTitleText: '飞花令'
+    navigationBarTitleText: '夺宝'
   }
   onShareAppMessage (res) {
     if (res.from === 'button') {
@@ -26,36 +25,18 @@ class Treasure extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      current:0,
-      articleId: '',
-      detail: {},
-      value:'',
-      poetry:"",
-      poetrydata:[],
-      poetrycopy:[],
-      poetryshow:[],
-      index:0,
-      tips:false,
-      thisTime:0,
-      itemIndex:0,
-      count:1,
-      timer:null,
-      keywords:[],
-      Ckeywords:[],
-      answerList:[{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4}],
-      newPoetry:"",
-      textNum:5,
+      weather: [],
+      setup: '',
+      init: '', 
+      maps: [], 
+      today: "晴",
       isOpened:false,
-      AtModalText:'',
-      AtModalTitle:'',
-      AtModalBtn:'确定',
-      title:'',
-      isTrue:1,
-      dataList:[],
-      curIndex:0,
-      content:'',
-      url:'',
-      cpNewPoetry:'',
+      text:'',
+      AtModals:{"isOpened": false,"title":"","text":"","btn":""},
+      isChoice:'',
+      item:{},
+      dataItem:{type:0},
+      AtModalInit:{"isOpened": false,"title":"","text":"","btn":""},
     }
 
   }
@@ -66,354 +47,337 @@ class Treasure extends Component {
   }
 
   componentDidMount = () =>   {
-
-    let curIndex =  parseInt(this.$router.params.curIndex) || 0
-    this.setState({
-      articleId: this.$router.params.id || '5c864ae22203b61b1e0e3f6e',
-      curIndex: curIndex,
-    },()=>{
-      this.getArticleInfo(this.state.articleId)
-    }) 
-    var time = this.state.thisTime
-    this.state.timer=setInterval(() =>{
-      this.setState({
-        thisTime: time++,
-      })
-    },1000)
-  }
-  ontipsShow(data){
-    const { tips } =this.state
-    const t = tips
-    this.setState({
-     tips: !t,
-   },()=>{
-     setTimeout(()=>{
-       this.setState({
-         tips: false,
-       })
-     },3000)
-   }) 
-
-  }
-  getpoetry(data){
-      var _this =this;
-      //拆分古诗
-      const { textNum,answerList } = this.state 
-      const keywords = data
-      const dd =  JSON.parse(JSON.stringify(data))
-      
-      var Ckeywords = new Array();
-      let curindex = 1;
-      // dd.forEach((item,index)=>{
-      //     if(dd[index].indexOf("春")!==-1){
-      //       curindex = index
-      //     }
-      // })
-      keywords.forEach((item,index)=>{
-        keywords[index] =item.split("")
-      })
-      console.log(keywords,curindex)
-      let a = 5
-      let ee = 6
-      if(dd[0].length==5){
-           a =4
-           ee = 4
-        this.setState({
-          textNum:4,
-          answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4}]
-        })
-      }else{
-          this.setState({
-            textNum:5,
-            answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4},{"value":"","num":5},{"value":"","num":6}]
-          })
-      }
-      //var listVal = answerList
-
-      data[curindex-1].forEach((d,i)=>{
-       
-        Ckeywords.push({"play":false,"val":d,"num":i})
-       // listVal[i].value = d
-      }) 
      
-      // this.setState({
-      //   answerList: listVal
-      // })    
-
-      data[curindex].forEach((d,i)=>{
-        if(i<a){
-          Ckeywords.push({"play":false,"val":d,"num":i+7})
-        } 
-      })  
-
-     // let  ee = JSON.parse(JSON.stringify(Ckeywords)
-      const h = [...Ckeywords].sort(() => Math.random() - 0.5)
-      this.setState({
-        poetrydata: h,
-        keywords:keywords,
-        Ckeywords:Ckeywords,
-        newPoetry:dd[curindex-1],
-        cpNewPoetry:dd[curindex-1].substr(0,ee),
-        title:"《"+dd[curindex]+"》的上一句是什么?",
-        index: h.findIndex(data => data.play===false),
-      },() =>{
-        
-      })
-       
-  }
-  getData(indexs){
-    const { keywords,detail,dataList,curIndex } = this.state
-    let dataLists = dataList
-    if(!dataLists[indexs]){
-        this.doComplete()
-        return
-    }
-    let Cdetail =  dataLists[indexs].content
-    Cdetail  = Cdetail.replace(/，/g,"-").replace(/。/g,"-").replace(/【/g,"").replace(/】/g,"").replace(/ /g,"").replace(/[\n\r]/g,"").replace(/[\;\r]/g,"").split("-")
-    if(Cdetail[0].length!==5&&Cdetail[0].length!==7){
-         this.getData(indexs+1)
-         this.setState({
-           curIndex:indexs+1
-         })
-         return
-    }
-    this.setState({
-      content:dataLists[indexs].content,
-      keywords:Cdetail
-    },()=>{
-          this.getpoetry(Cdetail)
-    })
-
+     this.getArticleInfo(this.state.articleId)
+    
   }
   async getArticleInfo (articleId) {
-    //获取文章详情
-    const res = await detailApi.getDetail({
-      id: articleId
-    });
-    if (res.status == 'ok') {
-      let  dataList = JSON.parse(res.data.list.description)
-
-      this.setState({
-          detail: res.data.list,
-          dataList: dataList.data,
-          poetry: res.data.list.description.replace(/，/g,"").replace(/。/g,"").replace(/[\n\r]/g,""), 
-      },()=>{
-        this.getData(this.state.curIndex)
-      })
-    }
-  } 
-  onPutPoetry(val){
-    const { answerList,Ckeywords,newPoetry,poetrydata,detail,content } = this.state
-    if(val.play){
-      return
-    }
-    let  answer = answerList
-    let  poetry = poetrydata
-    let cc = answer.findIndex((item,i) => {
-       return item.value===""
-    })
-    answer[cc].value = val.val
-    answer[cc].number = val.num
-    let num = poetry.findIndex((item,i) => {
-      return item.num===val.num
-    })
-    poetry[num].play =true;
-
+    let  list = {"init":{"food":30,"compass":2,"tent":1,"gemstone":0,"water":30,"money":1000,"weight":1000},"weather":[
+      {"name":"晴","date":"1","isTime":true},
+      {"name":"晴","date":"2","isTime":false},
+      {"name":"高温","date":"3","isTime":false},
+      {"name":"晴","date":"4","isTime":false},
+      {"name":"晴","date":"5","isTime":false},
+      {"name":"高温","date":"6","isTime":false},
+      {"name":"沙尘暴","date":"7","isTime":false},
+      {"name":"晴","date":"8","isTime":false},
+      {"name":"高温+沙尘暴","date":"9","isTime":false},
+      {"name":"晴","date":"10","isTime":false},
+      {"name":"晴","date":"12","isTime":false},
+      {"name":"晴","date":"13","isTime":false},
+      {"name":"晴","date":"14","isTime":false},
+      {"name":"晴","date":"15","isTime":false},
+      {"name":"沙尘暴","date":"16","isTime":false},
+      {"name":"晴","date":"17","isTime":false},
+      {"name":"晴","date":"18","isTime":false},
+      {"name":"晴","date":"19","isTime":false},
+      {"name":"晴","date":"20","isTime":false},
+      {"name":"晴","date":"21","isTime":false},
+      {"name":"晴","date":"22","isTime":false}],"setup":[{"water":1,"foot":1,"weight":70},{"water":3,"foot":1,"weight":160},{"water":2,"foot":5,"weight":150},{"water":4,"foot":5,"weight":250}]}
+    list.maps = [
+      {"id":1,"name":"晴","title":"龙堂","type":6,"isGo":false,"go":false,"sign":""},
+      {"id":2,"name":"晴","title":"沙漠","type":5,"isGo":false,"go":false,"sign":""},
+      {"id":3,"name":"晴","title":"沙漠","type":4,"isGo":false,"go":false,"sign":""},
+      {"id":4,"name":"晴","title":"沙漠","type":3,"isGo":false,"go":false,"sign":""},
+      {"id":5,"name":"晴","title":"沙漠","type":2,"isGo":false,"go":false,"sign":""},
+      {"id":6,"name":"晴","title":"沙漠","type":5,"isGo":false,"go":false,"sign":""},
+      {"id":7,"name":"晴","title":"沙漠","type":4,"isGo":false,"go":false,"sign":""},
+      {"id":8,"name":"晴","title":"绿洲","type":3,"isGo":false,"go":false,"sign":""},
+      {"id":9,"name":"晴","title":"沙漠","type":2,"isGo":false,"go":false,"sign":""},
+      {"id":10,"name":"晴","title":"沙漠","type":1,"isGo":false,"go":false,"sign":""},
+      {"id":11,"name":"晴","title":"沙漠","type":4,"isGo":false,"go":false,"sign":""},
+      {"id":12,"name":"晴","title":"沙漠","type":3,"isGo":false,"go":false,"sign":""},
+      {"id":13,"name":"晴","title":"沙漠","type":2,"isGo":false,"go":false,"sign":""},
+      {"id":14,"name":"晴","title":"沙漠","type":1,"isGo":false,"go":false,"sign":""},
+      {"id":"x","name":"晴","title":"莫城","type":0,"isGo":false,"go":false,"sign":""}]
     this.setState({
-      answerList:answer,
-      poetrydata:poetry,
+        weather: list.weather,
+        setup: list.setup,
+        init: list.init, 
+        maps: list.maps, 
+        isGo:'x',   // 当前所在步
+        isTime:0,  //当前时间
     },()=>{
-        let c = answer.some((item,i) => item.value=="")
-        if(!c){
-          let aa =""
-          answerList.forEach((item,i)=>{     
-               aa+= item.value
-          })   
-          if(aa==newPoetry){
-                this.setState({
-                  isOpened:true,
-                  AtModalText:content,
-                  AtModalTitle: '答对了',
-                  AtModalBtn:'下一关',
-                  isTrue:2,
-                })
-               
 
-          }else{
-            this.setState({
-              isOpened:true,
-              AtModalText:'不对哦，你可以寻求好友帮助哦！或者取消重新填写',
-              AtModalTitle:'提示',
-              AtModalBtn:'确定',
-              isTrue:1,
-            })
-              console.log("再想想",Ckeywords)
-          }
-           
-        }
     })
-  }
-  accuracyRate(right,question,time){
-    return ((0.8+0.2*((question*3/time) < 1 ? (question/time) : 0.9 )).toFixed(4)*100).toFixed(2)
-  }
-  doComplete(){
-    const { dataList,answerList,questionNum,rightNum,thisTime } = this.state
-   
-    const data = dataList 
-    let right = data.length
-    const question = parseInt(dataList.length)
-    const time = thisTime   
-    const dos = this.accuracyRate(right,question,time)
-    const rel ={"data":data,"num":question,"right":right,"time":thisTime,"do":dos,"toUrl":"/pages/home/index"};
-    // data.num = this.state.questionNum
-    // data.right = this.state.rightNum
 
-    this.setState({
-      curIndex:0,
-    },() => {
-      Taro.setStorage({
-            key: 'answerList',
-            data: rel  
-      }) 
-      Taro.navigateTo({
-        url: `/pages/result/index`,
-      })
-    })
-  }
-  onDelPoetry(val){
-        const { answerList,poetrydata } = this.state
-        let  poetry = poetrydata
-        let  answer = answerList
-        let num = val.num
-        let nums = poetry.findIndex((item,i) => {
-           return item.num===val.number
-        })
-        answer[num].value = ""
-        poetry[nums].play =false  
-        this.setState({
-          answerList:answer,
-          poetrydata:poetry,
-        },()=>{
-
-        })
-
-  }
-  handleClose(){
-    console.log(111)
-    this.setState({
-      isOpened:false
-    })
-  }
-  onHandleCancel(){
-     
-     this.onIsClose()
-
-  }
-  onIsClose(){
+  } 
+  isShow(){
     this.setState({
       isOpened:false,
-      AtModalText:'',
-      AtModalTitle:'',
+      text:'',
     })
   }
-  onHandleConfirm(){
-   const { isTrue } = this.state
-    this.onIsClose()
+  isOver (data){
 
-    if(isTrue===1){
-       
-    }else{
-      console.log(222)
-       this.nextQuestion()
+       if(data.water < 0 || data.food < 0){
+         return true
+       }
+       return false
+  }
+  isDate (){
+    const  {  isTime,weather } = this.state
+    let Cweather = weather
+    if(isTime>Cweather.length){
+      return true
+    }
+    return false
+  }
+  isOpen(item){
+    const  { dataItem } = this.state
+    let CdataItem = dataItem
+    if(CdataItem.type==item.type || CdataItem.type==item.type+1 || CdataItem.type==item.type-1){
+      return false
+    }else {
+      return true
+    }
+  }
+  onNext (item) {
+       const  { init,  today } = this.state
+
+       let Ctoday =  today
+       let Cinit = init
+      
+       if(this.isOpen(item)){
+          this.setState({
+              isOpened:true,
+              text:"不能直接到达这一步",
+          },()=>{
+              setTimeout(()=>{
+                this.setState({
+                  isOpened:false,
+                  text:''
+                })
+              },3000)
+          })
+          return 
+       }
+
+       if(item.id=="x"&& Cinit.gemstone!==0){
+
+          let  AtModal = {"isOpened": true,"title":"通关了","text":`恭喜你获得宝石：${Cinit.gemstone}`,"btn":"确定"}
+          this.setState({AtModals:AtModal})
+          return 
+       }
+       if(this.isOver(Cinit)){    //能量不足已经结束
+        let  AtModal = {"isOpened": true,"title":"游戏结束","text":`食物或水不足,游戏结束`,"btn":"确定"}
+        this.setState({AtModals:AtModal})
+         return
+       }
+       if(this.isDate()){    // 是否正常返回
+         let  AtModal = {"isOpened": true,"title":"游戏结束","text":`时间已到,未能正常返回,游戏结束`,"btn":"确定"}
+         this.setState({AtModals:AtModal})
+         return
+       }
+       //主要此数据判断是否使用道具前插入
+       this.setState({
+        dataItem:item
+       })
+       if(item.name=="绿洲"){
+         this.oasis(item)
+         return
+       } 
+
+       if(this.onUser(Ctoday)){    //是否需要使用道具
+          let  AtModal = {"isOpened": true,"title":Ctoday+"天气","text":`${Ctoday}天气，请选择使用的道具`,"btn":"确定"}
+          this.onHandleShow(AtModal,item)
+          return
+       }
+
+       this.onDateNext({type:1,"id":item.id})
+
+  }
+  oasis(item){
+    const { dataItem } = this.state
+    
+  }
+  onDateNext(item){
+    const  { init, maps, isTime, weather, today } = this.state
+    let map =  maps 
+    let time = isTime
+    let index = map.findIndex((v,i) => item.id == v.id)
+    map[index].isGo = true
+    map[index].sign = map[index].sign + ' '+ (time+1)
+    this.onWeather({"type":item.type,"id":item.id})         //根据天气扣相应的物品
+    this.onNextTime(isTime)            //跳转到对应的天气
+   
+   // 标记当天的节点
+    this.setState({
+       maps : map,
+       isGo : item.id,
+    })
+  }
+  onNextTime (time) {  //下一天
+    const  { isTime ,weather } = this.state
+    var time = isTime
+    let Cweather = weather
+    let length  = Cweather.length
+   
+     if(length<=time){
+         let  AtModal = {"isOpened": true,"title":"游戏结束","text":`最后一天没有返回莫城，游戏结束`,"btn":"确定"}
+         this.setState({AtModals:AtModal})
+         return
+     }
+
+    Cweather[time].isTime = true
+   // Cweather[time].isTime = true
+    this.setState({
+      isTime: time + 1,
+      weather:Cweather,
+      today:Cweather[time].name,
+
+    })
+
+  } 
+  onUser (value){     // 是否使用指南针或帐篷
+    if(value == "沙尘暴"){
+        console.log("沙尘暴")
+        return true
+    } else if (value == "高温+沙尘暴") {
+        return true
     }
 
+    return false
   }
-  handleClick(e){
-    console.log(e)
-    this.setState({
-       current:e
-    })
+  onWeather (data) {   //根据天气消耗物资
+      const  { init } = this.state
+      var  inits = init
+      if(data.type ==1){   //晴天 或使用帐篷
+        inits.food = inits.food-1;
+        inits.water = inits.water-1;
+      } else if (data.type == 2){  //高温
+        inits.food = inits.food-1;
+        inits.water = inits.water-3;
+      } else if (data.type == 3){  //沙尘暴
+        inits.food = inits.food-2;
+        inits.water = inits.water-5;
+      } else if (data.type == 4){  //高温+沙尘暴
+        inits.food = inits.food-4;
+        inits.water = inits.water-5;
+      }
+      if(data.id==1){
+        inits.gemstone = inits.gemstone+50;
+      }
+      if(inits.water<0 && inits.food<0){
+          
+          
+          return
+      }
+
+      this.setState({
+        init: inits
+      })
+
   }
-  nextQuestion(){
-    const { curIndex,dataList } =this.state
-    let index = curIndex+1
-    let data = dataList
-    if(index>data.length){
-       console.log("完成了")
-       this.doComplete()
+  onHandleCancel(){
+      let  AtModal = {"isOpened": false,"title":"","text":"","btn":""}
+      this.setState({AtModals:AtModal})
+  }
+  onHandleShow(AtModal,item){
+
+    this.setState({isChoice:'',AtModals:AtModal,item:item})
+  } 
+  onHandleConfirm(){  // c处理使用指南针或帐篷
+     const { isChoice,init,today,dataItem } = this.state
+     let CisChoice = isChoice
+     let Cinit = init
+     let Ctoday = today
+     let Citem = dataItem
+
+     var type = ''
+     if(CisChoice=="tent"){
+        Cinit.tent = Cinit.tent-0.5
+        type = 1
+     }else if(CisChoice=="compass"){
+        Cinit.compass = Cinit.compass-1 
+        if(Ctoday=="沙尘暴"){
+          type = 4
+        }else if(Ctoday=="高温+沙尘暴"){
+          type = 5
+        }
+     }else{
+       this.onHandleCancel()
        return
-    }
-
-    this.setState({
-      curIndex:index,
-    },()=>{
-      console.log(111,index)
-      this.getData(index)
-    })
-
+     }
+     this.setState({
+      init:Cinit
+     },()=>{
+       this.onHandleCancel()
+       this.onDateNext({"type":type,"id":Citem.id})
+     })
+     
   }
-  toUrl(e){
-    Taro.navigateTo({
-      url: e,
-    })
+  onChoice(data){  
+      this.setState({
+          isChoice:data
+      })
   }
   render () {
-    const {articleId, dataList,curIndex,cpNewPoetry,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state;
+    const { maps, weather,setup, init,isTime,isGo,isOpened,text,isOpeneds,AtModals,isChoice,AtModalInit} = this.state;
     return (
       <View className="container">
-       <View className={isOpened ? 'block' : 'none'}>
-            <AtModal isOpened >
-      <AtModalHeader>{AtModalTitle}</AtModalHeader>
-      <AtModalContent>
-        {AtModalText}
-        
-      </AtModalContent>
-      <AtModalAction> <Button onClick={this.onHandleCancel.bind(this)}>取消</Button> 
-      <Button className={isTrue==2 ? 'block':'none'} onClick={this.onHandleConfirm.bind(this)}>{AtModalBtn}</Button> 
-      <Button className={isTrue==1 ? 'block':'none'} open-type='share' data-title={title} data-url={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}>{AtModalBtn}</Button>
-      </AtModalAction>
-    </AtModal>
-</View>
-  {process.env.TARO_ENV === 'h5' ? <WxJssdk title={detail.title} desc={detail.keywords} imgUrl={detail.article_img}/> :''}
+      <AtToast isOpened={isOpened}  text={text} ></AtToast>
+            
+      <View className={'none' + (AtModals.isOpened ? ' block' : '')}>
+                <AtModal isOpened >
+          <AtModalHeader>{AtModals.title}</AtModalHeader>
+          <AtModalContent>
+            {AtModals.text}
+            <View>
+             <View className={isChoice=="tent" ? 'nav': ''} onClick={this.onChoice.bind(this,'tent')}> 帐篷：{init.tent}</View>
+             <View  className={isChoice=="compass" ? 'nav': ''} onClick={this.onChoice.bind(this,'compass')}> 指南针：{init.compass}</View>
+            </View>
+          </AtModalContent>
+          <AtModalAction> 
+            <Button onClick={this.onHandleCancel.bind(this)}>取消</Button> 
+            <Button  onClick={this.onHandleConfirm.bind(this)}>{AtModals.btn}</Button> 
+         </AtModalAction>
+        </AtModal>
+    </View>
+
+    <View className={AtModalInit.isOpened ? 'block' : 'none'}>
+                <AtModal isOpened >
+          <AtModalHeader>{AtModalInit.title}</AtModalHeader>
+          <AtModalContent>
+            {AtModalInit.text}
+
+            <View className={isChoice=="tent" ? 'nav': ''} onClick={this.onChoice.bind(this,'tent')}> 帐篷：{init.tent}</View> 
+            <View  className={isChoice=="compass" ? 'nav': ''} onClick={this.onChoice.bind(this,'compass')}> 指南针：{init.compass}</View>
+          </AtModalContent>
+          <AtModalAction> 
+            <Button onClick={this.onHandleCancel.bind(this)}>取消</Button> 
+            <Button  onClick={this.onHandleConfirm.bind(this)}>{AtModalInit.btn}</Button> 
+         </AtModalAction>
+        </AtModal>
+    </View>
 
 
- <ShareApp shareTitle={title} shareUrl={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}/>
- 
-      <View className="header">
-        <View className="header_left">
-            <View className="title">{detail.title}</View>
-            <View className="time"> 
-            <View className="ionc1"></View>{thisTime}s </View>
-        </View>
-        <View className="header_right">
-              <View className="right">{curIndex+1}</View> /{dataList.length}
-        </View>
+      <View className="head"> 
+      <View>水： {init.water} 食物：{init.food} 指南针：{init.compass}帐篷：{init.tent} 宝石：{init.gemstone}</View> 
+      <View> 钱：{init.money} 重量：{init.weight} <View className='n navs'>  </View> 行走路径  <View className='n nav'>  </View> 当前位置 </View>
       </View>
+      <View className="content">
 
-<View className="content">
-        <View className="con">{title}</View>
-        <View className="poetry_list">
-                {answerList.map((item,inde) => (
-                  <View key={inde} className="answer_li" onClick={this.onDelPoetry.bind(this,item)}> {item.value}</View>
-                ))}  
-        </View>
-
-        <View className={"answer_list "+(textNum==5 ? 'w630':'w500')} >
-        {poetrydata.map((item,inde) => (
-           <View key={inde} className="ans_li" onClick={this.onPutPoetry.bind(this,item)}>
-            <View className={(item.play ?"sel":"")}>
-              {item.val}
+            <View className="answer_list w630" >
+              {maps.map((item,i) => (
+                <View key={i}  className={"ans_li " +  (item.id==8 ? 'lz ' : '') +  (item.id==1 ? 'lt ' : '') + (item.isGo==true ? 'navs ' : '')+ (isGo ==item.id ? 'nav ' : '')}  onClick={this.onNext.bind(this,item)}>
+                  <View>
+                    {item.title} 
+                  </View>
+                  <View> {item.sign}</View>
+                  </View>
+              ))}
             </View>
+            <View className="weather" >
+             {weather.map((item,i) => (
+                <View key={i} className={"black " + (isTime==item.date ? 'nav' : '')} >
+                    <View>{item.date}</View>
+                    <View>{item.name}</View>
+                    
+                  </View>
+            ))}
             </View>
-        ))}
-        </View>  
 
-        <View className="analysis" onClick={this.ontipsShow.bind(this)}>
-               答案提示> 
-        </View>     
-        <View className={"anal " +(tips ? 'navs' : '')}>
-        {cpNewPoetry}
-        </View>   
      </View>
 
 
