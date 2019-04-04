@@ -18,7 +18,7 @@ class Movable extends Component {
     navigationBarTitleText: '卡片'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail:[],
@@ -51,14 +51,14 @@ class Movable extends Component {
     })
     
 
-  };
+  }
   componentDidHide () { }
   async getArticleInfo (articleId) {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId,
-    });
-    var column = this.state.column;
+    })
+    var column = this.state.column
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
       this.setState({
@@ -181,7 +181,7 @@ class Movable extends Component {
      })
   }
   render () {
-    const { dataList,detail,playtext,tempFilePath,isplay,card} = this.state;
+    const { dataList,detail,playtext,tempFilePath,isplay,card} = this.state
     return (
       <View className='card-page'>
 

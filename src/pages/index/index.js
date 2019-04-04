@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button,Form,Input, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import * as articleApi from './service';
+import * as articleApi from './service'
 import MySwiper from '../../components/MySwiper'
 import GoodsList from '../../components/GoodsList'
 import ListModule from '../../components/Common/ListModule'
@@ -17,7 +17,7 @@ class Index extends Component {
     navigationBarTitleText: '首页'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current: 0,
       info:[],
@@ -53,14 +53,14 @@ class Index extends Component {
   componentDidMount = () => {
     this.props.dispatch({
       type: 'home/article',
-    });
+    })
     this.props.dispatch({
       type: 'home/focus',
-    });
+    })
     // this.props.dispatch({
     //   type: 'home/poetrylist',
     //   payload: { pid:this.props.pid },
-    // });
+    // })
     this.getArticleCate('5ca1f4820363bd0218de37bd',1)
     this.getArticle('5ca1d91c0363bd0218de37bb',1)
   }
@@ -68,7 +68,7 @@ class Index extends Component {
       const res = await articleApi.article({
         pid: cateId,
         page:page,
-      });
+      })
       if (res.status == 'ok') {
               this.setState({
                 poetryList: res.data.list,
@@ -83,7 +83,7 @@ class Index extends Component {
       const res = await articleApi.article({
         pid: cateId,
         page:page,
-      });
+      })
       if (res.status == 'ok') {
               this.setState({
                 answerList: res.data.list,
@@ -103,8 +103,8 @@ class Index extends Component {
   }
   componentDidHide () { }
   render () {
-    const { banner,list } = this.props;
-    const { poetryList,answerList } = this.state;
+    const { banner,list } = this.props
+    const { poetryList,answerList } = this.state
     return (
       <View className='home-page'>
       <MySwiper banner={banner} home />

@@ -14,7 +14,7 @@ class radio extends Component {
     navigationBarTitleText: '答题'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       current: '',
@@ -60,9 +60,9 @@ class radio extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId
-    });
+    })
 
-    var column = this.state.column;
+    var column = this.state.column
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
       this.setState({
@@ -91,16 +91,16 @@ class radio extends Component {
     })
   }
   init(data){
-    this.listQuestion(data);
+    this.listQuestion(data)
 
   }
   listQuestion(data){
       const { itemIndex, questionNum, dataList} = this.state
-      const datas = dataList;
+      const datas = dataList
       //初始化答案列表
       const answerList =[]
       for(var i=0;i<datas.length;i++){
-        answerList.push({'num':i,'val':''});
+        answerList.push({'num':i,'val':''})
       }  
       this.setState({
         answerList:answerList,
@@ -126,7 +126,7 @@ class radio extends Component {
     }  
     //下一题
     nextQuestion(val){            
-      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList} = this.state;
+      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList} = this.state
 
        
       this.setState({
@@ -199,7 +199,7 @@ class radio extends Component {
       const time = thisTime
       
       const dos = this.accuracyRate(right,question,time)
-      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio'};
+      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio'}
       // data.num = this.state.questionNum
       // data.right = this.state.rightNum
 
@@ -271,12 +271,12 @@ class radio extends Component {
         thisTime: time++,
       })
     },1000)
-  // this.init();
+  // this.init()
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,itemIndex, isOpened, text, duration,title,thisTime} = this.state;
+    const { question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,itemIndex, isOpened, text, duration,title,thisTime} = this.state
     return (
       <View className='container'>
             {/* <AtProgress percent={percent} /> */}

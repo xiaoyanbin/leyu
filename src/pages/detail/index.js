@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import * as detailApi from './service';
+import * as detailApi from './service'
 import './index.scss'
 import Websocket from '../../utils/websocket'
 @connect(({ detail }) => ({
@@ -12,7 +12,7 @@ class Detail extends Component {
     navigationBarTitleText: '详情'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail: {},
@@ -39,23 +39,23 @@ class Detail extends Component {
     var ws = new Websocket({
       url:'ws://echo.websocket.org/',//自定义  wss协议
       onMessage:(r)=>{
-         this.onMessage(r);
+         this.onMessage(r)
       }
-    });
-    this.ws = ws;  
+    })
+    this.ws = ws  
     this.getgushi()
     this.getArticleInfo(this.$router.params.id)
     
-  };
+  }
   onMessage(e){
       this.setState({
         bug: e.data,
      })
   }
   getgushi(data){
-      const b = this.state.gushi; 
-      const c = b.split('');
-      const d = new Array();
+      const b = this.state.gushi 
+      const c = b.split('')
+      const d = new Array()
       c.forEach((data,i) =>{
           d.push({play:false,val:data})
       })
@@ -72,11 +72,11 @@ class Detail extends Component {
   async getArticleInfo(articleId) {
     const res = await detailApi.getDetail({
       id: articleId
-    });
+    })
     if (res.status == 'ok') {
       var datas ={data:[]}
       try {
-         datas = JSON.parse(res.data.list.description);
+         datas = JSON.parse(res.data.list.description)
       } catch (error) {
          datas = {data:[]}
       }
@@ -106,10 +106,10 @@ class Detail extends Component {
       })
   }
   putgushi(value){
-         const {index} = this.state;
+         const {index} = this.state
          if(this.state.gushicopy[index].val==value){
-              const d = [...this.state.gushicopy];
-              d[index].play = true;
+              const d = [...this.state.gushicopy]
+              d[index].play = true
               this.setState({
                 gushicopy:d,
               },() =>{
@@ -124,16 +124,16 @@ class Detail extends Component {
          
   }
   render () {
-    const { cateList,detail ,description,bug,gushidata,gushicopy} = this.state;
-   // const datas = JSON.parse(detail.description);
-   // const { detail } = this.props;
+    const { cateList,detail ,description,bug,gushidata,gushicopy} = this.state
+   // const datas = JSON.parse(detail.description)
+   // const { detail } = this.props
     return (
      
     <View className='home-page'>
         <View className='at-article'>
             <View>{detail.title}</View>
             <View  onClick={this.getgushi.bind(this)}>
-              {detail.add_time}&nbsp;&nbsp;&nbsp;这是作者
+              {detail.add_time}&nbsp&nbsp&nbsp这是作者
         </View>
         <View>
             <View >{detail.description}</View>

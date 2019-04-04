@@ -13,7 +13,7 @@ class poetrylist extends Component {
     navigationBarTitleText: '列表'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       list:[],
@@ -32,7 +32,7 @@ class poetrylist extends Component {
       const res = await articleApi.article({
         pid: cateId,
         page:page,
-      });
+      })
       if (res.status == 'ok' && res.data.list.length) {
             if(page==1){
               this.setState({
@@ -91,7 +91,7 @@ class poetrylist extends Component {
     // })
     // this.getArticleCate('5c721e90d2660b78319b47f7')
 
-  };
+  }
   onPullDownRefresh(){
     this.getArticleCate(this.$router.params.pid,1)
     setTimeout(()=>{
@@ -104,7 +104,7 @@ class poetrylist extends Component {
   }
   componentDidHide () { }
   render () {
-    const { list,pid } = this.state;
+    const { list,pid } = this.state
     return (
       <View className='home-page' >
         <View className='catelist'  >

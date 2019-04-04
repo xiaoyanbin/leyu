@@ -16,7 +16,7 @@ class Card extends Component {
     navigationBarTitleText: '卡片'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail:[],
@@ -61,11 +61,11 @@ class Card extends Component {
       this.getBookInfo({where:this.$router.params.book,book_level:this.$router.params.book_level,offset:this.$router.params.setoff})
     })
 
-  };
+  }
   componentDidHide () { }
   async getSetting (){
     //获取文章详情
-    const res = await detailApi.getSetting();
+    const res = await detailApi.getSetting()
     console.log(res.site_switch)
     if (res.status=='ok') {
       this.setState({
@@ -79,7 +79,7 @@ class Card extends Component {
     d.where = decodeURIComponent(this.$router.params.book)
     d.book_level = decodeURIComponent(this.$router.params.book_level)
     console.log(d,1111)
-    const res = await detailApi.words(d);
+    const res = await detailApi.words(d)
     if (res.status == 'ok') {
         console.log(res.data) 
         let data = res.data
@@ -118,7 +118,7 @@ class Card extends Component {
     })
   }
   autoPlay(){
-    const { itemIndex, play,dataList} =this.state;
+    const { itemIndex, play,dataList} =this.state
     let isPlay = play
     let index = itemIndex
     this.setState({
@@ -168,12 +168,12 @@ class Card extends Component {
     })
   }
   onUpData(){
-     const { itemIndex } =this.state;
+     const { itemIndex } =this.state
      let index = itemIndex
      this.onNextWord(index+1)
   }
   render () {
-    const { dataList,siteSwitch,playtext,playTexts,itemIndex,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
+    const { dataList,siteSwitch,playtext,playTexts,itemIndex,tempFilePath,isplay,card,isOpened,text,duration} = this.state
     return (
       <View className='card-page'>
 

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import * as detailApi from './service';
+import * as detailApi from './service'
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
@@ -11,7 +11,7 @@ class idiom extends Component {
     navigationBarTitleText: '成语'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail: {},
@@ -65,36 +65,36 @@ class idiom extends Component {
   }
   getpoetry(data){
       const { detail } = this.state
-      var _this =this;
+      var _this =this
       const description = detail.description.replace(/-/g,'').replace(/，/g,'')
       //拆分古诗 difficulty数值越大越简单
-      var difficulty = this.state.difficulty;
-      const b = this.state.poetry; 
-      const c = b.split('');
-      const d = new Array();
-      var  num =0;
+      var difficulty = this.state.difficulty
+      const b = this.state.poetry 
+      const c = b.split('')
+      const d = new Array()
+      var  num =0
       c.forEach((data,i) =>{
-          var a ={};
+          var a ={}
           if(Math.random()>difficulty){
             num++
-            a.play = false;
+            a.play = false
           } else {
-            a.play = true;
+            a.play = true
           }    
-          a.index = i;
-          a.val = data;
+          a.index = i
+          a.val = data
           d.push(a)
       })
       
       if(d.every((data,i) =>data.play==true)){
           console.log(1)
-          d[0].play=false;
+          d[0].play=false
       }
       if(d.every((data,i) => data.play ==false)){
         console.log(2)
-          d[0].play=true;
+          d[0].play=true
       }
-      var j = new Array();
+      var j = new Array()
       description.substring(0,(18-num)).split('').forEach((data,i) =>{
          j.push({'play':false,'index':i+4,'val':data})
       })
@@ -115,9 +115,9 @@ class idiom extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId
-    });
+    })
 
-    var column = this.state.column;
+    var column = this.state.column
     if (res.status == 'ok') {
       const data = res.data.list.description.replace(/-/g,'').replace(/，/g,'')
       const len = this.rendoms(1,data.length/4-(column-1))
@@ -134,14 +134,14 @@ class idiom extends Component {
   }  
   splitData(d){
       const leng = d.length/4
-      const data =[]; 
+      const data =[] 
       for(var i=0;i<leng;i++){
          data.push(d.substring(i,i+4)) 
       }
       return  data
   }
   editpoetry(value){
-    const {index,poetrycopy} = this.state;
+    const {index,poetrycopy} = this.state
     console.log(value)
 
     this.setState({
@@ -149,10 +149,10 @@ class idiom extends Component {
     })
   }
   putpoetry(value){
-         const {index,poetrycopy} = this.state;
+         const {index,poetrycopy} = this.state
          if(this.state.poetrycopy[index].val==value.val){
-              const d = [...this.state.poetrycopy];
-              d[index].play = true;
+              const d = [...this.state.poetrycopy]
+              d[index].play = true
               this.setState({
                 poetrycopy:d,
               },() =>{
@@ -197,7 +197,7 @@ class idiom extends Component {
     const question =count  
     const data =''
     const dos = this.accuracyRate(right,question,time)
-    const rel ={'data':data,'num':right,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c6b7815de24016a19796c7d&typeName=idiom'};
+    const rel ={'data':data,'num':right,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c6b7815de24016a19796c7d&typeName=idiom'}
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
 
@@ -215,7 +215,7 @@ class idiom extends Component {
 
   }
   getData(detail){
-    var   column = this.state.column;
+    var   column = this.state.column
     const data = detail.description.replace(/-/g,'').replace(/，/g,'')
     const len = this.rendoms(1,data.length/4-(column-1))
     const poetry = data.substring(len*4,len*4+4*(column))
@@ -223,7 +223,7 @@ class idiom extends Component {
 
   }
   render () {
-    const { detail,poetrydata,poetrycopy,poetry,index,tips,itemIndex,thisTime,count} = this.state;
+    const { detail,poetrydata,poetrycopy,poetry,index,tips,itemIndex,thisTime,count} = this.state
     return (
 
 

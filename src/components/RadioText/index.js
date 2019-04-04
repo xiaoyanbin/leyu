@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 class RadioText extends Component {
   static propTypes ={
@@ -14,12 +14,12 @@ class RadioText extends Component {
 
   static defaultProps = {
 
-  };
+  }
   nextQuestion (e) {
         //  this.nextQuestion()
   }
   render() {
-    const { title, question,answerList,itemIndex,onQuestion} = this.props;
+    const { title, question,answerList,itemIndex,onQuestion} = this.props
     return (
     <View className='content'>
         <View className='title'>
@@ -36,8 +36,8 @@ class RadioText extends Component {
         ))}
         </View> 
       </View> 
-    );
+    )
   }
 }
 
-export default RadioText;
+export default RadioText

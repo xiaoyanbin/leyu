@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View,Button } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View,Button } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 class Poster extends Component {
   static propTypes ={

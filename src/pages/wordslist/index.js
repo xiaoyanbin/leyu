@@ -13,7 +13,7 @@ class answerlist extends Component {
     navigationBarTitleText: '数算选择'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       list:[],
@@ -28,7 +28,7 @@ class answerlist extends Component {
   async getwords (query) {
     //获取文章详情
     console.log(query)
-    const res = await wordsApi.index(query);
+    const res = await wordsApi.index(query)
     if (res.status == 'ok') {
       this.setState({
           list: res.data,
@@ -81,10 +81,10 @@ class answerlist extends Component {
     query.book ? query.book : query.book ='《小学英语》'
     this.getwords(query)
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { list,pid,value, num,difficulty,qNum} = this.state;
+    const { list,pid,value, num,difficulty,qNum} = this.state
     return (
       <View className='home-page'>
          {/* <View className='slider'>

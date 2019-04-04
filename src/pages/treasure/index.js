@@ -23,7 +23,7 @@ class Treasure extends Component {
     }
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       weather: [],
       init: '', 
@@ -288,30 +288,30 @@ class Treasure extends Component {
       const  { init } = this.state
       var  inits = init
       if(data.type ==1){   //晴天 或使用帐篷
-        inits.food = inits.food-1;
-        inits.water = inits.water-1;
+        inits.food = inits.food-1
+        inits.water = inits.water-1
         inits.weight =  inits.weight - 60
       } else if (data.type == 2){  //高温
-        inits.food = inits.food-1;
-        inits.water = inits.water-3;
+        inits.food = inits.food-1
+        inits.water = inits.water-3
         inits.weight =  inits.weight - 160
       } else if (data.type == 3){  //沙尘暴
-        inits.food = inits.food-5;
-        inits.water = inits.water-2;
+        inits.food = inits.food-5
+        inits.water = inits.water-2
         inits.weight =  inits.weight - 150
       } else if (data.type == 4){  //高温+沙尘暴
-        inits.food = inits.food-5;
-        inits.water = inits.water-4;
+        inits.food = inits.food-5
+        inits.water = inits.water-4
         inits.weight =  inits.weight - 250
       } else if (data.type == 5){  //绿洲
-        inits.food = inits.food-1;
+        inits.food = inits.food-1
         inits.weight =  inits.weight - 10
       } else if (data.type == 6){  //绿洲
-        inits.food = inits.food - 5;
+        inits.food = inits.food - 5
         inits.weight =  inits.weight - 5
       }
       if(data.id==1){
-        inits.gemstone = inits.gemstone+50;
+        inits.gemstone = inits.gemstone+50
       }
       if(inits.water<0 && inits.food<0){
           
@@ -459,7 +459,7 @@ class Treasure extends Component {
   }
   onAddEquipment(type,num){
      const { init } = this.state
-     let Cinit = init;
+     let Cinit = init
      let price = {'water':20,'food':10,'compass':100,'tent':400}
      let weight = {'water':50,'food':10,'compass':10,'tent':60}
      
@@ -523,7 +523,7 @@ class Treasure extends Component {
     })
   }
   render () {
-    const { maps, weather, init,isTime,isGo,isOpened,text,isOpeneds,AtModals,isChoice, isStart} = this.state;
+    const { maps, weather, init,isTime,isGo,isOpened,text,isOpeneds,AtModals,isChoice, isStart} = this.state
     return (
       <View className='container'>
       <AtToast isOpened={isOpened}  text={text} ></AtToast>
@@ -575,7 +575,7 @@ class Treasure extends Component {
                   <View>
                     {item.title}
                   </View>
-                  <View> &nbsp; </View>
+                  <View> &nbsp </View>
                   <View> {item.sign}</View>
                   </View>
               ))}

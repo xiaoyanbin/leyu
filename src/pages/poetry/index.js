@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MapText from '../../components/MapText'
-import * as detailApi from './service';
+import * as detailApi from './service'
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
@@ -12,7 +12,7 @@ class poetry extends Component {
     navigationBarTitleText: '古诗'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail: {},
@@ -59,12 +59,12 @@ class poetry extends Component {
   }
   getpoetry(data){
      
-      var _this =this;
+      var _this =this
       //拆分古诗
       
 
       const keywords = data
-      var Ckeywords = new Array();
+      var Ckeywords = new Array()
       keywords.forEach((item,index)=>{
         keywords[index] =item.split('')
       })
@@ -116,7 +116,7 @@ class poetry extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId
-    });
+    })
     if (res.status == 'ok') {
       this.setState({
           detail: res.data.list,
@@ -127,7 +127,7 @@ class poetry extends Component {
     }
   } 
   editpoetry(value){
-    const {index,poetrycopy} = this.state;
+    const {index,poetrycopy} = this.state
     console.log(value)
 
     this.setState({
@@ -135,9 +135,9 @@ class poetry extends Component {
     })
   } 
   putpoetry(value){
-          const {keywords} = this.state;
+          const {keywords} = this.state
 
-          var key =  keywords;
+          var key =  keywords
           var listindex = this.state.index
           var Ckeywords = this.state.Ckeywords
 
@@ -145,7 +145,7 @@ class poetry extends Component {
               key.forEach((item,i)=>{ 
                 item.forEach((d,ind)=>{
                       if(d.val == value.val){
-                        key[i][ind].play = false;
+                        key[i][ind].play = false
                       }
                 })
               }) 
@@ -165,7 +165,7 @@ class poetry extends Component {
 
   }
   render () {
-    const { detail,poetrydata,poetrycopy,tips,thisTime,itemIndex,count,index,poetry,keywords} = this.state;
+    const { detail,poetrydata,poetrycopy,tips,thisTime,itemIndex,count,index,poetry,keywords} = this.state
     return (
       <View className='container'>
       <View className='header'>

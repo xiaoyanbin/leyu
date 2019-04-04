@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image,Audio } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image,Audio } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 
   const innerAudioContext = Taro.createInnerAudioContext()
   const RecorderManager = Taro.getRecorderManager()
@@ -15,7 +15,7 @@ class AudioCom extends Component {
 
   static defaultProps = {
     questionOther: {}, 
-  };
+  }
   constructor() {
     super(...arguments)
     this.state = {
@@ -51,8 +51,8 @@ class AudioCom extends Component {
 
   }
   render() {
-    const { questionOther } = this.props;
-    const { isplay} = this.state;
+    const { questionOther } = this.props
+    const { isplay} = this.state
     return (
     <View>
       {process.env.TARO_ENV === 'weapp' && <View className={'con_img ' +(isplay ? 'play' : '')} onClick={this.onAudioPlay.bind(this,questionOther.audio)}></View>  }
@@ -65,8 +65,8 @@ class AudioCom extends Component {
               id='audio'/> : '' }
 
       </View> 
-    );
+    )
   }
 }
 
-export default AudioCom;
+export default AudioCom

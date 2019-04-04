@@ -12,7 +12,7 @@ class Answer extends Component {
     navigationBarTitleText: '数算'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current: '',
       itemIndex:0,                          //当前题索引
@@ -43,8 +43,8 @@ class Answer extends Component {
 
   }
   init(data){
-    const { itemIndex } = this.state;
-    this.listQuestion(data);
+    const { itemIndex } = this.state
+    this.listQuestion(data)
   }
   onTimeUp () {
         this.nextQuestion(1)
@@ -84,34 +84,34 @@ class Answer extends Component {
         const dataList =[]
         if(data.type=='plus'){
            for(var i=0;i<data.qNum;i++){
-            dataList.push(this.plusQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.plusQuestion(data.min,data.max,data.difficulty))
           }        
         }else if(data.type=='minus'){
            for(var i=0;i<data.qNum;i++){
-            dataList.push(this.minusQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.minusQuestion(data.min,data.max,data.difficulty))
           }   
         }else if(data.type=='ride'){
            for(var i=0;i<data.qNum;i++){
-            dataList.push(this.rideQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.rideQuestion(data.min,data.max,data.difficulty))
           }  
         }else if(data.type=='except'){
             for(var i=0;i<data.qNum;i++){
-            dataList.push(this.exceptQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.exceptQuestion(data.min,data.max,data.difficulty))
           }  
         }else if(data.type=='mp'){
            for(var i=0;i<data.qNum;i++){
-            dataList.push(this.mpQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.mpQuestion(data.min,data.max,data.difficulty))
           }  
         }else if(data.type=='re'){
            for(var i=0;i<data.qNum;i++){
-            dataList.push(this.reQuestion(data.min,data.max,data.difficulty));
+            dataList.push(this.reQuestion(data.min,data.max,data.difficulty))
           }  
         }else if(data.type=='mpre'){
           for(var i=0;i<data.qNum;i++){
                if(Math.random()>0.5){
-                    dataList.push(this.mpQuestion(data.min,data.max,data.difficulty));
+                    dataList.push(this.mpQuestion(data.min,data.max,data.difficulty))
                }else{
-                    dataList.push(this.reQuestion(data.min,data.max,data.difficulty));
+                    dataList.push(this.reQuestion(data.min,data.max,data.difficulty))
                } 
           }  
         }
@@ -123,37 +123,37 @@ class Answer extends Component {
         })
   }
   plusQuestion(min,max,n){
-        const a = this.rendoms(min,max);
-        const b = this.rendoms(min,max-a);
+        const a = this.rendoms(min,max)
+        const b = this.rendoms(min,max-a)
         const c = a+b;
-        return this.HandleData(a,b,c,'+',n);
+        return this.HandleData(a,b,c,'+',n)
   }
   minusQuestion(min,max,n){
-    const a = this.rendoms(min,max/2);
-    const b = this.rendoms(min,max-a);
+    const a = this.rendoms(min,max/2)
+    const b = this.rendoms(min,max-a)
     const c = a+b;
-    return this.HandleData(c,b,a,'-',n);
+    return this.HandleData(c,b,a,'-',n)
   }
 
   mpQuestion(min,max,n){
-    const a = this.rendoms(min,max/2);
-    const b = this.rendoms(min,max-a);
+    const a = this.rendoms(min,max/2)
+    const b = this.rendoms(min,max-a)
     const c = a+b; 
-    const data = (Math.random()>0.5) ? this.HandleData(c,b,a,'-',n) : this.HandleData(a,b,c,'+',n);
+    const data = (Math.random()>0.5) ? this.HandleData(c,b,a,'-',n) : this.HandleData(a,b,c,'+',n)
     return data;
   }
   reQuestion(min,max,n){
-    const a = this.rendoms(min,max/2);
-    const b = this.rendoms(min+1,max);
+    const a = this.rendoms(min,max/2)
+    const b = this.rendoms(min+1,max)
     const c = a*b;
-    const data = (Math.random()>0.5) ? this.HandleData(a,b,c,'x',n) : this.HandleData(c,b,a,'÷',n);
+    const data = (Math.random()>0.5) ? this.HandleData(a,b,c,'x',n) : this.HandleData(c,b,a,'÷',n)
     return data;
   }
   rideQuestion(min,max,n){
-    const a = this.rendoms(min,max/2);
-    const b = this.rendoms(min+1,max);
+    const a = this.rendoms(min,max/2)
+    const b = this.rendoms(min+1,max)
     const c = a*b;
-    return this.HandleData(a,b,c,'x',n);
+    return this.HandleData(a,b,c,'x',n)
   }
   exceptQuestion(min,max,n){
             // Math.floor(12.9999) //下退 catcon 
@@ -162,10 +162,10 @@ class Answer extends Component {
         // Math.round(exam * 10) / 10; //保留一位小数
         // Math.floor(Math.random()*10)
         // 1 比大小 2.+- x 3.123 5 x v
-    const a = this.rendoms(min+1,max/2);
-    const b = this.rendoms(min,max);
+    const a = this.rendoms(min+1,max/2)
+    const b = this.rendoms(min,max)
     const c = a*b;
-    return this.HandleData(c,b,a,'÷',n);
+    return this.HandleData(c,b,a,'÷',n)
   }
   HandleData(a,b,c,rule,n=0){
     const x = [
@@ -177,8 +177,8 @@ class Answer extends Component {
       {'type':'d','answer':'=','expect':'1'},
     ];  //显示空的位置
     var f = x[1]
-    const q = Object.assign({'a':a,'b':rule,'c':b,'d':'=','e':c},f);
-    const datas = {'question':[q]};  
+    const q = Object.assign({'a':a,'b':rule,'c':b,'d':'=','e':c},f)
+    const datas = {'question':[q]}; 
     return datas;
   }
   rendoms(min,max){
@@ -187,7 +187,7 @@ class Answer extends Component {
 
   //下一题
   nextQuestion(val){            
-    const { current, rightAnswer,dataList,seconds,questionNum,answerList,rightNum} = this.state;
+    const { current, rightAnswer,dataList,seconds,questionNum,answerList,rightNum} = this.state
 
     if(current===''&&val!=1){
           this.setState({
@@ -274,7 +274,7 @@ class Answer extends Component {
     const time = thisTime
     
     const dos = this.accuracyRate(right,question,time)
-    const rel ={'data':data,'num':questionNum,'right':rightNum,'time':thisTime,'do':dos,'toUrl':'/pages/answerlist/index'};
+    const rel ={'data':data,'num':questionNum,'right':rightNum,'time':thisTime,'do':dos,'toUrl':'/pages/answerlist/index'}
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
     this.setState({
@@ -359,7 +359,7 @@ class Answer extends Component {
   };
   componentDidHide () { }
   render () {
-    const { nexts,question,rightAnswer,current,val,duration,isOpened,text,seconds,percent,isRight,expect,thisTime } = this.state;
+    const { nexts,question,rightAnswer,current,val,duration,isOpened,text,seconds,percent,isRight,expect,thisTime } = this.state
     return (
       <View className='home-page'>
       <AtProgress percent={percent} />

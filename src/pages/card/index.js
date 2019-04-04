@@ -16,7 +16,7 @@ class Card extends Component {
     navigationBarTitleText: '卡片'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       articleId: '',
       detail:[],
@@ -49,11 +49,11 @@ class Card extends Component {
     },()=>{
       this.getArticleInfo(this.state.articleId)
     })
-  };
+  }
   componentDidHide () { }
   async getSetting (){
     //获取文章详情
-    const res = await detailApi.getSetting();
+    const res = await detailApi.getSetting()
     console.log(res.site_switch)
     if (res.status=='ok') {
       this.setState({
@@ -66,7 +66,7 @@ class Card extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId,
-    });
+    })
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
       this.setState({
@@ -100,7 +100,7 @@ class Card extends Component {
      })
   }
   render () {
-    const { dataList,siteSwitch,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
+    const { dataList,siteSwitch,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state
     return (
       <View className='card-page'>
       <ScrollView
@@ -108,7 +108,7 @@ class Card extends Component {
             scrollY
             scrollWithAnimation
             scrollLeft='0'
-            style='height: 650px; width:120px'
+            style='height: 650px width:120px'
             lowerThreshold='20'
             upperThreshold='20'
             onScrolltoupper={this.onScrolltoupper}

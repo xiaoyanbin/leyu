@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 class GoodsList extends Component {
   static propTypes ={
@@ -11,7 +11,7 @@ class GoodsList extends Component {
 
   static defaultProps = {
     list: [],
-  };
+  }
 
   gotoDetail (e) {
     Taro.navigateTo({
@@ -20,7 +20,7 @@ class GoodsList extends Component {
   }
 
   render() {
-    const { list, loading } = this.props;
+    const { list, loading } = this.props
     return (
       <View className='goods-list-container'>
         {
@@ -50,8 +50,8 @@ class GoodsList extends Component {
         </View>
       )}
       </View>
-    );
+    )
   }
 }
 
-export default GoodsList;
+export default GoodsList

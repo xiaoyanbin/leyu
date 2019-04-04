@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image,Audio } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image,Audio } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
 const RecorderManager = Taro.getRecorderManager()
 
@@ -11,7 +11,7 @@ class Recorder extends Component {
   }
   static defaultProps = {
     coderData: {}, 
-  };
+  }
   constructor() {
     super(...arguments)
     this.state = {
@@ -103,15 +103,15 @@ class Recorder extends Component {
     this.onPlayAudio(data)
   }
   render() {
-    const { coderData } = this.props;
-    const { playtext} = this.state;
+    const { coderData } = this.props
+    const { playtext} = this.state
     return (
     <View>
       <View className={'con_lu ' +(playtext.status==2 ? 'navs' : '')}  onClick={this.onRecorder.bind(this,playtext.status)}></View>
       {playtext.text}
       </View> 
-    );
+    )
   }
 }
 
-export default Recorder;
+export default Recorder

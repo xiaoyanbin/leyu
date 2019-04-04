@@ -13,7 +13,7 @@ class Words extends Component {
     navigationBarTitleText: '列表'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       list:[],
@@ -26,7 +26,7 @@ class Words extends Component {
     console.log(cateId)
     const res = await cateApi.articleCate({
       pid: cateId
-    });
+    })
     if (res.status == 'ok') {
       this.setState({
           list: res.data,
@@ -52,10 +52,10 @@ class Words extends Component {
     })
     this.getArticleCate(this.$router.params.pid)
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { list,pid } = this.state;
+    const { list,pid } = this.state
     return (
       <View className='home-page'>
         <View className='catelist'>

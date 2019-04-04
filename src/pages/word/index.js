@@ -13,7 +13,7 @@ class answerlist extends Component {
     navigationBarTitleText: '数算选择'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       list:[],
@@ -29,7 +29,7 @@ class answerlist extends Component {
   }
   async getwords (query) {
     //获取文章详情
-    const res = await wordsApi.words(query);
+    const res = await wordsApi.words(query)
     if (res.status == 'ok') {
       this.setState({
           list: res.data,
@@ -81,7 +81,7 @@ class answerlist extends Component {
   componentDidMount = () => {
       let count = this.$router.params.count
       let num =  Math.ceil(parseInt(count)/20)
-      let checkpoint = [];
+      let checkpoint = []
       for(let i =0;i<num;i++){
         checkpoint.push({customs:`第${i+1}关`,setoff:i*20})
       }
@@ -96,10 +96,10 @@ class answerlist extends Component {
       })
    // this.getwords()
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { checkpoint } = this.state;
+    const { checkpoint } = this.state
     return (
       <View className='home-page'>
         <View className='catelist'>

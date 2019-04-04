@@ -1,4 +1,4 @@
-import * as answer from './service';
+import * as answer from './service'
 
 export default {
   namespace: 'answer',
@@ -7,7 +7,7 @@ export default {
   },
   effects: {
     load(_, {call, put}) {
-      const { list } = state;
+      const { list } = state
       console.log(list)
 
     }
@@ -15,7 +15,7 @@ export default {
   
   reducers: {
     save(state, { payload }) {
-      return {...state, ...payload};
+      return {...state, ...payload}
     },
   },
-};
+}

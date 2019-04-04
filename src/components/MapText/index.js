@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 class MapText extends Component {
   static propTypes ={
@@ -10,9 +10,9 @@ class MapText extends Component {
 
   static defaultProps = {
     list: [],
-  };
+  }
   render() {
-    const { list } = this.props;
+    const { list } = this.props
     return (
           <View className='poetry-ul'>
             {
@@ -21,8 +21,8 @@ class MapText extends Component {
               ))
             }
           </View>
-    );
+    )
   }
 }
 
-export default MapText;
+export default MapText

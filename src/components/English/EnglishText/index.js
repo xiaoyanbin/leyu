@@ -1,8 +1,8 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
 import AudioCom from '../../../components/Common/AudioCom'
-import PropTypes from 'prop-types';
-import './index.scss';
+import PropTypes from 'prop-types'
+import './index.scss'
 class EnglishText extends Component {
   static propTypes ={
     question: PropTypes.array,
@@ -18,12 +18,12 @@ class EnglishText extends Component {
 
   static defaultProps = {
          questionOther:{},
-  };
+  }
   nextQuestion (e) {
         //  this.nextQuestion()
   }
   render() {
-    const { title, question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props;
+    const { title, question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props
     return (
     <View className='content'>
         <View className='con'>
@@ -42,8 +42,8 @@ class EnglishText extends Component {
         </View>  
 
       </View> 
-    );
+    )
   }
 }
 
-export default EnglishText;
+export default EnglishText

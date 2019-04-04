@@ -13,7 +13,7 @@ class result extends Component {
     navigationBarTitleText: '完成'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current: 0,
       answerList:[],
@@ -68,7 +68,7 @@ class result extends Component {
   }
   componentDidHide () { }
   render () {
-    const { current,answerList } = this.state;
+    const { current,answerList } = this.state
     return (
       <View className='home-page'>
 

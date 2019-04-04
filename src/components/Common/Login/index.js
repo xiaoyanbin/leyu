@@ -1,8 +1,8 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image,Audio } from '@tarojs/components';
-import PropTypes from 'prop-types';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image,Audio } from '@tarojs/components'
+import PropTypes from 'prop-types'
 import * as loginApi from './service'
-import './index.scss';
+import './index.scss'
 
 class Login extends Component {
   static propTypes ={
@@ -11,7 +11,7 @@ class Login extends Component {
 
   static defaultProps = {
     questionOther: {}, 
-  };
+  }
   constructor() {
     super(...arguments)
     this.state = {
@@ -27,7 +27,7 @@ class Login extends Component {
     const res = await loginApi.wxlogin({
       code: data.code,
       userInfo:data.userInfo,
-    }); 
+    }) 
     if (res.status == 'ok') {
 
       Taro.setStorage({key:'userInfo',data:res.data }).then(rst => {  //将用户信息存入缓存中
@@ -57,14 +57,14 @@ class Login extends Component {
     }
   }
   render() {
-    const { isplay } = this.state;
+    const { isplay } = this.state
     return (
        <View>
          <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button>
 
       </View> 
-    );
+    )
   }
 }
 
-export default Login;
+export default Login

@@ -1,9 +1,9 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View,Button } from '@tarojs/components';
-import PropTypes from 'prop-types';
+import Taro, { Component } from '@tarojs/taro'
+import { View,Button } from '@tarojs/components'
+import PropTypes from 'prop-types'
 
 import { AtIcon} from 'taro-ui'
-import './index.scss';
+import './index.scss'
 
 class ShareApp extends Component {
   static propTypes ={
@@ -21,7 +21,7 @@ class ShareApp extends Component {
   }
   static defaultProps = {
 
-  };
+  }
   nextQuestion (e) {
         //  this.nextQuestion()
   }
@@ -31,7 +31,7 @@ class ShareApp extends Component {
     })
   }
   render() {
-    const { shareTitle,shareUrl} = this.props;
+    const { shareTitle,shareUrl} = this.props
     return (
       <View className='footers'>
       <View className='c-li'> 
@@ -47,8 +47,8 @@ class ShareApp extends Component {
       </Button> 
       </View>  
       </View>
-    );
+    )
   }
 }
 
-export default ShareApp;
+export default ShareApp

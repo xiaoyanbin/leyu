@@ -12,7 +12,7 @@ class answerlist extends Component {
     navigationBarTitleText: '数算选择'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       list:[{'title':'加法运算','type':'plus'},{'title':'减法运算','type':'minus'},{'title':'加减运算','type':'mp'},{'title':'乘法运算','type':'ride'},{'title':'除法运算','type':'except'},{'title':'乘除运算','type':'re'},{'title':'综合运算','type':'mpre'}],
@@ -28,7 +28,7 @@ class answerlist extends Component {
     //获取文章详情
     const res = await articleApi.article({
       pid: cateId
-    });
+    })
     if (res.status == 'ok') {
       this.setState({
           list: res.data.list,
@@ -83,10 +83,10 @@ class answerlist extends Component {
     })
    // this.getArticleCate(this.$router.params.pid)
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { list,pid,value, num,difficulty,qNum} = this.state;
+    const { list,pid,value, num,difficulty,qNum} = this.state
     return (
       <View className='home-page'>
          <View className='slider'>

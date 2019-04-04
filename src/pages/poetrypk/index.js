@@ -24,7 +24,7 @@ class Poetrypk extends Component {
     }
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current:0,
       articleId: '',
@@ -96,14 +96,14 @@ class Poetrypk extends Component {
 
   }
   getpoetry(data){
-      var _this =this;
+      var _this =this
       //拆分古诗
       const { textNum,answerList } = this.state 
       const keywords = data
       const dd =  JSON.parse(JSON.stringify(data))
       
-      var Ckeywords = new Array();
-      let curindex = 1;
+      var Ckeywords = new Array()
+      let curindex = 1
       // dd.forEach((item,index)=>{
       //     if(dd[index].indexOf('春')!==-1){
       //       curindex = index
@@ -169,7 +169,7 @@ class Poetrypk extends Component {
         return
     }
     let Cdetail =  dataLists[indexs].content
-    Cdetail  = Cdetail.replace(/，/g,'-').replace(/。/g,'-').replace(/【/g,'').replace(/】/g,'').replace(/ /g,'').replace(/[\n\r]/g,'').replace(/[\;\r]/g,'').split('-')
+    Cdetail  = Cdetail.replace(/，/g,'-').replace(/。/g,'-').replace(/【/g,'').replace(/】/g,'').replace(/ /g,'').replace(/[\n\r]/g,'').replace(/[\\r]/g,'').split('-')
     if(Cdetail[0].length!==5&&Cdetail[0].length!==7){
          this.getData(indexs+1)
          this.setState({
@@ -189,7 +189,7 @@ class Poetrypk extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId
-    });
+    })
     if (res.status == 'ok') {
       let  dataList = JSON.parse(res.data.list.description)
 
@@ -217,7 +217,7 @@ class Poetrypk extends Component {
     let num = poetry.findIndex((item,i) => {
       return item.num===val.num
     })
-    poetry[num].play =true;
+    poetry[num].play =true
 
     this.setState({
       answerList:answer,
@@ -264,7 +264,7 @@ class Poetrypk extends Component {
     const question = parseInt(dataList.length)
     const time = thisTime   
     const dos = this.accuracyRate(right,question,time)
-    const rel ={'data':data,'num':question,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/home/index'};
+    const rel ={'data':data,'num':question,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/home/index'}
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
 
@@ -358,7 +358,7 @@ class Poetrypk extends Component {
     })
   }
   render () {
-    const {articleId, dataList,curIndex,cpNewPoetry,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state;
+    const {articleId, dataList,curIndex,cpNewPoetry,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state
     return (
       <View className='container'>
        <View className={isOpened ? 'block' : 'none'}>

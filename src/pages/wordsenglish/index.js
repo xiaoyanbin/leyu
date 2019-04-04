@@ -17,7 +17,7 @@ class WordsEnglish extends Component {
     navigationBarTitleText: '单词练习'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       current: '',
@@ -73,7 +73,7 @@ class WordsEnglish extends Component {
 } 
 async getSetting (){
   //获取文章详情
-  const res = await detailApi.getSetting();
+  const res = await detailApi.getSetting()
   console.log(res.site_switch)
   if (res.status=='ok') {
     this.setState({
@@ -86,7 +86,7 @@ async getSetting (){
     //获取文章详情
     d.where = decodeURIComponent(this.$router.params.book)
     d.book_level = decodeURIComponent(this.$router.params.book_level)
-    const res = await detailApi.words(d);
+    const res = await detailApi.words(d)
 
     if (res.status == 'ok') {
       let data = res.data
@@ -123,16 +123,16 @@ async getSetting (){
     })
   }
   init(){
-    this.listQuestion();
+    this.listQuestion()
 
   }
   listQuestion(){
       const { itemIndex, questionNum, dataList} = this.state
-      const datas = dataList;
+      const datas = dataList
       //初始化答案列表
       const answerList =[]
       for(var i=0;i<datas.length;i++){
-        answerList.push({'num':i,'val':''});
+        answerList.push({'num':i,'val':''})
       }  
       this.setState({
         answerList:answerList,
@@ -160,7 +160,7 @@ async getSetting (){
     }  
     //下一题
     nextQuestion(val){            
-      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList,status} = this.state;
+      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList,status} = this.state
        
       if(!status){
          return
@@ -198,7 +198,7 @@ async getSetting (){
             setTimeout(() => {
               //this.addQuestion([...dataList][this.state.itemIndex]) 
              // this.downQuestion(itemIndex)
-            }, 500);
+            }, 500)
           })
 
       } else if(itemIndex==data.length-1){
@@ -239,7 +239,7 @@ async getSetting (){
       const time = thisTime
       
       const dos = this.accuracyRate(right,question,time)
-      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english'};
+      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english'}
       // data.num = this.state.questionNum
       // data.right = this.state.rightNum
 
@@ -365,12 +365,12 @@ async getSetting (){
         thisTime: time++,
       })
     },1000)
-  // this.init();
+  // this.init()
 
-  };
+  }
   componentDidHide () { }
   render () {
-    const { val,question ,siteSwitch,answerList, card,detail,isanaly,questionNum, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state;
+    const { val,question ,siteSwitch,answerList, card,detail,isanaly,questionNum, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state
     return (
       <View className='container'>
             {/* <AtProgress percent={percent} /> */}

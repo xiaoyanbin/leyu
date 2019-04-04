@@ -14,7 +14,7 @@ class English extends Component {
     navigationBarTitleText: '首页'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       pid: 0,
       current: '',
@@ -67,16 +67,16 @@ class English extends Component {
     //获取文章详情
     const res = await detailApi.getDetail({
       id: articleId 
-    });
+    })
 
-    var column = this.state.column;
+    var column = this.state.column
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
       const configure = [{'con':'title','itemList':'imgUrl'},{'con':'imgUrl','itemList':'title'}] 
      
-      const one = new Array();
-      const tow = new Array();
-      const Three = new Array();
+      const one = new Array()
+      const tow = new Array()
+      const Three = new Array()
 
       let val =this.mackQuestion(data)
       let result = [...val,...val]
@@ -124,16 +124,16 @@ class English extends Component {
     })
   }
   init(){
-    this.listQuestion();
+    this.listQuestion()
 
   }
   listQuestion(){
       const { itemIndex, questionNum, dataList} = this.state
-      const datas = dataList;
+      const datas = dataList
       //初始化答案列表
       const answerList =[]
       for(var i=0;i<datas.length;i++){
-        answerList.push({'num':i,'val':''});
+        answerList.push({'num':i,'val':''})
       }  
       this.setState({
         answerList:answerList,
@@ -161,7 +161,7 @@ class English extends Component {
     }  
     //下一题
     nextQuestion(val){            
-      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList,status} = this.state;
+      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList,status} = this.state
        
       if(!status){
          return
@@ -199,7 +199,7 @@ class English extends Component {
             setTimeout(() => {
               //this.addQuestion([...dataList][this.state.itemIndex]) 
               this.downQuestion(itemIndex)
-            }, 500);
+            }, 500)
           })
 
       } else if(itemIndex==data.length-1){
@@ -240,7 +240,7 @@ class English extends Component {
       const time = thisTime
       
       const dos = this.accuracyRate(right,question,time)
-      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english'};
+      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english'}
       // data.num = this.state.questionNum
       // data.right = this.state.rightNum
 
@@ -374,7 +374,7 @@ class English extends Component {
         thisTime: time++,
       })
     },1000)
-  // this.init();
+  // this.init()
 
   }
   addLetter(){
@@ -387,7 +387,7 @@ class English extends Component {
   }
   componentDidHide () { }
   render () {
-    const { val,question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state;
+    const { val,question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state
     return (
       <View className='container'>
             {/* <AtProgress percent={percent} /> */}

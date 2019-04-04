@@ -14,7 +14,7 @@ class Words extends Component {
     navigationBarTitleText: '转文字'
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current: 0,
       info:[],
@@ -34,25 +34,25 @@ class Words extends Component {
   }
   upLoadImg (name, url) {
 
-    const form = new FormData(); //formData 对象
-    var _this =this;
-    var  oReq = new XMLHttpRequest();
-      //  oReq.append('files', name);
-        oReq.open('POST', url, true);
+    const form = new FormData() //formData 对象
+    var _this =this
+    var  oReq = new XMLHttpRequest()
+      //  oReq.append('files', name)
+        oReq.open('POST', url, true)
         oReq.onload = function(data){
            if (oReq.status == 200){
-                _this.img = JSON.parse(data.currentTarget.response);
-                console.log(_this.img);
+                _this.img = JSON.parse(data.currentTarget.response)
+                console.log(_this.img)
              } else {
               console.log(data)
             }
-        };
-        oReq.send(JSON.stringify({'data':{'filePath': name}}));
+        }
+        oReq.send(JSON.stringify({'data':{'filePath': name}}))
   }
   async detail(id){
     const res = await baiduApi.getDetail({
        id:id
-    });
+    })
     if(res){
       this.setState({
         keywords: res.data.list.keywords,
@@ -67,11 +67,11 @@ class Words extends Component {
       typename: typename,
       paths:paths,
       options:options
-    });
+    })
     if(res){
         const data = res.words_result
-        var v = [];
-        var h = 400;
+        var v = []
+        var h = 400
         data.forEach((d,index)=>{
                   v.push(d.words+' \n ')
                   h = index*35
@@ -82,7 +82,7 @@ class Words extends Component {
           value:v.join(''),
           height:h<700 ? h :700
         })
-       // this.historical({'img':dataPath,'value':v.join('')});
+       // this.historical({'img':dataPath,'value':v.join('')})
     }
 
   }  
@@ -95,13 +95,13 @@ class Words extends Component {
       },() => {
          console.log(this.state.dataList)
       })
-      //  var value = Taro.getStorageSync('dataList') || [];
+      //  var value = Taro.getStorageSync('dataList') || []
       //     if(!Array.isArray(Taro.getStorageSync('dataList'))){
-      //       value =[];
+      //       value =[]
       //     }
           
       //   if(data){
-      //         var val = value.push(data);
+      //         var val = value.push(data)
       //         Taro.setStorage({
       //           key: 'dataList',
       //           data: val
@@ -112,10 +112,10 @@ class Words extends Component {
       //  }
   }
   uploadFile(tempFilePaths){
-      var _this =this; 
+      var _this =this 
       if(Taro.getEnv()=='WEB'){
           
-          _this.upLoadImg(tempFilePaths[0], webUrl+'/api/doAdd');
+          _this.upLoadImg(tempFilePaths[0], webUrl+'/api/doAdd')
          
       }else{
           Taro.uploadFile({
@@ -126,12 +126,12 @@ class Words extends Component {
               user: 'test'
             },
             success(res) {
-              const data = JSON.parse(res.data);
+              const data = JSON.parse(res.data)
               _this.setState({
                 imgUrl: webUrl + data.file,
                 imgShow:'../..' + data.file
               },()=>{
-                  _this.getImageInfo(_this.state.keywords,_this.state.imgShow,{},_this.state.imgUrl);
+                  _this.getImageInfo(_this.state.keywords,_this.state.imgShow,{},_this.state.imgUrl)
               })
               // do something
             }
@@ -140,18 +140,18 @@ class Words extends Component {
 
   }
   chooseImage (){
-    var _this =this; 
+    var _this =this 
     Taro.chooseImage({
       count: 1, // 默认9
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
-        _this.uploadFile(tempFilePaths);
+        _this.uploadFile(tempFilePaths)
       }
     })
   }
   setClipboard(){
-    const { value } = this.state;
+    const { value } = this.state
     Taro.setClipboardData({
       data: value,
       success(res) {
@@ -188,7 +188,7 @@ class Words extends Component {
   }
   componentDidHide () { }
   render () {
-    const { info,imgUrl,infoText,landmark } = this.state;
+    const { info,imgUrl,infoText,landmark } = this.state
     return (
       <View className='home-page'>
       <View className='title'>

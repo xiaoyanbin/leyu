@@ -1,7 +1,7 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import PropTypes from 'prop-types'
+import './index.scss'
 import * as TopApi from './service'
 class Top extends Component {
   static propTypes ={
@@ -10,7 +10,7 @@ class Top extends Component {
 
   static defaultProps = {
     pid:'',
-  };
+  }
   constructor() {
     super(...arguments)
     this.state = {
@@ -23,7 +23,7 @@ class Top extends Component {
     console.log(cateId)
     const res = await TopApi.articleCate({
       pid: cateId
-    });
+    })
     if (res.status == 'ok') {
       this.setState({
           list: res.data.slice(0,3),
@@ -53,8 +53,8 @@ class Top extends Component {
     })
   }
   render() {
-    const { loading } = this.props;
-    const { list,list2 } = this.state;
+    const { loading } = this.props
+    const { list,list2 } = this.state
     return (
       <View>
        <View className='top'>
@@ -80,8 +80,8 @@ class Top extends Component {
 
        </View>
       </View> 
-    );
+    )
   }
 }
 
-export default Top;
+export default Top

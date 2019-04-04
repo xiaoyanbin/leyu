@@ -27,7 +27,7 @@ class Baidu extends Component {
     }
   }
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
       current: 0,
       info:[],
@@ -44,7 +44,7 @@ class Baidu extends Component {
     //获取文章详情
     const res = await userApi.doRegister({
       user: userInfo
-    });
+    })
     console.log(res)
 
     if (res.status == 'ok') {
@@ -96,7 +96,7 @@ class Baidu extends Component {
   }
   componentDidHide () { }
   render () {
-    const { info,imgUrl ,phone,userInfo,share } = this.state;
+    const { info,imgUrl ,phone,userInfo,share } = this.state
     const tabList = [{ title: '文章列表' }]
     return (
 

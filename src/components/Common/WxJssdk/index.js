@@ -1,6 +1,6 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image,Audio } from '@tarojs/components';
-import PropTypes from 'prop-types';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image,Audio } from '@tarojs/components'
+import PropTypes from 'prop-types'
 import * as WxJssdkApi from './service'
 let wx = {}
 try {
@@ -19,7 +19,7 @@ class WxJssdk extends Component {
     imgUrl: PropTypes.string, 
   }
   static defaultProps = {
-  };
+  }
   constructor() {
     super(...arguments)
     this.state = {
@@ -52,7 +52,7 @@ class WxJssdk extends Component {
     const res = await WxJssdkApi.wxjssdk({
       url: url,
       data:imgUrl,
-    }); 
+    }) 
     if (res.status == 'ok') {
         //  debug: true, // 开启调试模式,
       wx.config({
@@ -61,7 +61,7 @@ class WxJssdk extends Component {
         nonceStr: res.nonceStr, // 必填，生成签名的随机串
         signature: res.signature,// 必填，签名，见附录1
         jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','getBrandWCPayRequest','WeixinJSBridgeReady','chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-      });
+      })
       wx.ready(function() {
           wx.onMenuShareAppMessage({ 
                 title: data.title, // 分享标题
@@ -83,18 +83,18 @@ class WxJssdk extends Component {
                 // 用户点击了分享后执行的回调函数
                   console.log(123)
                 }
-          });
-      });
+          })
+      })
     }
   }  
   render() {
-    const { title,desc,imgUrl, } = this.props;
+    const { title,desc,imgUrl, } = this.props
     return (
        <View>
                 {/* className={'menuShareAppMessage'} onClick={this.onShareAppMessage.bind(this,title)}分享 */}
        </View> 
-    );
+    )
   }
 }
 
-export default WxJssdk;
+export default WxJssdk
