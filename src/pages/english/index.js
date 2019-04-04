@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button,Image,Audio } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import EnglishText from '../../components/English/EnglishText'
 import EnglishStyle from '../../components/English/EnglishStyle'
 import { webUrl } from '../../config'
@@ -35,7 +35,7 @@ class English extends Component {
       title:'',
       questionNum:10,
       isRight:0,
-      answerList:[{"val":""}],
+      answerList:[{'val':''}],
       thisTime:0,
       rightNum:0,
       timer:null,
@@ -73,7 +73,7 @@ async getSetting (){
   //获取文章详情
   const res = await detailApi.getSetting();
   console.log(res.site_switch)
-  if (res.status=="ok") {
+  if (res.status=='ok') {
     this.setState({
       siteSwitch: res.data.site_switch,
     })
@@ -90,7 +90,7 @@ async getSetting (){
     var column = this.state.column;
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
-      const configure = [{"con":"title","itemList":"imgUrl"},{"con":"imgUrl","itemList":"title"}] 
+      const configure = [{'con':'title','itemList':'imgUrl'},{'con':'imgUrl','itemList':'title'}] 
      
       const one = new Array();
       const tow = new Array();
@@ -113,7 +113,7 @@ async getSetting (){
     
   }
   onTimeUp(){
-    //this.nextQuestion({"val":""})
+    //this.nextQuestion({'val':''})
   }
   close(){
     this.setState({
@@ -132,7 +132,7 @@ async getSetting (){
       //初始化答案列表
       const answerList =[]
       for(var i=0;i<datas.length;i++){
-        answerList.push({"num":i,"val":""});
+        answerList.push({'num':i,'val':''});
       }  
       this.setState({
         answerList:answerList,
@@ -239,7 +239,7 @@ async getSetting (){
       const time = thisTime
       
       const dos = this.accuracyRate(right,question,time)
-      const rel ={"data":data,"num":questionNum,"right":right,"time":thisTime,"do":dos,"toUrl":"/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english"};
+      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c777570d2660b78319b47fc&typeName=english'};
       // data.num = this.state.questionNum
       // data.right = this.state.rightNum
 
@@ -310,7 +310,7 @@ async getSetting (){
     mackQuestion(val){
         var data = new Array()
         val.forEach((item,i) =>{
-                data.push({"question":this.mackRadio(val,val.length,i)})
+                data.push({'question':this.mackRadio(val,val.length,i)})
         })
         return data
     }
@@ -321,7 +321,7 @@ async getSetting (){
       //       return Math.random()>0.5
       //   })
 
-        let letter = ["A","B","C","D"]
+        let letter = ['A','B','C','D']
         letter = JSON.parse(JSON.stringify(letter))
         const b = {}
         b.title = data[rand].title
@@ -369,21 +369,21 @@ async getSetting (){
   render () {
     const { val,question ,siteSwitch,answerList, card,detail,isanaly,questionNum, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state;
     return (
-      <View className="container">
+      <View className='container'>
             {/* <AtProgress percent={percent} /> */}
-            <View className="header">
-              <View className="header_left">
-                  <View className="title">{detail.title} </View>
-                  <View className="time"> 
-                  <View className="ionc1"></View>{thisTime}s </View>
+            <View className='header'>
+              <View className='header_left'>
+                  <View className='title'>{detail.title} </View>
+                  <View className='time'> 
+                  <View className='ionc1'></View>{thisTime}s </View>
               </View>
-              <View className="header_right">
-              <View className="answer_card"  onClick={this.isCard.bind(this)}>答题卡</View>
-                    <View className="right" >{itemIndex+1}</View> /{answerList.length}
+              <View className='header_right'>
+              <View className='answer_card'  onClick={this.isCard.bind(this)}>答题卡</View>
+                    <View className='right' >{itemIndex+1}</View> /{answerList.length}
               </View>
            </View>
           
-           <View className="content">
+           <View className='content'>
             { itemIndex<(questionNum/2) &&  <EnglishText question={question} title={title} questionOther={questionOther}  answerList={answerList} itemIndex={itemIndex} 
            rightAnswer={rightAnswer}
            siteSwitch={siteSwitch}
@@ -401,22 +401,22 @@ async getSetting (){
                         />}
 
  
-          <View className={"anal " +(isanaly ? 'navs' : '')}>
+          <View className={'anal ' +(isanaly ? 'navs' : '')}>
                    <View>  {questionOther.title}</View> 
                    <View>  {questionOther.chinese}</View> 
                    <View> {questionOther.analysis}</View> 
           </View>              
 
            </View>
-           <View className={"hid " +(answerList[itemIndex].val!=="" ? 'block' : '')}>
-                <View className="bottoms">
-                     <View className="btn" onClick={this.isAnalysis.bind(this)}>提示</View>
-                      <View className="btn red" onClick={this.downQuestion.bind(this,itemIndex)}>下一题</View>
+           <View className={'hid ' +(answerList[itemIndex].val!=='' ? 'block' : '')}>
+                <View className='bottoms'>
+                     <View className='btn' onClick={this.isAnalysis.bind(this)}>提示</View>
+                      <View className='btn red' onClick={this.downQuestion.bind(this,itemIndex)}>下一题</View>
                 </View>
            </View>
-           <View className={"card " +(card ? 'pro' : '')} >
+           <View className={'card ' +(card ? 'pro' : '')} >
               {answerList.map((item,index) => (
-                <View key={index} className={"card_li " +(item.val ? 'nav' : '')} onClick={this.radioQuestion.bind(this,item)} >{index+1}</View>
+                <View key={index} className={'card_li ' +(item.val ? 'nav' : '')} onClick={this.radioQuestion.bind(this,item)} >{index+1}</View>
               ))}
           </View>    
         <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>

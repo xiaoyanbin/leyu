@@ -45,7 +45,7 @@ class Login extends Component {
           success(res) {
             if (res.code) {
               _this.getInfo({code:res.code,userInfo:userInfo.detail.userInfo})
-              console.log("成功")
+              console.log('成功')
             } else {
               console.log('登录失败！' + res.errMsg)
             }
@@ -60,7 +60,7 @@ class Login extends Component {
     const { isplay } = this.state;
     return (
        <View>
-         <Button className="user_info" open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button>
+         <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button>
 
       </View> 
     );

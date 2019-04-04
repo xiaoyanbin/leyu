@@ -22,19 +22,19 @@ class GoodsList extends Component {
   render() {
     const { list, loading } = this.props;
     return (
-      <View className="goods-list-container">
+      <View className='goods-list-container'>
         {
         list.length > 0 ? (
-          <View className="goods-ul">
+          <View className='goods-ul'>
             {
               list.map((item, index) => (
-                <View key={item._id} className="goods-li" onClick={this.gotoDetail.bind(this,item._id)}>
-                  <View className="pos">
-                    <View className="image-container">
-                      <Image  src={item.article_img ? `https://weixue.minsusuan.com${item.article_img}_400x400.jpg` : ''} alt="" />
+                <View key={item._id} className='goods-li' onClick={this.gotoDetail.bind(this,item._id)}>
+                  <View className='pos'>
+                    <View className='image-container'>
+                      <Image  src={item.article_img ? `https://weixue.minsusuan.com${item.article_img}_400x400.jpg` : ''} alt='' />
                     </View>
                   </View>
-                  <Text className="title">{item.title}</Text>
+                  <Text className='title'>{item.title}</Text>
                 </View>
               ))
             }
@@ -44,9 +44,9 @@ class GoodsList extends Component {
         )
       }
       {loading && (
-        <View className="loadMoreGif">
-          <View className="zan-loading"></View>
-          <View className="text">加载中...</View>
+        <View className='loadMoreGif'>
+          <View className='zan-loading'></View>
+          <View className='text'>加载中...</View>
         </View>
       )}
       </View>

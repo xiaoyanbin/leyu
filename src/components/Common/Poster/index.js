@@ -12,7 +12,7 @@ class Poster extends Component {
 
   }
   componentDidMount = () => {
-    this.drawTitle({"desc":"hahah","rise_info":{"rise_percent":1}})
+    this.drawTitle({'desc':'hahah','rise_info':{'rise_percent':1}})
 
 
   }
@@ -128,7 +128,7 @@ class Poster extends Component {
       }
       empty.push(test);
 
-      const group = empty[0] + "..." // 这里只显示5行，超出的用...表示
+      const group = empty[0] + '...' // 这里只显示5行，超出的用...表示
       rowCut.splice(4, 1, group);
       row = rowCut;
     }

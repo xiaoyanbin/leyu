@@ -25,15 +25,15 @@ class EnglishText extends Component {
   render() {
     const { title, question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props;
     return (
-    <View className="content">
-        <View className="con">
-        {siteSwitch=="1" ? <AudioCom questionOther={questionOther}  /> : questionOther.title}   
-        {/* <View onClick={onPlayAudio.bind(this,questionOther.audio)} className="con_img">
+    <View className='content'>
+        <View className='con'>
+        {siteSwitch=='1' ? <AudioCom questionOther={questionOther}  /> : questionOther.title}   
+        {/* <View onClick={onPlayAudio.bind(this,questionOther.audio)} className='con_img'>
          </View>         */}
         </View>
-        <View className="con_list">
+        <View className='con_list'>
               {question.map((item,index) => (
-                <View key={index} className={"img_li " +(answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'err ' : ' ')+(rightAnswer == item.value&&answerList[itemIndex].val ? 'right' :'')} onClick={onQuestion.bind(this,item)} >
+                <View key={index} className={'img_li ' +(answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'err ' : ' ')+(rightAnswer == item.value&&answerList[itemIndex].val ? 'right' :'')} onClick={onQuestion.bind(this,item)} >
                     <View className={rightAnswer == item.value&&answerList[itemIndex].val ? 'img_right' : ''} ></View>
                     <View className={answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'img_err' : ''} ></View>
                     <Image src={item.imgUrl}></Image> 

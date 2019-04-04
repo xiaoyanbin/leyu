@@ -14,10 +14,10 @@ class MapText extends Component {
   render() {
     const { list } = this.props;
     return (
-          <View className="poetry-ul">
+          <View className='poetry-ul'>
             {
               list.map((item, ind) => (
-                 <View className={"poetry-li " +(item.play ?"sele":"")}>{item.val} </View>
+                 <View className={'poetry-li ' +(item.play ?'sele':'')}>{item.val} </View>
               ))
             }
           </View>

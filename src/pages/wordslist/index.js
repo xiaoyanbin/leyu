@@ -86,41 +86,41 @@ class answerlist extends Component {
   render () {
     const { list,pid,value, num,difficulty,qNum} = this.state;
     return (
-      <View className="home-page">
-         {/* <View className="slider">
-            <View className="slider_left">
+      <View className='home-page'>
+         {/* <View className='slider'>
+            <View className='slider_left'>
               数值：
             </View>
-            <View className="slider_mid">
+            <View className='slider_mid'>
             <AtSlider step={1} value={num} min={3} onChange={this.onChangeNum.bind(this)} onChanging={this.onChangeNum.bind(this)}></AtSlider>
             </View>
-            <View className="slider_right">
+            <View className='slider_right'>
               {num}
             </View>
-            <View className="slider_left">
+            <View className='slider_left'>
               难度：
             </View>
-            <View className="slider_mid">
+            <View className='slider_mid'>
             <AtSlider step={1} value={difficulty} min={1}  max={3} onChange={this.onChange.bind(this)} onChanging={this.onChange.bind(this)}></AtSlider>
             </View>
-            <View className="slider_right">
+            <View className='slider_right'>
               {difficulty}
             </View>
-            <View className="slider_left">
+            <View className='slider_left'>
               题数：
             </View>
-            <View className="slider_mid">
+            <View className='slider_mid'>
             <AtSlider step={1} value={qNum} min={5} max={30} onChange={this.onChangeqNum.bind(this)} onChanging={this.onChangeqNum.bind(this)}  ></AtSlider>
             </View>
-            <View className="slider_right">
+            <View className='slider_right'>
               {qNum} 
             </View>
          </View> */}
      
      
-        <View className="catelist">
+        <View className='catelist'>
           {list.map((item,index) => (
-            <View key={index} className="list" onClick={this.goDetail.bind(this,item)} >{item.book_level} <View className="count">({item.count})</View></View>
+            <View key={index} className='list' onClick={this.goDetail.bind(this,item)} >{item.book_level} <View className='count'>({item.count})</View></View>
           ))} 
         </View>
       </View>

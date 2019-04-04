@@ -16,7 +16,7 @@ class idiom extends Component {
       articleId: '',
       detail: {},
       value:'',
-      poetry:"",
+      poetry:'',
       poetrydata:[],
       poetrycopy:[],
       poetryshow:[],
@@ -66,11 +66,11 @@ class idiom extends Component {
   getpoetry(data){
       const { detail } = this.state
       var _this =this;
-      const description = detail.description.replace(/-/g,"").replace(/，/g,"")
+      const description = detail.description.replace(/-/g,'').replace(/，/g,'')
       //拆分古诗 difficulty数值越大越简单
       var difficulty = this.state.difficulty;
       const b = this.state.poetry; 
-      const c = b.split("");
+      const c = b.split('');
       const d = new Array();
       var  num =0;
       c.forEach((data,i) =>{
@@ -95,8 +95,8 @@ class idiom extends Component {
           d[0].play=true;
       }
       var j = new Array();
-      description.substring(0,(18-num)).split("").forEach((data,i) =>{
-         j.push({'play':false,'index':i+4,"val":data})
+      description.substring(0,(18-num)).split('').forEach((data,i) =>{
+         j.push({'play':false,'index':i+4,'val':data})
       })
       const h = [...d,...j].sort(() => Math.random() - 0.5)
       this.setState({
@@ -119,7 +119,7 @@ class idiom extends Component {
 
     var column = this.state.column;
     if (res.status == 'ok') {
-      const data = res.data.list.description.replace(/-/g,"").replace(/，/g,"")
+      const data = res.data.list.description.replace(/-/g,'').replace(/，/g,'')
       const len = this.rendoms(1,data.length/4-(column-1))
       const poetry = data.substring(len*4,len*4+4*(column))
       //const portryT = this.splitData(poetry)
@@ -197,7 +197,7 @@ class idiom extends Component {
     const question =count  
     const data =''
     const dos = this.accuracyRate(right,question,time)
-    const rel ={"data":data,"num":right,"right":right,"time":thisTime,"do":dos,"toUrl":"/pages/poetrylist/index?pid=5c6b7815de24016a19796c7d&typeName=idiom"};
+    const rel ={'data':data,'num':right,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c6b7815de24016a19796c7d&typeName=idiom'};
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
 
@@ -216,7 +216,7 @@ class idiom extends Component {
   }
   getData(detail){
     var   column = this.state.column;
-    const data = detail.description.replace(/-/g,"").replace(/，/g,"")
+    const data = detail.description.replace(/-/g,'').replace(/，/g,'')
     const len = this.rendoms(1,data.length/4-(column-1))
     const poetry = data.substring(len*4,len*4+4*(column))
     return  poetry
@@ -228,33 +228,33 @@ class idiom extends Component {
 
 
        
-      <View className="container">
-            <View className="header">
-              <View className="header_left">
-                  <View className="title">{detail.title} </View>
-                  <View className="time"> 
-                  <View className="ionc1"></View>{thisTime}s </View>
+      <View className='container'>
+            <View className='header'>
+              <View className='header_left'>
+                  <View className='title'>{detail.title} </View>
+                  <View className='time'> 
+                  <View className='ionc1'></View>{thisTime}s </View>
               </View>
-              <View className="header_right">
-                    <View className="right">{itemIndex+1}</View> /{count}
+              <View className='header_right'>
+                    <View className='right'>{itemIndex+1}</View> /{count}
               </View>
             </View>
 
-      <View className="content">
-              <View className="poetry_list at-row">
+      <View className='content'>
+              <View className='poetry_list at-row'>
               {poetrycopy.map((item,ind) => (
-                <View key={ind} className={"poetry " +(item.play ?"select":"") +(index==ind ?" four":"" )}  onClick={this.editpoetry.bind(this,item)} >{item.val}</View>
+                <View key={ind} className={'poetry ' +(item.play ?'select':'') +(index==ind ?' four':'' )}  onClick={this.editpoetry.bind(this,item)} >{item.val}</View>
               ))}
               </View>
-              <View className="poetry_answer at-row">
+              <View className='poetry_answer at-row'>
               {poetrydata.map((item,inde) => (
-                 <View key={inde} className={"lists " +(item.play ?"sel":"")} onClick={this.putpoetry.bind(this,item)}> {item.val}</View>
+                 <View key={inde} className={'lists ' +(item.play ?'sel':'')} onClick={this.putpoetry.bind(this,item)}> {item.val}</View>
               ))}
               </View>  
-              <View className="analysis" onClick={this.tipsShow.bind(this)}>
+              <View className='analysis' onClick={this.tipsShow.bind(this)}>
                      答案解析>
               </View>     
-              <View className={"anal " +(tips ? 'navs' : '')}>
+              <View className={'anal ' +(tips ? 'navs' : '')}>
                   {poetry}
               </View>             
            </View>

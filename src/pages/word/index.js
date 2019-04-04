@@ -101,10 +101,10 @@ class answerlist extends Component {
   render () {
     const { checkpoint } = this.state;
     return (
-      <View className="home-page">
-        <View className="catelist">
+      <View className='home-page'>
+        <View className='catelist'>
           {checkpoint.map((item,index) => (
-            <View key={index} className="list" >{item.customs} <View className="count"  onClick={this.goDetail.bind(this,item,'wordcard')}>(练习)</View> <View className="count"  onClick={this.goDetail.bind(this,item,'wordsenglish')}>(测试)</View></View>
+            <View key={index} className='list' >{item.customs} <View className='count'  onClick={this.goDetail.bind(this,item,'wordcard')}>(练习)</View> <View className='count'  onClick={this.goDetail.bind(this,item,'wordsenglish')}>(测试)</View></View>
           ))} 
         </View>
       </View>

@@ -5,7 +5,7 @@ import MapText from '../../components/MapText'
 import * as detailApi from './service'
 import ShareApp from '../../components/Common/ShareApp'
 import WxJssdk from '../../components/Common/WxJssdk'
-import { AtIcon, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from "taro-ui"
+import { AtIcon, AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from 'taro-ui'
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
@@ -30,7 +30,7 @@ class Poetrypk extends Component {
       articleId: '',
       detail: {},
       value:'',
-      poetry:"",
+      poetry:'',
       poetrydata:[],
       poetrycopy:[],
       poetryshow:[],
@@ -42,8 +42,8 @@ class Poetrypk extends Component {
       timer:null,
       keywords:[],
       Ckeywords:[],
-      answerList:[{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4}],
-      newPoetry:"",
+      answerList:[{'value':'','num':0},{'value':'','num':1},{'value':'','num':2},{'value':'','num':3},{'value':'','num':4}],
+      newPoetry:'',
       textNum:5,
       isOpened:false,
       AtModalText:'',
@@ -105,12 +105,12 @@ class Poetrypk extends Component {
       var Ckeywords = new Array();
       let curindex = 1;
       // dd.forEach((item,index)=>{
-      //     if(dd[index].indexOf("春")!==-1){
+      //     if(dd[index].indexOf('春')!==-1){
       //       curindex = index
       //     }
       // })
       keywords.forEach((item,index)=>{
-        keywords[index] =item.split("")
+        keywords[index] =item.split('')
       })
       console.log(keywords,curindex)
       let a = 5
@@ -120,19 +120,19 @@ class Poetrypk extends Component {
            ee = 4
         this.setState({
           textNum:4,
-          answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4}]
+          answerList: [{'value':'','num':0},{'value':'','num':1},{'value':'','num':2},{'value':'','num':3},{'value':'','num':4}]
         })
       }else{
           this.setState({
             textNum:5,
-            answerList: [{"value":"","num":0},{"value":"","num":1},{"value":"","num":2},{"value":"","num":3},{"value":"","num":4},{"value":"","num":5},{"value":"","num":6}]
+            answerList: [{'value':'','num':0},{'value':'','num':1},{'value':'','num':2},{'value':'','num':3},{'value':'','num':4},{'value':'','num':5},{'value':'','num':6}]
           })
       }
       //var listVal = answerList
 
       data[curindex-1].forEach((d,i)=>{
        
-        Ckeywords.push({"play":false,"val":d,"num":i})
+        Ckeywords.push({'play':false,'val':d,'num':i})
        // listVal[i].value = d
       }) 
      
@@ -142,7 +142,7 @@ class Poetrypk extends Component {
 
       data[curindex].forEach((d,i)=>{
         if(i<a){
-          Ckeywords.push({"play":false,"val":d,"num":i+7})
+          Ckeywords.push({'play':false,'val':d,'num':i+7})
         } 
       })  
 
@@ -154,7 +154,7 @@ class Poetrypk extends Component {
         Ckeywords:Ckeywords,
         newPoetry:dd[curindex-1],
         cpNewPoetry:dd[curindex-1].substr(0,ee),
-        title:"《"+dd[curindex]+"》的上一句是什么?",
+        title:'《'+dd[curindex]+'》的上一句是什么?',
         index: h.findIndex(data => data.play===false),
       },() =>{
         
@@ -169,7 +169,7 @@ class Poetrypk extends Component {
         return
     }
     let Cdetail =  dataLists[indexs].content
-    Cdetail  = Cdetail.replace(/，/g,"-").replace(/。/g,"-").replace(/【/g,"").replace(/】/g,"").replace(/ /g,"").replace(/[\n\r]/g,"").replace(/[\;\r]/g,"").split("-")
+    Cdetail  = Cdetail.replace(/，/g,'-').replace(/。/g,'-').replace(/【/g,'').replace(/】/g,'').replace(/ /g,'').replace(/[\n\r]/g,'').replace(/[\;\r]/g,'').split('-')
     if(Cdetail[0].length!==5&&Cdetail[0].length!==7){
          this.getData(indexs+1)
          this.setState({
@@ -196,7 +196,7 @@ class Poetrypk extends Component {
       this.setState({
           detail: res.data.list,
           dataList: dataList.data,
-          poetry: res.data.list.description.replace(/，/g,"").replace(/。/g,"").replace(/[\n\r]/g,""), 
+          poetry: res.data.list.description.replace(/，/g,'').replace(/。/g,'').replace(/[\n\r]/g,''), 
       },()=>{
         this.getData(this.state.curIndex)
       })
@@ -210,7 +210,7 @@ class Poetrypk extends Component {
     let  answer = answerList
     let  poetry = poetrydata
     let cc = answer.findIndex((item,i) => {
-       return item.value===""
+       return item.value===''
     })
     answer[cc].value = val.val
     answer[cc].number = val.num
@@ -223,9 +223,9 @@ class Poetrypk extends Component {
       answerList:answer,
       poetrydata:poetry,
     },()=>{
-        let c = answer.some((item,i) => item.value=="")
+        let c = answer.some((item,i) => item.value=='')
         if(!c){
-          let aa =""
+          let aa =''
           answerList.forEach((item,i)=>{     
                aa+= item.value
           })   
@@ -247,7 +247,7 @@ class Poetrypk extends Component {
               AtModalBtn:'确定',
               isTrue:1,
             })
-              console.log("再想想",Ckeywords)
+              console.log('再想想',Ckeywords)
           }
            
         }
@@ -264,7 +264,7 @@ class Poetrypk extends Component {
     const question = parseInt(dataList.length)
     const time = thisTime   
     const dos = this.accuracyRate(right,question,time)
-    const rel ={"data":data,"num":question,"right":right,"time":thisTime,"do":dos,"toUrl":"/pages/home/index"};
+    const rel ={'data':data,'num':question,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/home/index'};
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
 
@@ -288,7 +288,7 @@ class Poetrypk extends Component {
         let nums = poetry.findIndex((item,i) => {
            return item.num===val.number
         })
-        answer[num].value = ""
+        answer[num].value = ''
         poetry[nums].play =false  
         this.setState({
           answerList:answer,
@@ -339,7 +339,7 @@ class Poetrypk extends Component {
     let index = curIndex+1
     let data = dataList
     if(index>data.length){
-       console.log("完成了")
+       console.log('完成了')
        this.doComplete()
        return
     }
@@ -360,7 +360,7 @@ class Poetrypk extends Component {
   render () {
     const {articleId, dataList,curIndex,cpNewPoetry,title,detail,poetrydata,isOpened,answerList,textNum,tips,thisTime,itemIndex,count,AtModalText,AtModalTitle,AtModalBtn,isTrue} = this.state;
     return (
-      <View className="container">
+      <View className='container'>
        <View className={isOpened ? 'block' : 'none'}>
             <AtModal isOpened >
       <AtModalHeader>{AtModalTitle}</AtModalHeader>
@@ -379,39 +379,39 @@ class Poetrypk extends Component {
 
  <ShareApp shareTitle={title} shareUrl={'/pages/poetrypk/index?id='+articleId+'&curIndex='+curIndex}/>
  
-      <View className="header">
-        <View className="header_left">
-            <View className="title">{detail.title}</View>
-            <View className="time"> 
-            <View className="ionc1"></View>{thisTime}s </View>
+      <View className='header'>
+        <View className='header_left'>
+            <View className='title'>{detail.title}</View>
+            <View className='time'> 
+            <View className='ionc1'></View>{thisTime}s </View>
         </View>
-        <View className="header_right">
-              <View className="right">{curIndex+1}</View> /{dataList.length}
+        <View className='header_right'>
+              <View className='right'>{curIndex+1}</View> /{dataList.length}
         </View>
       </View>
 
-<View className="content">
-        <View className="con">{title}</View>
-        <View className="poetry_list">
+<View className='content'>
+        <View className='con'>{title}</View>
+        <View className='poetry_list'>
                 {answerList.map((item,inde) => (
-                  <View key={inde} className="answer_li" onClick={this.onDelPoetry.bind(this,item)}> {item.value}</View>
+                  <View key={inde} className='answer_li' onClick={this.onDelPoetry.bind(this,item)}> {item.value}</View>
                 ))}  
         </View>
 
-        <View className={"answer_list "+(textNum==5 ? 'w630':'w500')} >
+        <View className={'answer_list '+(textNum==5 ? 'w630':'w500')} >
         {poetrydata.map((item,inde) => (
-           <View key={inde} className="ans_li" onClick={this.onPutPoetry.bind(this,item)}>
-            <View className={(item.play ?"sel":"")}>
+           <View key={inde} className='ans_li' onClick={this.onPutPoetry.bind(this,item)}>
+            <View className={(item.play ?'sel':'')}>
               {item.val}
             </View>
             </View>
         ))}
         </View>  
 
-        <View className="analysis" onClick={this.ontipsShow.bind(this)}>
+        <View className='analysis' onClick={this.ontipsShow.bind(this)}>
                答案提示> 
         </View>     
-        <View className={"anal " +(tips ? 'navs' : '')}>
+        <View className={'anal ' +(tips ? 'navs' : '')}>
         {cpNewPoetry}
         </View>   
      </View>

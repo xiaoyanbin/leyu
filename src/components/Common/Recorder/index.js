@@ -15,8 +15,8 @@ class Recorder extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      card:{"title":" "},
-      playtext:{"text":"录音","status":1},
+      card:{'title':' '},
+      playtext:{'text':'录音','status':1},
       isPlay:true,
       tempFilePath:'',
     }
@@ -46,12 +46,12 @@ class Recorder extends Component {
   onRecorder(data){
          if(data==1){
            this.setState({
-            playtext:{"text":"暂停","status":2}
+            playtext:{'text':'暂停','status':2}
            })
            this.onStartRecorder()
          } else if(data==2){
             this.setState({
-              playtext:{"text":"录音","status":1}
+              playtext:{'text':'录音','status':1}
             })
             this.onStopRecorder()
          }
@@ -107,7 +107,7 @@ class Recorder extends Component {
     const { playtext} = this.state;
     return (
     <View>
-      <View className={"con_lu " +(playtext.status==2 ? 'navs' : '')}  onClick={this.onRecorder.bind(this,playtext.status)}></View>
+      <View className={'con_lu ' +(playtext.status==2 ? 'navs' : '')}  onClick={this.onRecorder.bind(this,playtext.status)}></View>
       {playtext.text}
       </View> 
     );

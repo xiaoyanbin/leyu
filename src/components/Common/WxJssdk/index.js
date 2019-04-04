@@ -48,7 +48,7 @@ class WxJssdk extends Component {
   async getInfo(data)   {
     if(!Taro.ENV_TYPE.WEB) return
     let url = location.href.split('#')[0]
-    let imgUrl = data.imgUrl ? "https://weixue.minsusuan.com" + data.imgUrl + "_180x180.jpg" : "https://wx.minsusuan.com/img/share.jpg"
+    let imgUrl = data.imgUrl ? 'https://weixue.minsusuan.com' + data.imgUrl + '_180x180.jpg' : 'https://wx.minsusuan.com/img/share.jpg'
     const res = await WxJssdkApi.wxjssdk({
       url: url,
       data:imgUrl,

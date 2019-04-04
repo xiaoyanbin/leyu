@@ -57,24 +57,24 @@ class Top extends Component {
     const { list,list2 } = this.state;
     return (
       <View>
-       <View className="top">
+       <View className='top'>
           {list.map((item,index) => (
-            <View key={index} className={"ionc1"}> 
-                <View className={"ionc_img col"+(index+1)} onClick={this.toUrl.bind(this,item.link)}> 
-                    <Image src={"https://weixue.minsusuan.com"+item.cate_img}></Image>
+            <View key={index} className={'ionc1'}> 
+                <View className={'ionc_img col'+(index+1)} onClick={this.toUrl.bind(this,item.link)}> 
+                    <Image src={'https://weixue.minsusuan.com'+item.cate_img}></Image>
                 </View>
-                <View className="fonts"> {item.title}</View>
+                <View className='fonts'> {item.title}</View>
            </View>   
         ))}
 
        </View>
-       <View className="top">
+       <View className='top'>
           {list2.map((item,index) => (
-            <View key={index} className={"ionc1"}> 
-                <View className={"ionc_img col"+(index+4)} onClick={this.toUrl.bind(this,item.link)}> 
-                    <Image src={"https://weixue.minsusuan.com"+item.cate_img}></Image>
+            <View key={index} className={'ionc1'}> 
+                <View className={'ionc_img col'+(index+4)} onClick={this.toUrl.bind(this,item.link)}> 
+                    <Image src={'https://weixue.minsusuan.com'+item.cate_img}></Image>
                 </View>
-                <View className="fonts"> {item.title}</View>
+                <View className='fonts'> {item.title}</View>
            </View>   
         ))}
 

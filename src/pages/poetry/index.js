@@ -17,7 +17,7 @@ class poetry extends Component {
       articleId: '',
       detail: {},
       value:'',
-      poetry:"",
+      poetry:'',
       poetrydata:[],
       poetrycopy:[],
       poetryshow:[],
@@ -66,7 +66,7 @@ class poetry extends Component {
       const keywords = data
       var Ckeywords = new Array();
       keywords.forEach((item,index)=>{
-        keywords[index] =item.split("")
+        keywords[index] =item.split('')
       })
 
 
@@ -77,9 +77,9 @@ class poetry extends Component {
                   play =false
               } else {
                  play = true
-                 Ckeywords.push({"play":false,"val":d,"index":index+'-'+i})
+                 Ckeywords.push({'play':false,'val':d,'index':index+'-'+i})
               }
-              keywords[index][i] ={"play":play,"val":d,"index":index+'-'+i}
+              keywords[index][i] ={'play':play,'val':d,'index':index+'-'+i}
            })
       })
       // var copyKkeywords
@@ -106,9 +106,9 @@ class poetry extends Component {
     const Cdetail = detail
 
     this.setState({
-      keywords:Cdetail.keywords.split("-")
+      keywords:Cdetail.keywords.split('-')
     },()=>{
-          this.getpoetry(Cdetail.keywords.split("-"))
+          this.getpoetry(Cdetail.keywords.split('-'))
     })
 
   }
@@ -120,7 +120,7 @@ class poetry extends Component {
     if (res.status == 'ok') {
       this.setState({
           detail: res.data.list,
-          poetry: res.data.list.description.replace(/，/g,"").replace(/。/g,"").replace(/[\n\r]/g,""), 
+          poetry: res.data.list.description.replace(/，/g,'').replace(/。/g,'').replace(/[\n\r]/g,''), 
       },()=>{
         this.getData()
       })
@@ -158,7 +158,7 @@ class poetry extends Component {
                 console.log(this.state.index)
               })
           }else{
-              console.log("选择错误")
+              console.log('选择错误')
           }
 
 
@@ -167,35 +167,35 @@ class poetry extends Component {
   render () {
     const { detail,poetrydata,poetrycopy,tips,thisTime,itemIndex,count,index,poetry,keywords} = this.state;
     return (
-      <View className="container">
-      <View className="header">
-        <View className="header_left">
-            <View className="title">{detail.title}</View>
-            <View className="time"> 
-            <View className="ionc1"></View>{thisTime}s </View>
+      <View className='container'>
+      <View className='header'>
+        <View className='header_left'>
+            <View className='title'>{detail.title}</View>
+            <View className='time'> 
+            <View className='ionc1'></View>{thisTime}s </View>
         </View>
-        <View className="header_right">
-              <View className="right">{itemIndex+1}</View> /{count}
+        <View className='header_right'>
+              <View className='right'>{itemIndex+1}</View> /{count}
         </View>
       </View>
 
-<View className="content">
-        <View className="poetry_list at-row">
+<View className='content'>
+        <View className='poetry_list at-row'>
                 {keywords.map((item,y) => (
-                  <View class="keywords-ul" key={y}>
+                  <View class='keywords-ul' key={y}>
                     <MapText list={item} index={index}/>
                   </View>
                 ))}
         </View>
-        <View className="poetry_answer at-row">
+        <View className='poetry_answer at-row'>
         {poetrydata.map((item,inde) => (
-           <View key={inde} className={"lists " +(item.play ?"sel":"")} onClick={this.putpoetry.bind(this,item)}> {item.val}</View>
+           <View key={inde} className={'lists ' +(item.play ?'sel':'')} onClick={this.putpoetry.bind(this,item)}> {item.val}</View>
         ))}
         </View>  
-        <View className="analysis" onClick={this.tipsShow.bind(this)}>
+        <View className='analysis' onClick={this.tipsShow.bind(this)}>
                答案解析>
         </View>     
-        <View className={"anal " +(tips ? 'navs' : '')}>
+        <View className={'anal ' +(tips ? 'navs' : '')}>
             {detail.description}
         </View>             
      </View>

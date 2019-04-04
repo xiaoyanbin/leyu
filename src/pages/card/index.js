@@ -3,7 +3,7 @@ import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView }
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import { webUrl } from '../../config'
-import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import AudioCom from '../../components/Common/AudioCom'
 import Recorder from '../../components/Common/Recorder'
 import './index.scss'
@@ -23,8 +23,8 @@ class Card extends Component {
       dataList:[],
       tempFilePath:'',
       home:true,
-      card:{"title":" "},
-      playtext:{"text":"录音","status":1},
+      card:{'title':' '},
+      playtext:{'text':'录音','status':1},
       isPlay:true,
       isOpened:false,
       text:'',
@@ -55,7 +55,7 @@ class Card extends Component {
     //获取文章详情
     const res = await detailApi.getSetting();
     console.log(res.site_switch)
-    if (res.status=="ok") {
+    if (res.status=='ok') {
       this.setState({
         siteSwitch: res.data.site_switch,
       })
@@ -102,37 +102,37 @@ class Card extends Component {
   render () {
     const { dataList,siteSwitch,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state;
     return (
-      <View className="card-page">
+      <View className='card-page'>
       <ScrollView
             className='scrollview'
             scrollY
             scrollWithAnimation
-            scrollLeft="0"
+            scrollLeft='0'
             style='height: 650px; width:120px'
             lowerThreshold='20'
             upperThreshold='20'
             onScrolltoupper={this.onScrolltoupper}
             onScroll={this.onScroll}>
               { dataList.map((item, index) => (
-                <View className={"card-li " +(card.title==item.title ? 'nav' : '')} key={index}>
-                  <Image  onClick={this.onUpData.bind(this,item)}  mode="widthFix" src={item.imgUrl}></Image>     
+                <View className={'card-li ' +(card.title==item.title ? 'nav' : '')} key={index}>
+                  <Image  onClick={this.onUpData.bind(this,item)}  mode='widthFix' src={item.imgUrl}></Image>     
                   <View>{item.title}</View>
                 </View>
              ))}
            
         </ScrollView>
-        <View className="card-right" >
+        <View className='card-right' >
           <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>
-          <View className="card-right-img"> 
-            <Image mode="widthFix" src={card.imgUrl}></Image>    
+          <View className='card-right-img'> 
+            <Image mode='widthFix' src={card.imgUrl}></Image>    
            </View>
            {card.title}
-           {siteSwitch=='1' && <View className="card-right-text"> 
-              <View className="btn">
+           {siteSwitch=='1' && <View className='card-right-text'> 
+              <View className='btn'>
                   <AudioCom questionOther={card}   />
                重读
               </View>
-              <View className="btn">
+              <View className='btn'>
                   <Recorder coderData={playtext} />
               </View>
             </View> }

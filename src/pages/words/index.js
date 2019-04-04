@@ -37,8 +37,8 @@ class Words extends Component {
     const form = new FormData(); //formData 对象
     var _this =this;
     var  oReq = new XMLHttpRequest();
-      //  oReq.append("files", name);
-        oReq.open("POST", url, true);
+      //  oReq.append('files', name);
+        oReq.open('POST', url, true);
         oReq.onload = function(data){
            if (oReq.status == 200){
                 _this.img = JSON.parse(data.currentTarget.response);
@@ -47,7 +47,7 @@ class Words extends Component {
               console.log(data)
             }
         };
-        oReq.send(JSON.stringify({"data":{'filePath': name}}));
+        oReq.send(JSON.stringify({'data':{'filePath': name}}));
   }
   async detail(id){
     const res = await baiduApi.getDetail({
@@ -82,7 +82,7 @@ class Words extends Component {
           value:v.join(''),
           height:h<700 ? h :700
         })
-       // this.historical({"img":dataPath,"value":v.join('')});
+       // this.historical({'img':dataPath,'value':v.join('')});
     }
 
   }  
@@ -113,7 +113,7 @@ class Words extends Component {
   }
   uploadFile(tempFilePaths){
       var _this =this; 
-      if(Taro.getEnv()=="WEB"){
+      if(Taro.getEnv()=='WEB'){
           
           _this.upLoadImg(tempFilePaths[0], webUrl+'/api/doAdd');
          
@@ -129,7 +129,7 @@ class Words extends Component {
               const data = JSON.parse(res.data);
               _this.setState({
                 imgUrl: webUrl + data.file,
-                imgShow:"../.." + data.file
+                imgShow:'../..' + data.file
               },()=>{
                   _this.getImageInfo(_this.state.keywords,_this.state.imgShow,{},_this.state.imgUrl);
               })
@@ -190,14 +190,14 @@ class Words extends Component {
   render () {
     const { info,imgUrl,infoText,landmark } = this.state;
     return (
-      <View className="home-page">
-      <View className="title">
+      <View className='home-page'>
+      <View className='title'>
         图片上的文字识别
       </View>
-      <View className="updata" onClick={this.chooseImage.bind(this)}>
+      <View className='updata' onClick={this.chooseImage.bind(this)}>
         上传图片
       </View>
-        <View className="text">
+        <View className='text'>
         
         <AtTextarea
           value={this.state.value}
@@ -207,12 +207,12 @@ class Words extends Component {
           placeholder='上传图片后显示结果...'
         />
         </View>
-        <View className="bottom" onClick={this.setClipboard.bind(this)}>
+        <View className='bottom' onClick={this.setClipboard.bind(this)}>
               复制文本
         </View>
-        {/* <View className="catelist">
+        {/* <View className='catelist'>
           {dataList.map((item,index) => (
-            <View className="view"  onClick={this.goDetail.bind(this,item._id)} >
+            <View className='view'  onClick={this.goDetail.bind(this,item._id)} >
                <Image src={item.img}></Image>  {index}{item.img}
             </View>
           ))}

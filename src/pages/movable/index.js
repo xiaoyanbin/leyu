@@ -3,7 +3,7 @@ import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView }
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import { webUrl } from '../../config'
-import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
 const RecorderManager = Taro.getRecorderManager()
@@ -25,8 +25,8 @@ class Movable extends Component {
       dataList:[],
       tempFilePath:'',
       home:true,
-      card:{"title":" "},
-      playtext:{"text":"录音","status":1},
+      card:{'title':' '},
+      playtext:{'text':'录音','status':1},
       isPlay:true,
       isOpened:false,
       text:'',
@@ -92,12 +92,12 @@ class Movable extends Component {
   onRecorder(data){
          if(data==1){
            this.setState({
-            playtext:{"text":"暂停","status":2}
+            playtext:{'text':'暂停','status':2}
            })
            this.onStartRecorder()
          } else if(data==2){
             this.setState({
-              playtext:{"text":"录音","status":1}
+              playtext:{'text':'录音','status':1}
             })
             this.onStopRecorder()
          }
@@ -183,24 +183,24 @@ class Movable extends Component {
   render () {
     const { dataList,detail,playtext,tempFilePath,isplay,card} = this.state;
     return (
-      <View className="card-page">
+      <View className='card-page'>
 
-      <MovableArea className="card-page">
+      <MovableArea className='card-page'>
 
-      <MovableView className="card-right" >
-        <View className="card-right-img"> 
-            <Image  onClick={this.onPlayAudio.bind(this,card.audio)} mode="widthFix" src={card.imgUrl}></Image>    
+      <MovableView className='card-right' >
+        <View className='card-right-img'> 
+            <Image  onClick={this.onPlayAudio.bind(this,card.audio)} mode='widthFix' src={card.imgUrl}></Image>    
            </View>
-            <View className="card-right-text"> 
+            <View className='card-right-text'> 
         
-              <View className={"con_img " +(isplay ? 'play' : '')} onClick={this.onPlayAudio.bind(this,card.audio)}></View>
+              <View className={'con_img ' +(isplay ? 'play' : '')} onClick={this.onPlayAudio.bind(this,card.audio)}></View>
               {card.title}
             </View>
        </MovableView>
        
       { dataList.map((item, index) => (
-                <MovableView direction='all' className={"card-li " +(card.title==item.title ? 'nav' : '')} key={index}>
-                  <Image  onClick={this.onUpData.bind(this,item)}  mode="widthFix" src={item.imgUrl}></Image>  
+                <MovableView direction='all' className={'card-li ' +(card.title==item.title ? 'nav' : '')} key={index}>
+                  <Image  onClick={this.onUpData.bind(this,item)}  mode='widthFix' src={item.imgUrl}></Image>  
                   <View>{item.title}</View>   
                 </MovableView>
              ))}

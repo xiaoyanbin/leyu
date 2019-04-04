@@ -55,7 +55,7 @@ class AudioCom extends Component {
     const { isplay} = this.state;
     return (
     <View>
-      {process.env.TARO_ENV === 'weapp' && <View className={"con_img " +(isplay ? 'play' : '')} onClick={this.onAudioPlay.bind(this,questionOther.audio)}></View>  }
+      {process.env.TARO_ENV === 'weapp' && <View className={'con_img ' +(isplay ? 'play' : '')} onClick={this.onAudioPlay.bind(this,questionOther.audio)}></View>  }
       {process.env.TARO_ENV !== 'weapp' ? <Audio src={questionOther.audio} 
              controls={true} 
              autoplay={true} 

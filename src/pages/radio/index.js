@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button,Image,Form } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import * as detailApi from './service'
 import RadioText from '../../components/RadioText'
 import './index.scss'
@@ -81,7 +81,7 @@ class radio extends Component {
     
   }
   onTimeUp(){
-    //this.nextQuestion({"val":""})
+    //this.nextQuestion({'val':''})
   }
   close(){
     this.setState({
@@ -100,7 +100,7 @@ class radio extends Component {
       //初始化答案列表
       const answerList =[]
       for(var i=0;i<datas.length;i++){
-        answerList.push({"num":i,"val":""});
+        answerList.push({'num':i,'val':''});
       }  
       this.setState({
         answerList:answerList,
@@ -199,7 +199,7 @@ class radio extends Component {
       const time = thisTime
       
       const dos = this.accuracyRate(right,question,time)
-      const rel ={"data":data,"num":questionNum,"right":right,"time":thisTime,"do":dos,"toUrl":"/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio"};
+      const rel ={'data':data,'num':questionNum,'right':right,'time':thisTime,'do':dos,'toUrl':'/pages/poetrylist/index?pid=5c721e90d2660b78319b47f7&typeName=radio'};
       // data.num = this.state.questionNum
       // data.right = this.state.rightNum
 
@@ -278,51 +278,51 @@ class radio extends Component {
   render () {
     const { question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,itemIndex, isOpened, text, duration,title,thisTime} = this.state;
     return (
-      <View className="container">
+      <View className='container'>
             {/* <AtProgress percent={percent} /> */}
-            <View className="header">
-              <View className="header_left">
-                  <View className="title">{detail.title} </View>
-                  <View className="time"> 
-                  <View className="ionc1"></View>{thisTime}s </View>
+            <View className='header'>
+              <View className='header_left'>
+                  <View className='title'>{detail.title} </View>
+                  <View className='time'> 
+                  <View className='ionc1'></View>{thisTime}s </View>
               </View>
-              <View className="header_right">
-              <View className="answer_card"  onClick={this.isCard.bind(this)}>答题卡</View>
-                    <View className="right">{itemIndex}</View> /{answerList.length}
+              <View className='header_right'>
+              <View className='answer_card'  onClick={this.isCard.bind(this)}>答题卡</View>
+                    <View className='right'>{itemIndex}</View> /{answerList.length}
               </View>
            </View>
 
-           <View className="content">
+           <View className='content'>
               <RadioText question={question} title={title}  answerList={answerList} itemIndex={itemIndex} onQuestion={this.nextQuestion.bind(this)}/>
               
                 
-                {/* <View className="title">
+                {/* <View className='title'>
                        单选题
                </View>
-               <View className="con">
+               <View className='con'>
                       {title}
                </View>
-               <View className="con_list">
+               <View className='con_list'>
                {question.map((item,index) => (
-                 <View key={index} className={"con_li " +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={this.nextQuestion.bind(this,item)} >
-                     <View className="letter"> {item.value}</View>{item.title}
+                 <View key={index} className={'con_li ' +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={this.nextQuestion.bind(this,item)} >
+                     <View className='letter'> {item.value}</View>{item.title}
                  </View>
                ))}
               </View>    */}
-              <View className="analysis" onClick={this.isAnalysis.bind(this)} >
+              <View className='analysis' onClick={this.isAnalysis.bind(this)} >
                      答案解析>
               </View>     
-              <View className={"anal " +(isanaly ? 'navs' : '')}>
+              <View className={'anal ' +(isanaly ? 'navs' : '')}>
                      {analysis}
               </View>             
            </View>
-           <View className="bottoms">
-                <View className="btn" onClick={this.upQuestion.bind(this,itemIndex)}>上一题</View>
-                <View className="btn red" onClick={this.downQuestion.bind(this,itemIndex)}>下一题</View>
+           <View className='bottoms'>
+                <View className='btn' onClick={this.upQuestion.bind(this,itemIndex)}>上一题</View>
+                <View className='btn red' onClick={this.downQuestion.bind(this,itemIndex)}>下一题</View>
            </View>
-           <View className={"card " +(card ? 'pro' : '')} >
+           <View className={'card ' +(card ? 'pro' : '')} >
               {answerList.map((item,index) => (
-                <View key={index} className={"card_li " +(item.val ? 'nav' : '')} onClick={this.radioQuestion.bind(this,item)} >{index+1}</View>
+                <View key={index} className={'card_li ' +(item.val ? 'nav' : '')} onClick={this.radioQuestion.bind(this,item)} >{index+1}</View>
               ))}
           </View>    
         <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>

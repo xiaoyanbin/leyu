@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View,Button } from '@tarojs/components';
 import PropTypes from 'prop-types';
 
-import { AtIcon} from "taro-ui"
+import { AtIcon} from 'taro-ui'
 import './index.scss';
 
 class ShareRight extends Component {
@@ -33,8 +33,8 @@ class ShareRight extends Component {
   render() {
     const { shareTitle,shareUrl} = this.props;
     return (
-      <View className="right">
-      <Button open-type='share' className="share1" data-title={shareTitle} data-url={shareUrl}>
+      <View className='right'>
+      <Button open-type='share' className='share1' data-title={shareTitle} data-url={shareUrl}>
       </Button>   
       </View>
     );

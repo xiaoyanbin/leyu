@@ -32,11 +32,11 @@ class Baidu extends Component {
       current: 0,
       info:[],
       imgUrl:touxiang,
-      userInfo:{"nickName":"未登录","avatarUrl":touxiang,"country":""},
+      userInfo:{'nickName':'未登录','avatarUrl':touxiang,'country':''},
       imgShow:'../../public/admin/upload/20190213/1550047826846.jpg_400x400.jpg',
       uri:webUrl+'/api/doAdd',
       phone:'',
-      share:{title:"用户中心",url:"/pages/user/index"}
+      share:{title:'用户中心',url:'/pages/user/index'}
     }
 
   }
@@ -73,7 +73,7 @@ class Baidu extends Component {
       
     }
     console.log(this.route,this.options)
-  //  this.drawTitle({"desc":"hahah","rise_info":{"rise_percent":1}})
+  //  this.drawTitle({'desc':'hahah','rise_info':{'rise_percent':1}})
 
 
   }
@@ -97,17 +97,17 @@ class Baidu extends Component {
   componentDidHide () { }
   render () {
     const { info,imgUrl ,phone,userInfo,share } = this.state;
-    const tabList = [{ title: "文章列表" }]
+    const tabList = [{ title: '文章列表' }]
     return (
 
-      <View className="home-page">
+      <View className='home-page'>
 
    
-      <View className="face">
-      <AtAvatar className="face_img" image={userInfo.avatarUrl} ></AtAvatar>
-      <View className="nick_name">{userInfo.nickName}</View> 
+      <View className='face'>
+      <AtAvatar className='face_img' image={userInfo.avatarUrl} ></AtAvatar>
+      <View className='nick_name'>{userInfo.nickName}</View> 
       <Text>申请获取你的公开信息（昵称、头像等）</Text> 
-      {/* <Button className="user_info" open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button> */}
+      {/* <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button> */}
       <Login />
       </View>
 

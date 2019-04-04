@@ -70,23 +70,23 @@ class result extends Component {
   render () {
     const { current,answerList } = this.state;
     return (
-      <View className="home-page">
+      <View className='home-page'>
 
-          <View className="complete">
-           <View className="complete_tit">完成了</View>
-           <View className="complete_img on">
-             <View className="ioncimg ionc1"></View>
+          <View className='complete'>
+           <View className='complete_tit'>完成了</View>
+           <View className='complete_img on'>
+             <View className='ioncimg ionc1'></View>
            </View>
 
-            <View className="complete_text">
+            <View className='complete_text'>
             
-                <View className="span">正确率:{answerList.right} /{answerList.num}</View>
+                <View className='span'>正确率:{answerList.right} /{answerList.num}</View>
                 
             </View> 
-            <View className="chaoyu">超越:{answerList.do}%的对手 </View>
-            <View className="complete_time">用时: {answerList.time}s</View>
-           <View className="complete_btn" onClick={this.toUrl.bind(this,answerList.toUrl)} >回到答题页</View>
-           <View className="complete_btn" onClick={this.toIndex.bind(this)}>回到首页</View>
+            <View className='chaoyu'>超越:{answerList.do}%的对手 </View>
+            <View className='complete_time'>用时: {answerList.time}s</View>
+           <View className='complete_btn' onClick={this.toUrl.bind(this,answerList.toUrl)} >回到答题页</View>
+           <View className='complete_btn' onClick={this.toIndex.bind(this)}>回到首页</View>
           </View>
       </View>
     )

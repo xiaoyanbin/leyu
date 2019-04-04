@@ -19,8 +19,8 @@ class Detail extends Component {
       cateList:[],
       description:[],
       value:'',
-      bug:"bug",
-      gushi:"锄禾日当午",
+      bug:'bug',
+      gushi:'锄禾日当午',
       gushidata:[],
       gushicopy:[],
       gushishow:[],
@@ -37,7 +37,7 @@ class Detail extends Component {
 
   
     var ws = new Websocket({
-      url:"ws://echo.websocket.org/",//自定义  wss协议
+      url:'ws://echo.websocket.org/',//自定义  wss协议
       onMessage:(r)=>{
          this.onMessage(r);
       }
@@ -54,12 +54,12 @@ class Detail extends Component {
   }
   getgushi(data){
       const b = this.state.gushi; 
-      const c = b.split("");
+      const c = b.split('');
       const d = new Array();
       c.forEach((data,i) =>{
           d.push({play:false,val:data})
       })
-      const h = b.split("").sort(() => Math.random() - 0.5)
+      const h = b.split('').sort(() => Math.random() - 0.5)
       console.log(h)
       this.setState({
         gushidata: h,
@@ -91,7 +91,7 @@ class Detail extends Component {
   gotoDetails(e){
 
      if(this.ws.ready){
-        this.ws.send(JSON.stringify({"a":0}))
+        this.ws.send(JSON.stringify({'a':0}))
      }
 
   }
@@ -129,7 +129,7 @@ class Detail extends Component {
    // const { detail } = this.props;
     return (
      
-    <View className="home-page">
+    <View className='home-page'>
         <View className='at-article'>
             <View>{detail.title}</View>
             <View  onClick={this.getgushi.bind(this)}>
@@ -144,22 +144,22 @@ class Detail extends Component {
 
     <View>
         { cateList.map((item, index) => (
-            <View className="nav-item" onClick={this.gotoDetails.bind(this)} key={index}>
+            <View className='nav-item' onClick={this.gotoDetails.bind(this)} key={index}>
                <View>{item.title}</View>
             </View>
           ))}
     </View>
     <View>{bug} </View>
 
-    <View className="gushicopy">
+    <View className='gushicopy'>
       {gushicopy.map((item,index) => (
-        <View  className={"kuang " +(item.play ?"select":"")} >{item.val}</View>
+        <View  className={'kuang ' +(item.play ?'select':'')} >{item.val}</View>
       ))}
     </View>
       
-    <View  className="gushidata">
+    <View  className='gushidata'>
       {gushidata.map((item,index) => (
-        <View className="lists" onClick={this.putgushi.bind(this,item)} key={index}> {item}</View>
+        <View className='lists' onClick={this.putgushi.bind(this,item)} key={index}> {item}</View>
       ))}</View>
     </View>
     )

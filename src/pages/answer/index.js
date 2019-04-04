@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from "taro-ui"
+import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import './index.scss'
 @connect(({ home }) => ({
   ...home,
@@ -20,7 +20,7 @@ class Answer extends Component {
       error:0,                              //错题数
       fontwidth:2,  
       bar:[],
-      nexts:"下一题",
+      nexts:'下一题',
       type:true,
       dataList:[],
       dataJson:'',
@@ -82,31 +82,31 @@ class Answer extends Component {
         const { itemIndex, questionNum} = this.state
         
         const dataList =[]
-        if(data.type=="plus"){
+        if(data.type=='plus'){
            for(var i=0;i<data.qNum;i++){
             dataList.push(this.plusQuestion(data.min,data.max,data.difficulty));
           }        
-        }else if(data.type=="minus"){
+        }else if(data.type=='minus'){
            for(var i=0;i<data.qNum;i++){
             dataList.push(this.minusQuestion(data.min,data.max,data.difficulty));
           }   
-        }else if(data.type=="ride"){
+        }else if(data.type=='ride'){
            for(var i=0;i<data.qNum;i++){
             dataList.push(this.rideQuestion(data.min,data.max,data.difficulty));
           }  
-        }else if(data.type=="except"){
+        }else if(data.type=='except'){
             for(var i=0;i<data.qNum;i++){
             dataList.push(this.exceptQuestion(data.min,data.max,data.difficulty));
           }  
-        }else if(data.type=="mp"){
+        }else if(data.type=='mp'){
            for(var i=0;i<data.qNum;i++){
             dataList.push(this.mpQuestion(data.min,data.max,data.difficulty));
           }  
-        }else if(data.type=="re"){
+        }else if(data.type=='re'){
            for(var i=0;i<data.qNum;i++){
             dataList.push(this.reQuestion(data.min,data.max,data.difficulty));
           }  
-        }else if(data.type=="mpre"){
+        }else if(data.type=='mpre'){
           for(var i=0;i<data.qNum;i++){
                if(Math.random()>0.5){
                     dataList.push(this.mpQuestion(data.min,data.max,data.difficulty));
@@ -169,16 +169,16 @@ class Answer extends Component {
   }
   HandleData(a,b,c,rule,n=0){
     const x = [
-      {"type":"e","answer":c,"expect":"3"},
-      {"type":"a","answer":a,"expect":"3"},
-      {"type":"c","answer":b,"expect":"3"},
-      {"type":"c","answer":b,"expect":"3"},
-      {"type":"b","answer":rule,"expect":"2"},
-      {"type":"d","answer":"=","expect":"1"},
+      {'type':'e','answer':c,'expect':'3'},
+      {'type':'a','answer':a,'expect':'3'},
+      {'type':'c','answer':b,'expect':'3'},
+      {'type':'c','answer':b,'expect':'3'},
+      {'type':'b','answer':rule,'expect':'2'},
+      {'type':'d','answer':'=','expect':'1'},
     ];  //显示空的位置
     var f = x[1]
-    const q = Object.assign({"a":a,"b":rule,"c":b,"d":"=","e":c},f);
-    const datas = {"question":[q]};  
+    const q = Object.assign({'a':a,'b':rule,'c':b,'d':'=','e':c},f);
+    const datas = {'question':[q]};  
     return datas;
   }
   rendoms(min,max){
@@ -189,7 +189,7 @@ class Answer extends Component {
   nextQuestion(val){            
     const { current, rightAnswer,dataList,seconds,questionNum,answerList,rightNum} = this.state;
 
-    if(current===""&&val!=1){
+    if(current===''&&val!=1){
           this.setState({
             isOpened:true,
             text:'请填入答案',
@@ -274,7 +274,7 @@ class Answer extends Component {
     const time = thisTime
     
     const dos = this.accuracyRate(right,question,time)
-    const rel ={"data":data,"num":questionNum,"right":rightNum,"time":thisTime,"do":dos,"toUrl":"/pages/answerlist/index"};
+    const rel ={'data':data,'num':questionNum,'right':rightNum,'time':thisTime,'do':dos,'toUrl':'/pages/answerlist/index'};
     // data.num = this.state.questionNum
     // data.right = this.state.rightNum
     this.setState({
@@ -314,7 +314,7 @@ class Answer extends Component {
     this.setState({
       dataJson:{},
       rightAnswer:'',
-      expect:"3",
+      expect:'3',
       question:[],
       current:'',
       val:'',
@@ -331,7 +331,7 @@ class Answer extends Component {
     this.setState({
       dataJson:{},
       rightAnswer:'',
-      expect:"3",
+      expect:'3',
       question:[],
       current:'',
       val:'',
@@ -361,23 +361,23 @@ class Answer extends Component {
   render () {
     const { nexts,question,rightAnswer,current,val,duration,isOpened,text,seconds,percent,isRight,expect,thisTime } = this.state;
     return (
-      <View className="home-page">
+      <View className='home-page'>
       <AtProgress percent={percent} />
 
-      <AtCountdown className="countdown"
+      <AtCountdown className='countdown'
         format={{ hours: ':', minutes: ':', seconds: '' }}
         seconds={seconds}
         color='#33ccff'
         isHidePercent={true}
         onTimeUp={this.onTimeUp.bind(this)}
       />
-      <View className="isright-style">
+      <View className='isright-style'>
              <View className={isRight==1 ? 'right-on' : isRight==2 ? 'err-on':''}></View>
       </View>
-          <View className="content">
+          <View className='content'>
               {
                 question.map((item, index) => (
-                  <View key={index} className="goods-li">
+                  <View key={index} className='goods-li'>
                      <View className={'lis ' +(item.type==='a' ? 'nav':'')}>{item.type==='a' ? current:item.a}</View> 
                      <View className={'lis ' +(item.type==='b' ? 'nav':'')}>{item.type==='b' ? current:item.b}</View>
                      <View className={'lis ' +(item.type==='c' ? 'nav':'')}>{item.type==='c' ? current:item.c}</View>
@@ -390,35 +390,35 @@ class Answer extends Component {
           
 
           {/* <View className={'add-subtract ' +(expect==='1' ? 'navs':'')}>
-              <View className="add-btn btns"  onClick={this.nextQuestion.bind(this)}>{nexts}</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'>')}>'>'</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'<')}>1</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'=')}>=</View>
-              <View className="add-btn btn-a" onClick={this.handleRemove.bind(this)}>C</View>
+              <View className='add-btn btns'  onClick={this.nextQuestion.bind(this)}>{nexts}</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'>')}>'>'</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'<')}>1</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'=')}>=</View>
+              <View className='add-btn btn-a' onClick={this.handleRemove.bind(this)}>C</View>
           </View> */}
           {/* <View className={'add-subtract ' +(expect==='2' ? 'navs':'')}>
-              <View className="add-btn btns" onClick={this.nextQuestion.bind(this)}>{nexts}</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'+')}>+</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'-')}>- </View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'x')}>x</View>
-              <View className="add-btn btn-a" onClick={this.putQuestion.bind(this,'÷')}>÷</View>
-              <View className="add-btn btn-a" onClick={this.handleRemove.bind(this)}>C</View>
+              <View className='add-btn btns' onClick={this.nextQuestion.bind(this)}>{nexts}</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'+')}>+</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'-')}>- </View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'x')}>x</View>
+              <View className='add-btn btn-a' onClick={this.putQuestion.bind(this,'÷')}>÷</View>
+              <View className='add-btn btn-a' onClick={this.handleRemove.bind(this)}>C</View>
           </View> */}
           <View className={'add-subtract ' +(expect==='3' ? 'navs':'')}>
-              <View className="add-btn btns"  onClick={this.nextQuestion.bind(this)}>{nexts}</View>  
-             <View className="border-l">
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,1)}>1</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,2)}>2</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,3)}>3</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,4)}>4</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,5)}>5</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,6)}>6</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,7)}>7</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,8)}>8</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,9)}>9</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,0)}>0</View>
-              <View className="num-btn btn-a" onClick={this.putQuestion.bind(this,".")}>.</View>
-              <View className="num-btn btn-a" onClick={this.handleRemove.bind(this)}>C</View>
+              <View className='add-btn btns'  onClick={this.nextQuestion.bind(this)}>{nexts}</View>  
+             <View className='border-l'>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,1)}>1</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,2)}>2</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,3)}>3</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,4)}>4</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,5)}>5</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,6)}>6</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,7)}>7</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,8)}>8</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,9)}>9</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,0)}>0</View>
+              <View className='num-btn btn-a' onClick={this.putQuestion.bind(this,'.')}>.</View>
+              <View className='num-btn btn-a' onClick={this.handleRemove.bind(this)}>C</View>
               </View>
           </View>
           <AtToast isOpened={isOpened} text={text} duration={duration} onClose={this.close.bind(this)}></AtToast>

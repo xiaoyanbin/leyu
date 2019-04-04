@@ -1,14 +1,113 @@
-
 .container{
     background-color: #eee;
     .none {display: none;}
     .block{display: block;
         .nav{color:#f00}
     }
+    .play{
+        display: flex;
+        flex-flow:row wrap;
+        justify-content:center;
+    }
+    .play_start{
+       width:200px;
+       height:50px;
+       line-height:50px;
+       font-size:30px;
+       margin:10px;
+       border-radius: 10px;
+       background: #16c60c;
+       text-align:center;
+       color:#fff;
+
+    }
+    .play_end{
+        width:200px;
+        height:50px;
+        line-height:50px;
+        font-size:30px;
+        margin:10px;
+        border-radius: 10px;
+        background: #d68064;
+        text-align:center;
+        color:#fff;
+    }
+    .ioc_c{
+        width:48px;
+        height:48px;
+        background-image: url(https://wx.minsusuan.com/img/bz_bj.png);
+        background-size: 576px 48px;
+        background-repeat: no-repeat;
+        display:inline-block; 
+    }
+    
+    .ioc_water{
+        background-position: 0px 12px;
+    }
+    .ioc_food{
+        background-position: -48px 12px;
+    }
+    
+    .ioc_weight{
+        background-position: -480px 10px;
+    }
+    .ioc_do{
+        background-position: right 10px;
+    }
+    .ioc_qing{  
+        background-position: -288px 10px;
+    }
+    .ioc_shacheng{
+        background-position: -432px 10px;
+    }
+    .ioc_shachen{
+        background-position: -384px 10px;
+    }
+    .ioc_gao{
+        background-position: -336px 10px;
+    }
+    .ioc_money{ 
+        background-position: -240px 10px;
+    }
+    .ioc_gemstone{
+        background-position: -192px 10px;
+    }
+    .ioc_tent{
+        background-position: -144px 10px;
+    }
+    .ioc_compass{
+        background-position: -96px 10px;
+    }
+    .oasis{
+        display:flex;
+        flex-flow:column wrap;
+        background-color: #fff; 
+        .oasis_init{
+            text-align:center;
+            line-height:60px;
+        }
+        .ioc_text{
+            width:40px;
+            padding-left:10px;
+            display: inline-block;
+            
+        }
+        .oasis_li{
+            padding:20px 0 20px 10px;
+            text-align: left;
+            .oasis_add{
+                border:1px solid #ccc;
+                padding:2px 14px;
+                border-radius: 4px;
+                text-align:center;
+                display: inline-block;
+            }
+        }
+    }
     .head{
          font-size:18px;
          padding:5px; 
-         line-height:80px; 
+         line-height:60px; 
          background-color: #fff;
          text-align: center;
         .n{
@@ -24,7 +123,7 @@
         .nav{
             background:#16c60c;
             border:1px solid #fff;
-            color:#fff;
+            color:#fff;    
         }
         .lt{
             background:#f8673e;
@@ -62,7 +161,7 @@
             flex-flow:row wrap;
             justify-content: flex-start;
             .black{
-                padding:20px 40px;
+                padding:8px 32px;
                 font-size:12px;
                 border:1px solid #eee;
                 text-align: center;
@@ -86,7 +185,7 @@
         .title{
            padding-bottom:30px;
            font-size:32px;
-           line-height: 100px;
+           line-height: 80px;
         }
         .keywords-ul{
             width:100%;
@@ -140,14 +239,16 @@
             margin:0 auto;
             flex-flow:row wrap;
             justify-content:center;
+            background-color:#fcf1d9; 
+            border-radius: 20px;
             .ans_li{
                 width:115px;
                 height:115px;
                 line-height:40px;
                 font-size:20px;
-                border-radius: 20px;
+                border-radius: 5px;
                 text-align: center;
-                border:2px solid #ccc;
+                border:2px solid #fff;
  
             }
             .navs{
@@ -159,21 +260,34 @@
                 background:#16c60c;
                 border:1px solid #fff;
                 color:#fff;
+                background-image: url(https://wx.minsusuan.com/img/mv.png);
+                background-position: 35px 40px;
+                background-size: 50px 50px;
+                background-repeat: no-repeat;
             }
             .lt{
-                background:#f8673e;
                 border:1px solid #fff;
                 color:#fff;
+                background-image: url(https://wx.minsusuan.com/img/bz.jpg);
+                background-position: 0 0;
+                background-size: 115px 115px;
+                background-repeat: no-repeat;
             }
             .lz{
-                background:#007acc;
                 border:1px solid #fff;
                 color:#fff;
+                background-image: url(https://wx.minsusuan.com/img/lz.jpg);
+                background-position: 0 0;
+                background-size: 115px 115px;
+                background-repeat: no-repeat;
             }
             .cz{
-                background:#d68064;
                 border:1px solid #fff;
                 color:#fff;
+                background-image: url(https://wx.minsusuan.com/img/cz.jpg);
+                background-position: 0 0;
+                background-size: 115px 115px;
+                background-repeat: no-repeat;
             }
             .outtime{
                 background:#ccc;

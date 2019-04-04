@@ -21,17 +21,17 @@ class RadioText extends Component {
   render() {
     const { title, question,answerList,itemIndex,onQuestion} = this.props;
     return (
-    <View className="content">
-        <View className="title">
+    <View className='content'>
+        <View className='title'>
               单选题
         </View>
-        <View className="con">
+        <View className='con'>
         {title}
         </View>
-        <View className="con_list">
+        <View className='con_list'>
         {question.map((item,index) => (
-        <View key={index} className={"con_li " +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={onQuestion.bind(this,item)} >
-            <View className="letter"> {item.value}</View>{item.title}
+        <View key={index} className={'con_li ' +(answerList[itemIndex].val==item.value ? 'nav' : '')} onClick={onQuestion.bind(this,item)} >
+            <View className='letter'> {item.value}</View>{item.title}
         </View>
         ))}
         </View> 

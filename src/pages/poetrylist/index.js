@@ -48,7 +48,7 @@ class poetrylist extends Component {
             }
 
       } else{
-          console.log("没有更多数据了")
+          console.log('没有更多数据了')
       }
   }  
   goDetail(data){
@@ -106,10 +106,10 @@ class poetrylist extends Component {
   render () {
     const { list,pid } = this.state;
     return (
-      <View className="home-page" >
-        <View className="catelist"  >
+      <View className='home-page' >
+        <View className='catelist'  >
           {list.map((item,index) => (
-            <View key={index} className="list" onClick={this.goDetail.bind(this,item._id)} >{item.title}</View>
+            <View key={index} className='list' onClick={this.goDetail.bind(this,item._id)} >{item.title}</View>
           ))}
         </View>
       </View>

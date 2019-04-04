@@ -76,7 +76,7 @@ class Index extends Component {
               })
            
       } else{
-          console.log("没有更多数据了")
+          console.log('没有更多数据了')
       }
   }  
   async getArticle (cateId,page) {
@@ -91,7 +91,7 @@ class Index extends Component {
               })
            
       } else{
-          console.log("没有更多数据了")
+          console.log('没有更多数据了')
       }
   } 
   toEnglish (a) {
@@ -106,14 +106,14 @@ class Index extends Component {
     const { banner,list } = this.props;
     const { poetryList,answerList } = this.state;
     return (
-      <View className="home-page">
+      <View className='home-page'>
       <MySwiper banner={banner} home />
-      <Top pid ="5ca1d6b00363bd0218de37b4"/>
+      <Top pid ='5ca1d6b00363bd0218de37b4'/>
       
-      <ListModule dataList={ poetryList } titleName="诗词大会" listUrl="poetrypk"/>
+      <ListModule dataList={ poetryList } titleName='诗词大会' listUrl='poetrypk'/>
 
-      <View className="index_text" onClick={this.toEnglish.bind(this)}>答题</View>
-      <GoodsList list={answerList} loading="" ontoEnglish={this.toEnglish}/>
+      <View className='index_text' onClick={this.toEnglish.bind(this)}>答题</View>
+      <GoodsList list={answerList} loading='' ontoEnglish={this.toEnglish}/>
       </View>
     )
   }

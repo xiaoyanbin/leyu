@@ -32,7 +32,7 @@ export default class MySwiper extends Component {
         autoplay>
         { banner.map((item, index) => (
           <SwiperItem key={index}>
-            <Image onClick={this.gotoDetail.bind(this,item.link)} mode="widthFix" src={`${webUrl+item.focus_img}`}></Image>
+            <Image onClick={this.gotoDetail.bind(this,item.link)} mode='widthFix' src={`${webUrl+item.focus_img}`}></Image>
           </SwiperItem>
         ))}
       </Swiper>
