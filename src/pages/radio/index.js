@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Form } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
+import { AtToast  } from 'taro-ui'
 import * as detailApi from './service'
 import RadioText from '../../components/RadioText'
 import './index.scss'
@@ -112,7 +112,6 @@ class radio extends Component {
 
   }
   addQuestion(data){
-    const { answerList,itemIndex } = this.state
         this.setState({
           dataJson:data,
           rightAnswer:data.question.answer,
@@ -126,7 +125,7 @@ class radio extends Component {
     }  
     //下一题
     nextQuestion(val){            
-      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList} = this.state
+      const { rightAnswer,dataList,seconds,questionNum,answerList} = this.state
 
        
       this.setState({

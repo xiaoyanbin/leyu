@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Audio } from '@tarojs/components'
+import { View, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
+import { AtToast  } from 'taro-ui'
 import * as detailApi from './service'
 import './index.scss'
 const innerAudioContext = Taro.createInnerAudioContext()
@@ -387,7 +387,7 @@ class English extends Component {
   }
   componentDidHide () { }
   render () {
-    const { val,question ,answerList, card,detail,isanaly, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state
+    const { question, answerList, card, detail, questionOther, itemIndex, isOpened, text, duration, thisTime, rightAnswer} = this.state
     return (
       <View className='container'>
             {/* <AtProgress percent={percent} /> */}

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as userApi from './service'
 import { webUrl } from '../../config'
@@ -7,7 +7,7 @@ import { AtAvatar } from 'taro-ui'
 import './index.scss'
 import touxiang from '../../images/icon/mr-touxiang.png'
 import Login from '../../components/Common/Login'
-@connect(({ home ,detail}) => ({
+@connect(({ home }) => ({
   ...home,
 }))
 
@@ -96,8 +96,7 @@ class Baidu extends Component {
   }
   componentDidHide () { }
   render () {
-    const { info,imgUrl ,phone,userInfo,share } = this.state
-    const tabList = [{ title: '文章列表' }]
+    const { userInfo } = this.state
     return (
 
       <View className='home-page'>

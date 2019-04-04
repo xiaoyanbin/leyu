@@ -1,10 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Image } from '@tarojs/components'
+import { View, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import MapText from '../../components/MapText'
-import * as detailApi from './service'
-import WxJssdk from '../../components/Common/WxJssdk'
-import { AtIcon, AtToast,AtTabBar, AtModal, AtModalHeader, AtModalContent, AtModalAction} from 'taro-ui'
+
+import { AtToast, AtModal, AtModalHeader, AtModalContent, AtModalAction} from 'taro-ui'
 import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
@@ -51,7 +49,7 @@ class Treasure extends Component {
      this.getArticleInfo()
 
   }
-  getArticleInfo (articleId) {
+  getArticleInfo () {
      var gemstone  =  parseInt(localStorage.getItem('gemstone')) || 0
      var doNum  =  parseInt(localStorage.getItem('doNum')) || 0
 
@@ -145,7 +143,7 @@ class Treasure extends Component {
     }
   }
   onNext (item) {
-       const  { init,  today, dataItem,isStart } = this.state
+       const  { init,  today, isStart } = this.state
        let Ctoday =  today
        let Cinit = init
        let CisStart = isStart

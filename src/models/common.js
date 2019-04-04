@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro';
+import Taro from '@tarojs/taro'
 
 export default {
   namespace: 'common',
@@ -17,7 +17,7 @@ export default {
 
   reducers: {
     save(state, { payload }) {
-      return { ...state, ...payload };
+      return { ...state, ...payload }
     },
   },
 

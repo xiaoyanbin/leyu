@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View,  Image } from '@tarojs/components'
 import AudioCom from '../../../components/Common/AudioCom'
 import PropTypes from 'prop-types'
 
@@ -24,7 +24,7 @@ class EnglishStyle extends Component {
         //  this.nextQuestion()
   }
   render() {
-    const { title,siteSwitch, question,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props
+    const { siteSwitch, question, answerList, questionOther, itemIndex, rightAnswer, onQuestion } = this.props
     return (
     <View className='content'>
         <View className='con'>

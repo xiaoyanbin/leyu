@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, ScrollView,Image } from '@tarojs/components'
+import { View, ScrollView, Image } from '@tarojs/components'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -32,7 +32,7 @@ class ListModule extends Component {
 
   }
   render() {
-    const { dataList,titleName,listUrl} = this.props
+    const { dataList,listUrl} = this.props
     return (
       <View className='list_module'>
            <View className='title_text'>诗词 <View className='title_right'>更多></View></View>

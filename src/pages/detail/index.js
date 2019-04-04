@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import './index.scss'
@@ -124,7 +124,7 @@ class Detail extends Component {
          
   }
   render () {
-    const { cateList,detail ,description,bug,gushidata,gushicopy} = this.state
+    const { cateList, detail, bug, gushidata, gushicopy} = this.state
    // const datas = JSON.parse(detail.description)
    // const { detail } = this.props
     return (

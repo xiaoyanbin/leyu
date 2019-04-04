@@ -1,10 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Audio } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
+import { AtToast  } from 'taro-ui'
 import EnglishText from '../../components/English/EnglishText'
 import EnglishStyle from '../../components/English/EnglishStyle'
-import { webUrl } from '../../config'
 import * as detailApi from './service'
 
 import './index.scss'
@@ -87,14 +86,8 @@ async getSetting (){
       id: articleId,
     })
 
-    var column = this.state.column
     if (res.status == 'ok') {
       const data = JSON.parse(res.data.list.description)
-      const configure = [{'con':'title','itemList':'imgUrl'},{'con':'imgUrl','itemList':'title'}] 
-     
-      const one = new Array()
-      const tow = new Array()
-      const Three = new Array()
 
       let val =this.mackQuestion(data)
       let result = [...val,...val]
@@ -127,7 +120,7 @@ async getSetting (){
 
   }
   listQuestion(){
-      const { itemIndex, questionNum, dataList} = this.state
+      const { itemIndex,  dataList} = this.state
       const datas = dataList
       //初始化答案列表
       const answerList =[]
@@ -144,7 +137,6 @@ async getSetting (){
 
   }
   addQuestion(data){
-    const { answerList,itemIndex } = this.state
         this.setState({
           dataJson:data,
           rightAnswer:data.question.answer,
@@ -160,7 +152,7 @@ async getSetting (){
     }  
     //下一题
     nextQuestion(val){            
-      const { current,title, rightAnswer,dataList,seconds,questionNum,answerList,status} = this.state
+      const { rightAnswer, dataList, seconds, answerList, status} = this.state
        
       if(!status){
          return
@@ -367,7 +359,7 @@ async getSetting (){
   }
   componentDidHide () { }
   render () {
-    const { val,question ,siteSwitch,answerList, card,detail,isanaly,questionNum, analysis,percent,seconds,current,questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state
+    const { question ,siteSwitch,answerList, card,detail,isanaly,questionNum, questionOther,itemIndex, isOpened, text, duration,title,thisTime,rightAnswer} = this.state
     return (
       <View className='container'>
             {/* <AtProgress percent={percent} /> */}

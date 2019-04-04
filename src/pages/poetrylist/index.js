@@ -1,8 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Form } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as articleApi from './service'
-import { webUrl } from '../../config'
 import './index.scss'
 @connect(({ home}) => ({
   ...home,

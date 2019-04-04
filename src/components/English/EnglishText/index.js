@@ -23,7 +23,7 @@ class EnglishText extends Component {
         //  this.nextQuestion()
   }
   render() {
-    const { title, question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion,onPlayAudio} = this.props
+    const { question,siteSwitch,answerList,questionOther,itemIndex,rightAnswer,onQuestion } = this.props
     return (
     <View className='content'>
         <View className='con'>

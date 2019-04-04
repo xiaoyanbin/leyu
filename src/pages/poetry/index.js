@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MapText from '../../components/MapText'
 import * as detailApi from './service'
@@ -102,7 +102,7 @@ class poetry extends Component {
        
   }
   getData(){
-    const { keywords,detail } = this.state
+    const { detail } = this.state
     const Cdetail = detail
 
     this.setState({

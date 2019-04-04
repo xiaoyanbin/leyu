@@ -1,13 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
-import { webUrl } from '../../config'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
+import { AtToast  } from 'taro-ui'
 import AudioCom from '../../components/Common/AudioCom'
 import Recorder from '../../components/Common/Recorder'
 import './index.scss'
-@connect(({ home ,detail}) => ({
+@connect(({ home }) => ({
   ...home,
 }))
 

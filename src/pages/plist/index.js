@@ -2,7 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button,Image,Form } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as cateApi from './service'
-import { webUrl } from '../../config'
 import './index.scss'
 @connect(({ home}) => ({
   ...home,
@@ -55,7 +54,7 @@ class Words extends Component {
   }
   componentDidHide () { }
   render () {
-    const { list,pid } = this.state
+    const { list } = this.state
     return (
       <View className='home-page'>
         <View className='catelist'>

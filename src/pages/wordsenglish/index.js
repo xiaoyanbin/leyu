@@ -1,10 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Audio } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
-import EnglishText from '../../components/English/EnglishText'
+import { AtToast  } from 'taro-ui'
 import EnglishStyle from '../../components/English/EnglishStyle'
-import { webUrl } from '../../config'
 import * as detailApi from './service'
 
 import './index.scss'

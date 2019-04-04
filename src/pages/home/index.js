@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Form,Input, Text,Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as articleApi from './service'
 import MySwiper from '../../components/MySwiper'
@@ -103,7 +103,7 @@ class Index extends Component {
   }
   componentDidHide () { }
   render () {
-    const { banner,list } = this.props
+    const { banner } = this.props
     const { poetryList,answerList } = this.state
     return (
       <View className='home-page'>

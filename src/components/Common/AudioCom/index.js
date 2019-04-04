@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import './index.scss'
 
   const innerAudioContext = Taro.createInnerAudioContext()
-  const RecorderManager = Taro.getRecorderManager()
 
 
 

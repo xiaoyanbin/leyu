@@ -1,12 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView } from '@tarojs/components'
+import { View, Image, MovableArea, MovableView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
-import { webUrl } from '../../config'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
 import './index.scss'
-const innerAudioContext = Taro.createInnerAudioContext()
-const RecorderManager = Taro.getRecorderManager()
 
 
 @connect(({ home ,detail}) => ({

@@ -1,8 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,Image,Form } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as wordsApi from './service'
-import { AtSlider } from 'taro-ui'
 import './index.scss'
 @connect(({ home}) => ({
   ...home,
@@ -84,38 +83,10 @@ class answerlist extends Component {
   }
   componentDidHide () { }
   render () {
-    const { list,pid,value, num,difficulty,qNum} = this.state
+    const { list } = this.state
     return (
       <View className='home-page'>
-         {/* <View className='slider'>
-            <View className='slider_left'>
-              数值：
-            </View>
-            <View className='slider_mid'>
-            <AtSlider step={1} value={num} min={3} onChange={this.onChangeNum.bind(this)} onChanging={this.onChangeNum.bind(this)}></AtSlider>
-            </View>
-            <View className='slider_right'>
-              {num}
-            </View>
-            <View className='slider_left'>
-              难度：
-            </View>
-            <View className='slider_mid'>
-            <AtSlider step={1} value={difficulty} min={1}  max={3} onChange={this.onChange.bind(this)} onChanging={this.onChange.bind(this)}></AtSlider>
-            </View>
-            <View className='slider_right'>
-              {difficulty}
-            </View>
-            <View className='slider_left'>
-              题数：
-            </View>
-            <View className='slider_mid'>
-            <AtSlider step={1} value={qNum} min={5} max={30} onChange={this.onChangeqNum.bind(this)} onChanging={this.onChangeqNum.bind(this)}  ></AtSlider>
-            </View>
-            <View className='slider_right'>
-              {qNum} 
-            </View>
-         </View> */}
+        
      
      
         <View className='catelist'>

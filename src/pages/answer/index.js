@@ -43,7 +43,6 @@ class Answer extends Component {
 
   }
   init(data){
-    const { itemIndex } = this.state
     this.listQuestion(data)
   }
   onTimeUp () {
@@ -79,7 +78,7 @@ class Answer extends Component {
     })
   }
   listQuestion(data){
-        const { itemIndex, questionNum} = this.state
+        const { itemIndex } = this.state
         
         const dataList =[]
         if(data.type=='plus'){
@@ -156,7 +155,7 @@ class Answer extends Component {
     return this.HandleData(a,b,c,'x',n)
   }
   exceptQuestion(min,max,n){
-            // Math.floor(12.9999) //下退 catcon 
+        // Math.floor(12.9999) //下退 catcon 
         // Math.ceil(12.1) // 上进
         // Math.round(12.5)//四舍5入
         // Math.round(exam * 10) / 10; //保留一位小数
@@ -359,7 +358,7 @@ class Answer extends Component {
   };
   componentDidHide () { }
   render () {
-    const { nexts,question,rightAnswer,current,val,duration,isOpened,text,seconds,percent,isRight,expect,thisTime } = this.state
+    const { nexts, question, current, duration, isOpened, text, seconds, percent, isRight, expect } = this.state
     return (
       <View className='home-page'>
       <AtProgress percent={percent} />

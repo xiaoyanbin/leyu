@@ -31,7 +31,7 @@ class ShareApp extends Component {
     })
   }
   render() {
-    const { shareTitle,shareUrl} = this.props
+    const { shareTitle,shareUrl } = this.props
     return (
       <View className='footers'>
       <View className='c-li'> 

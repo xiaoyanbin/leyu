@@ -1,13 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, ScrollView, Swiper, SwiperItem, MovableArea, MovableView } from '@tarojs/components'
+import { View, Image, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
-import { webUrl } from '../../config'
-import { AtToast , AtCountdown,AtProgress } from 'taro-ui'
+import { AtToast } from 'taro-ui'
 import AudioCom from '../../components/Common/AudioCom'
 import Recorder from '../../components/Common/Recorder'
 import './index.scss'
-@connect(({ home ,detail}) => ({
+@connect(({ home }) => ({
   ...home,
 }))
 
@@ -100,7 +99,7 @@ class Card extends Component {
      })
   }
   render () {
-    const { dataList,siteSwitch,detail,playtext,tempFilePath,isplay,card,isOpened,text,duration} = this.state
+    const { dataList, siteSwitch, playtext, card, isOpened, text, duration } = this.state
     return (
       <View className='card-page'>
       <ScrollView
