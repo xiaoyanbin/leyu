@@ -50,8 +50,17 @@ class Treasure extends Component {
 
   }
   getArticleInfo () {
-     var gemstone  =  parseInt(localStorage.getItem('gemstone')) || 0
-     var doNum  =  parseInt(localStorage.getItem('doNum')) || 0
+    var gemstone = 0
+    var doNum = 0
+    try {
+       gemstone  =  parseInt(localStorage.getItem('gemstone')) || 0
+       doNum  =  parseInt(localStorage.getItem('doNum')) || 0
+    } catch (error) {
+      gemstone  =  parseInt(Taro.getStorageSync('gemstone')) || 0
+      doNum  =  parseInt(Taro.getStorageSync('doNum')) || 0
+      
+    }
+
 
 
     let  list = {'init':{'food':20,'compass':0,'tent':0,'gemstone':gemstone,'water':10,'money':600,'weight':700,'do':doNum},'weather':[
@@ -147,7 +156,7 @@ class Treasure extends Component {
        let Ctoday =  today
        let Cinit = init
        let CisStart = isStart
-       if(!CisStart.status){
+       if(CisStart.status==false){
         this.setState({
           isOpened:true,
           text:'请点击开始按钮开始',
@@ -384,11 +393,15 @@ class Treasure extends Component {
   complete(){
     const { init } = this.state
     var Cinit = init   
-    localStorage.setItem('gemstone',Cinit.gemstone)
-    localStorage.setItem('doNum',Cinit.do+1)
-    console.log(localStorage.getItem('doNum'))
+    try {
+      Taro.setStorageSync('gemstone',Cinit.gemstone)
+      Taro.setStorageSync('doNum',Cinit.do+1)
+    } catch (error) {
+      localStorage.setItem('gemstone',Cinit.gemstone)
+      localStorage.setItem('doNum',Cinit.do+1)
+    }
     this.setState({
-      isStart:{'status':false,'text':'开始'},
+      isStart:{status:false,text:'开始'},
     })
     this.getArticleInfo()
   }
@@ -506,13 +519,14 @@ class Treasure extends Component {
   onStart(){
     const { isStart } = this.state
     let CisStart = isStart
-
+    let  AtModal = {'isOpened': true,'title':'购买物资','type':'equipment','text':'','btn':'确定'}
     this.setState({
        isStart:{status:true,text:'重新开始'},
+    },()=>{
+      this.getArticleInfo()
+      this.setState({AtModals:AtModal})
     })
-    this.getArticleInfo()
-    let  AtModal = {'isOpened': true,'title':'购买物资','type':'equipment','text':'','btn':'确定'}
-    this.setState({AtModals:AtModal})
+    
     
   }
   gotoDetail (e) {
@@ -521,7 +535,7 @@ class Treasure extends Component {
     })
   }
   render () {
-    const { maps, weather, init,isTime,isGo,isOpened,text,isOpeneds,AtModals,isChoice, isStart} = this.state
+    const { maps, weather, init,isTime,isGo,isOpened,text,AtModals,isChoice, isStart} = this.state
     return (
       <View className='container'>
       <AtToast isOpened={isOpened}  text={text} ></AtToast>
@@ -573,7 +587,7 @@ class Treasure extends Component {
                   <View>
                     {item.title}
                   </View>
-                  <View> &nbsp </View>
+                  <View> &nbsp; </View>
                   <View> {item.sign}</View>
                   </View>
               ))}

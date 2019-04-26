@@ -60,7 +60,7 @@ class WxJssdk extends Component {
         timestamp: res.timestamp, // 必填，生成签名的时间戳
         nonceStr: res.nonceStr, // 必填，生成签名的随机串
         signature: res.signature,// 必填，签名，见附录1
-        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','getBrandWCPayRequest','WeixinJSBridgeReady','chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','getBrandWCPayRequest','WeixinJSBridgeReady','chooseWXPay','scanQRCode','uploadImage','downloadImage','getLocalImgData','startRecord','stopRecord','onVoiceRecordEnd','playVoice','pauseVoice','stopVoice','onVoicePlayEnd','uploadVoice','downloadVoice','translateVoice','getNetworkType','openLocation','getLocation','closeWindow','openAddress'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       })
       wx.ready(function() {
           wx.onMenuShareAppMessage({ 
@@ -91,6 +91,7 @@ class WxJssdk extends Component {
     const { title,desc,imgUrl, } = this.props
     return (
        <View>
+           
                 {/* className={'menuShareAppMessage'} onClick={this.onShareAppMessage.bind(this,title)}分享 */}
        </View> 
     )

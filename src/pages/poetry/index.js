@@ -3,7 +3,16 @@ import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MapText from '../../components/MapText'
 import * as detailApi from './service'
+import WxJssdk from '../../components/Common/WxJssdk'
 import './index.scss'
+
+let wx = {}
+try {
+   wx = require('weixin-js-sdk')
+} catch (error) {
+  
+}
+
 @connect(({ detail }) => ({
   ...detail,
 }))
@@ -28,8 +37,8 @@ class poetry extends Component {
       count:1,
       timer:null,
       keywords:[],
-      Ckeywords:[]
-
+      Ckeywords:[],
+      resultStr:'123'
     }
 
   }
@@ -42,6 +51,16 @@ class poetry extends Component {
     
     this.getArticleInfo(this.$router.params.id)
 
+  }
+  scanQRCode(){
+    Taro.scanCode({
+      needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+      scanType: ["qrCode","barCode"]}).then((res)=>{
+          let result = res.result; // 当needResult 为 1 时，扫码返回的结果
+          this.setState({
+            resultStr:result
+          })
+      })
   }
   tipsShow(data){
     const { tips } =this.state
@@ -165,7 +184,7 @@ class poetry extends Component {
 
   }
   render () {
-    const { detail,poetrydata,poetrycopy,tips,thisTime,itemIndex,count,index,poetry,keywords} = this.state
+    const { detail,poetrydata,poetrycopy,tips,thisTime,itemIndex,count,index,poetry,keywords,resultStr} = this.state
     return (
       <View className='container'>
       <View className='header'>
@@ -180,6 +199,9 @@ class poetry extends Component {
       </View>
 
 <View className='content'>
+{process.env.TARO_ENV === 'h5' ? <WxJssdk title={detail.title}  desc={detail.keywords} imgUrl={detail.article_img}/> :''}
+     {/* <View onClick={this.scanQRCode.bind(this)}>微信扫码{resultStr}</View> */}
+    
         <View className='poetry_list at-row'>
                 {keywords.map((item,y) => (
                   <View class='keywords-ul' key={y}>

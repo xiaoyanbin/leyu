@@ -4,7 +4,15 @@ import { connect } from '@tarojs/redux'
 import * as baiduApi from './service'
 import { webUrl } from '../../config'
 import { AtTextarea } from 'taro-ui'
+import WxJssdk from '../../components/Common/WxJssdk'
 import './index.scss'
+let wx = {}
+try {
+   wx = require('weixin-js-sdk')
+} catch (error) {
+  
+}
+
 @connect(({ home }) => ({
   ...home,
 }))
@@ -29,25 +37,41 @@ class Words extends Component {
       value:'',
       height:300,
       dataList:[],
+      serverId:'123',
+      title:'转文字功能',
+      desc:'11123'
     }
 
   }
   upLoadImg (name, url) {
+    let _this = this
 
-    const form = new FormData() //formData 对象
-    var _this =this
-    var  oReq = new XMLHttpRequest()
-      //  oReq.append('files', name)
-        oReq.open('POST', url, true)
-        oReq.onload = function(data){
-           if (oReq.status == 200){
-                _this.img = JSON.parse(data.currentTarget.response)
-                console.log(_this.img)
-             } else {
-              console.log(data)
-            }
-        }
-        oReq.send(JSON.stringify({'data':{'filePath': name}}))
+    wx.uploadImage({
+      localId: name, // 需要上传的图片的本地ID，由chooseImage接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: function (res) {
+         console.log(res)
+         var serverId = res.serverId; // 返回图片的服务器端ID
+         _this.setState({
+            serverId:serverId
+         })
+      }
+      });
+
+    //  const form = new FormData() //formData 对象
+    //  var _this =this
+    // var  oReq = new XMLHttpRequest()
+    //   //  oReq.append('files', name)
+    //     oReq.open('POST', url, true)
+    //     oReq.onload = function(data){
+    //        if (oReq.status == 200){
+    //             _this.img = JSON.parse(data.currentTarget.response)
+    //             console.log(_this.img)
+    //          } else {
+    //           console.log(data)
+    //         }
+    //     }
+    //     oReq.send(JSON.stringify({'data':{'filePath': name}}))
   }
   async detail(id){
     const res = await baiduApi.getDetail({
@@ -112,11 +136,12 @@ class Words extends Component {
       //  }
   }
   uploadFile(tempFilePaths){
-      var _this =this 
+      var _this =this
+
       if(Taro.getEnv()=='WEB'){
           
           _this.upLoadImg(tempFilePaths[0], webUrl+'/api/doAdd')
-         
+
       }else{
           Taro.uploadFile({
             url: webUrl+'/api/doAdd', // 仅为示例，非真实的接口地址
@@ -188,12 +213,13 @@ class Words extends Component {
   }
   componentDidHide () { }
   render () {
-    const { info,imgUrl,infoText,landmark } = this.state
+    const { info,imgUrl,infoText,landmark ,serverId,title,desc} = this.state
     return (
       <View className='home-page'>
       <View className='title'>
         图片上的文字识别
       </View>
+      {process.env.TARO_ENV === 'h5' ? <WxJssdk title={title}  desc={desc} imgUrl={''}/> :''}
       <View className='updata' onClick={this.chooseImage.bind(this)}>
         上传图片
       </View>

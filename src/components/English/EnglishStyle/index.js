@@ -36,7 +36,7 @@ class EnglishStyle extends Component {
                 <View key={index} className={'text_li ' +(answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'err ' : ' ')+(rightAnswer == item.value&&answerList[itemIndex].val ? 'right' :'')} onClick={onQuestion.bind(this,item)} >
                     <View className={rightAnswer == item.value&&answerList[itemIndex].val ? 'img_right' : ''} ></View>
                     <View className={answerList[itemIndex].val==item.value&&rightAnswer!=answerList[itemIndex].val ? 'img_err' : ''} ></View>
-                     <View className={'letter'}> {item.value}</View><View>{item.chinese} </View>
+                     <View className={'letter'}> {item.value}</View><View>{item.title} </View>
                
                 </View>
               ))}
