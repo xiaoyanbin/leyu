@@ -4,8 +4,9 @@ import { connect } from '@tarojs/redux'
 import * as articleApi from './service'
 import MySwiper from '../../components/MySwiper'
 import GoodsList from '../../components/GoodsList'
-import ListModule from '../../components/Common/ListModule'
-import Top from '../../components/Top'
+import IndexList from '../../components/IndexList'
+import { videoUrl,imgUrl,publicUrl } from '../../config'
+import MinList from '../../components/MinList'
 import './index.scss'
 
 @connect(({ home ,detail}) => ({
@@ -14,7 +15,7 @@ import './index.scss'
 }))
 class Index extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '乐愚传播'
   }
   constructor() {
     super(...arguments)
@@ -23,7 +24,9 @@ class Index extends Component {
       info:[],
       page:1,
       poetryList:[],
+      cateList:[{'id':'5ccffe50a9c9c854cc758926','url':publicUrl+'/leyu/2.png','name':'动态视觉'},{'id':'5ccffe64a9c9c854cc758927','url':publicUrl+'/leyu/3.png','name':'TVC'},{'id':'5ccffe92a9c9c854cc758928','url':publicUrl+'/leyu/4.png','name':'产品宣传'},{'id':'5ccffec0a9c9c854cc758929','url':publicUrl+'/leyu/5.png','name':'原创影视'}],
       answerList:[],
+      res:{},
     }
   }
   handleClick (value) {
@@ -57,12 +60,9 @@ class Index extends Component {
     this.props.dispatch({
       type: 'home/focus',
     })
-    // this.props.dispatch({
-    //   type: 'home/poetrylist',
-    //   payload: { pid:this.props.pid },
-    // })
     this.getArticleCate('5ca1f4820363bd0218de37bd',1)
-    this.getArticle('5ca1d91c0363bd0218de37bb',1)
+    this.getArticle('5cd12400a9c9c854cc758931',1)
+    this.Article('5ccfff40a9c9c854cc75892b',1)
   }
   async getArticleCate (cateId,page) {
       const res = await articleApi.article({
@@ -78,6 +78,20 @@ class Index extends Component {
       } else{
           console.log('没有更多数据了')
       }
+  } 
+  async Article (cateId,page) {
+    const res = await articleApi.article({
+      pid: cateId,
+      page:page,
+    })
+    if (res.status == 'ok') {
+            this.setState({
+              banner: res.data.list,
+            })
+         
+    } else{
+        console.log('没有更多数据了')
+    }
   }  
   async getArticle (cateId,page) {
       const res = await articleApi.article({
@@ -87,6 +101,7 @@ class Index extends Component {
       if (res.status == 'ok') {
               this.setState({
                 answerList: res.data.list,
+                res: res.data.res,
                // page: page+1,
               })
            
@@ -94,26 +109,22 @@ class Index extends Component {
           console.log('没有更多数据了')
       }
   } 
-  toEnglish (a) {
-    console.log(a,111)
-    return 
+  toEnglish (a,pid) {
     Taro.navigateTo({
-      url: `/pages/english/index`,
+      url: `/pages/detail/index?id=${a}&pid=${pid}`,
     })
   }
   componentDidHide () { }
   render () {
-    const { banner,list } = this.props
-    const { poetryList,answerList } = this.state
+    const { list } = this.props
+    const { answerList,cateList,banner,res } = this.state
     return (
       <View className='home-page'>
-      <MySwiper banner={banner} home />
-      <Top pid ='5ca1d6b00363bd0218de37b4'/>
-      
-      <ListModule dataList={ poetryList } titleName='诗词大会' listUrl='poetrypk'/>
-
-      <View className='index_text' onClick={this.toEnglish.bind(this)}>答题</View>
-      <GoodsList list={answerList} loading='' ontoEnglish={this.toEnglish}/>
+      <View className='swiper_con'>
+        <MySwiper banner={banner} home />
+      </View>
+        <GoodsList list={cateList} loading='' ontoEnglish={this.toEnglish}/>
+        <IndexList list={answerList} res ={res} title={''} loading='' ontoEnglish={this.toEnglish}/>
       </View>
     )
   }

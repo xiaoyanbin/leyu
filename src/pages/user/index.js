@@ -1,21 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View,Text,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import * as userApi from './service'
-import { webUrl } from '../../config'
-import { AtAvatar } from 'taro-ui'
-import './index.scss'
-import touxiang from '../../images/icon/mr-touxiang.png'
 import Login from '../../components/Common/Login'
+import touxiang from '../../images/tab/tx.png'
+import './index.scss'
+
 @connect(({ home }) => ({
   ...home,
 }))
 
-class Baidu extends Component {
+class User extends Component {
   config = {
     navigationBarTitleText: '用户中心'
   }
-  
   onShareAppMessage (res) {
     if (res.from === 'button') {
       console.log(res.target)
@@ -29,93 +26,71 @@ class Baidu extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      current: 0,
       info:[],
       imgUrl:touxiang,
-      userInfo:{'nickName':'未登录','avatarUrl':touxiang,'country':''},
-      imgShow:'../../public/admin/upload/20190213/1550047826846.jpg_400x400.jpg',
-      uri:webUrl+'/api/doAdd',
-      phone:'',
+      userInfo:{'nickName':'登录','avatarUrl':touxiang,'country':''},
       share:{title:'用户中心',url:'/pages/user/index'}
+      
     }
-
-  }
-  async doRegister (userInfo) {
-    //获取文章详情
-    const res = await userApi.doRegister({
-      user: userInfo
-    })
-    console.log(res)
-
-    if (res.status == 'ok') {
-      this.setState({
-        userInfo : res.data.user_info,
-        userId:value.user_id,
-     },()=>{
-        //this.getpoetry()
-      })
-    }
-  }  
-  componentDidMount = () => {
-    console.log(Taro.getEnv(),111)
+  } 
+  componentDidMount() {
     try {
-      const value = wx.getStorageSync('userInfo')
-
-      if (value) {
-         this.setState({
-          userInfo: value.user_info,
-          userId:value.user_id,
-         },()=>{
-
-         })
-      }
+      let user = Taro.getStorageSync('userInfo')
+      this.setState({
+        userInfo:user
+      })
     } catch (error) {
       
     }
-    console.log(this.route,this.options)
-  //  this.drawTitle({'desc':'hahah','rise_info':{'rise_percent':1}})
 
+  }
+  toUrl(e) {
 
+    Taro.navigateTo({
+      url: e,
+    })
   }
   changeUser(data){
        this.setState({
           userInfo:data
        })
   }
-  getUserInfo = (userInfo) => {
+  getUserInfo(userInfo)  {
+      
+    
       if(userInfo.detail.userInfo){   //同意
-         // this.props.setBasicInfo(userInfo.detail.userInfo) //将用户信息存入redux  
-        //  this.doRegister(userInfo.detail)
-          Taro.setStorage({key:'userInfo',data:userInfo.detail.userInfo}).then(rst => {  //将用户信息存入缓存中
-              this.changeUser(userInfo.detail.userInfo)
-              Taro.navigateBack()
-          })
-      } else{ //拒绝,保持当前页面，直到同意 
+          Taro.setStorageSync('userInfo',userInfo.detail.userInfo)
+          
+          let user = Taro.getStorageSync('userInfo')
+          Taro.setStorageSync('user_id',user.avatarUrl)
+          this.setState({userInfo: user})
+
+      } else{ 
         console.log(222)
       }
   }
   componentDidHide () { }
   render () {
-    const { userInfo } = this.state
+    const { userInfo,imgUrl } = this.state
     return (
-
       <View className='home-page'>
-
-   
-      <View className='face'>
-      <AtAvatar className='face_img' image={userInfo.avatarUrl} ></AtAvatar>
-      <View className='nick_name'>{userInfo.nickName}</View> 
-      <Text>申请获取你的公开信息（昵称、头像等）</Text> 
-      {/* <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button> */}
-      <Login />
+       <View className='user_top'>
+          <View className='user_div'>
+            <View className='user_face'>
+            <Image src={userInfo.avatarUrl} />
+            </View>
+            <View className='user_text'>
+             <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > {userInfo.nickName} </Button>
+            </View>
+          </View>
+       </View>
+        <View className='content'>
+          <View onClick={this.toUrl.bind(this,'/pages/collect/index')}>我的收藏</View> 
+          <View>联系咨询</View> 
+        </View>
       </View>
-
-      
-
-   </View>
-
     )
   }
 }
 
-export default Baidu
+export default User

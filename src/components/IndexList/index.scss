@@ -1,5 +1,5 @@
 
-.goods-list-container {
+.list-container {
   padding: 0 31px;
   background-color: #fff;
   .index_text{
@@ -14,22 +14,79 @@
     flex-wrap: wrap;
     .goods-li {
       width: 100%;
-      margin-bottom: 13px;
+      margin-bottom: 30px;
+      height:526px;
       box-sizing: border-box;
-      .title{
-        text-align: center;
-        display: block;
+      border-bottom: 1px solid #f3f3f3;
+      position: relative;
+      .left{
+        width:500px;
+        float:left;
+        .title{
+          text-align: left;
+          display: block;
+          color:#3a3a3a;
+          font-size:36px;
+          line-height:60px;
+        }
+        .text{
+          line-height:30px;
+          font-size:22px;
+          color:#7e7e7e
+        }
       }
+      .right{
+        width:150px;
+        position: absolute;
+        right:24px;
+        height:30px;
+        bottom:60px;
+        .right_l{
+          width:70px;
+          height:30px;
+          background: url(https://wx.minsusuan.com/leyu/zan_1.png) 0 0 no-repeat;
+          background-size:32px 30px;
+          text-align:left;
+          padding-left:39px;
+          line-height:30px;
+          font-size:22px;
+          float:right;
+          color:rgba(0,0,0,0.5);
+        }
+        .nav{background-image: url(https://wx.minsusuan.com/leyu/zan.png);}
+        .right_r{
+          width:30px;
+          height:30px;
+          float:right;
+          background: url(https://wx.minsusuan.com/leyu/share.png) 0 0 no-repeat;
+          background-size:30px 30px;
+          font-size:20px;
+          color:rgba(0,0,0,0.5);
+        }
+      }  
       .pos {
         position: relative;
-        padding-bottom: 8px;
+        padding-bottom: 20px;
         .image-container {
-          height:177px;
-          border-radius:6px;
+          height:386px;
           overflow: hidden;
+          position: relative;
+          .time{
+             width:80px;
+             height:30px;
+             line-height: 30px;
+             position: absolute;
+             right:20px;
+             bottom:20px;
+             font-size:18px;
+             color:#fff;
+             text-align: center;
+             background-color: rgba(119,119,119,0.66);
+             border-radius: 15px;
+          }
           image {
-            border-radius: 6px;
-            height:177px;
+            height:386px;
+            border-radius: 20px;
           }   
 
         }

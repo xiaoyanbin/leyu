@@ -1,8 +1,8 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "myApp",
+	"projectname": "susuan",
 	"description": "答题游戏",
-	"appid": "wx2e74405674c01fba",
+	"appid": "wx20004991a4bf9789",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,

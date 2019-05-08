@@ -6,8 +6,8 @@ export const getDetail = data => Request({
   data,
 })
 
-export const article = data => Request({
-  url: '/api/article',
+export const updateCollectnum = data => Request({
+  url: '/api/article/updateCollectnum',
   method: 'GET',
   data,
 })

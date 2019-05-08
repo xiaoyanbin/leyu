@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Swiper, SwiperItem, Image } from '@tarojs/components'
-import { webUrl } from '../../config'
+import { webUrl,imgUrl } from '../../config'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -23,19 +23,21 @@ export default class MySwiper extends Component {
   render() {
     const { banner, home } = this.props
     return (
+    
       <Swiper
         className={!home ? 'swiper-container' : 'swiper'}
         circular
         indicatorDots
-        indicatorColor='#999'
-        indicatorActiveColor='#bf708f'
+        indicatorColor='rgba(38,38,38,0.2)'
+        indicatorActiveColor='rgba(38,38,38,1)'
         autoplay>
         { banner.map((item, index) => (
           <SwiperItem key={index}>
-            <Image onClick={this.gotoDetail.bind(this,item.link)} mode='widthFix' src={`${webUrl+item.focus_img}`}></Image>
+            <Image onClick={this.gotoDetail.bind(this,item.link)} mode='widthFix' src={`${imgUrl+item.article_img}`}></Image>
           </SwiperItem>
         ))}
       </Swiper>
+      
     )
   }
 }

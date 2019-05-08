@@ -1,30 +1,33 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View , Video ,Button} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import './index.scss'
-import Websocket from '../../utils/websocket'
-@connect(({ detail }) => ({
-  ...detail,
-}))
+import MinList from '../../components/MinList'
+import Share from '../../components/Share'
+
 class Detail extends Component {
   config = {
     navigationBarTitleText: '详情'
+  }
+  onShareAppMessage (resd) {
+    if (resd.from === 'button') {
+      return {
+        title: resd.target.dataset.title,
+        path: resd.target.dataset.url
+      }
+    }
   }
   constructor() {
     super(...arguments)
     this.state = {
       articleId: '',
-      detail: {},
+      details: [],
       cateList:[],
-      description:[],
-      value:'',
-      bug:'bug',
-      gushi:'锄禾日当午',
-      gushidata:[],
-      gushicopy:[],
-      gushishow:[],
-      index:0,
+      id:'',
+      pid:'',
+      collect:false,
+      res:{},
     }
 
   }
@@ -32,135 +35,67 @@ class Detail extends Component {
 
   componentDidMount = () =>   {
     this.setState({
-      articleId: this.$router.params.id,
+      id: this.$router.params.id,
+      pid:this.$router.params.pid,
+    },()=>{       
+      this.getArticleInfo(this.state.id)
+     
     })
-
-  
-    var ws = new Websocket({
-      url:'ws://echo.websocket.org/',//自定义  wss协议
-      onMessage:(r)=>{
-         this.onMessage(r)
-      }
-    })
-    this.ws = ws  
-    this.getgushi()
-    this.getArticleInfo(this.$router.params.id)
     
-  }
-  onMessage(e){
-      this.setState({
-        bug: e.data,
-     })
-  }
-  getgushi(data){
-      const b = this.state.gushi 
-      const c = b.split('')
-      const d = new Array()
-      c.forEach((data,i) =>{
-          d.push({play:false,val:data})
-      })
-      const h = b.split('').sort(() => Math.random() - 0.5)
-      console.log(h)
-      this.setState({
-        gushidata: h,
-        gushicopy: d,
-      },() =>{
-        console.log(this.state.gushidata,this.state.gushicopy) 
-      })
-       
   }
   async getArticleInfo(articleId) {
     const res = await detailApi.getDetail({
       id: articleId
     })
     if (res.status == 'ok') {
-      var datas ={data:[]}
-      try {
-         datas = JSON.parse(res.data.list.description)
-      } catch (error) {
-         datas = {data:[]}
-      }
+          let d = res.data.list
+              d.img = `https://weixue.minsusuan.com${res.data.list.article_img}`
       this.setState({
-          detail: res.data.list,
-          cateList:res.data.cateList,
-          description:datas.data,
+          details: d,
+      },()=>{
+        this.getArticle(this.state.pid,1,res.data.list.description)
       })
-
     }
   }  
-  gotoDetails(e){
-
-     if(this.ws.ready){
-        this.ws.send(JSON.stringify({'a':0}))
-     }
-
-  }
-  gotoDetail = (e) => {
-    Taro.navigateTo({
-      url: `/pages/detail/index?id=${e.currentTarget.dataset.id}`,
+  async getArticle (cateId,page,des) {
+    const res = await detailApi.article({
+      pid: cateId,
+      page:page,
     })
-  }
-  handleChange (value){
-      this.setState({
-          value
-      })
-  }
-  putgushi(value){
-         const {index} = this.state
-         if(this.state.gushicopy[index].val==value){
-              const d = [...this.state.gushicopy]
-              d[index].play = true
-              this.setState({
-                gushicopy:d,
-              },() =>{
-                const x= index
-                const y =x+1
-                this.setState({
-                   index:y,
-                })
-                console.log(this.state.gushicopy) 
-              })
-         }
-         
+    if (res.status == 'ok') {
+            let data = res.data.list;
+            let datas = data.filter((data,i)=> data.description==des) 
+
+            this.setState({
+              answerList: datas,
+              res:res.data.res,
+             // page: page+1,
+            })
+    } else{
+        console.log('没有更多数据了')
+    }
+  } 
+  onCollect(){
+      const { collect } = this.state
+      let collects = collect;
+      
   }
   render () {
-    const { cateList, detail, bug, gushidata, gushicopy} = this.state
-   // const datas = JSON.parse(detail.description)
-   // const { detail } = this.props
-    return (
-     
+    const { answerList , details,pid,res} = this.state
+    return ( 
     <View className='home-page'>
-        <View className='at-article'>
-            <View>{detail.title}</View>
-            <View  onClick={this.getgushi.bind(this)}>
-              {detail.add_time}&nbsp&nbsp&nbsp这是作者
-        </View>
-        <View>
-            <View >{detail.description}</View>
-            <View > {detail.content} </View>
-        </View>
-
-    </View>
-
-    <View>
-        { cateList.map((item, index) => (
-            <View className='nav-item' onClick={this.gotoDetails.bind(this)} key={index}>
-               <View>{item.title}</View>
-            </View>
-          ))}
-    </View>
-    <View>{bug} </View>
-
-    <View className='gushicopy'>
-      {gushicopy.map((item,index) => (
-        <View  className={'kuang ' +(item.play ?'select':'')} >{item.val}</View>
-      ))}
-    </View>
-      
-    <View  className='gushidata'>
-      {gushidata.map((item,index) => (
-        <View className='lists' onClick={this.putgushi.bind(this,item)} key={index}> {item}</View>
-      ))}</View>
+    <Video className = 'video_info'
+          src='http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+          controls={true}
+          autoplay={false}
+          poster={details.img}
+          initialTime='0'
+          loop={false}
+          muted={false}
+        />
+       
+     <Share list={details} pid={pid}/>
+     <MinList list={answerList} title={''} res={res}  loading='' ontoEnglish={this.toEnglish}/>
     </View>
     )
   }

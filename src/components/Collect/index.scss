@@ -1,0 +1,32 @@
+
+
+.right{
+  width:200px;
+  position: absolute;
+  right:24px;
+  height:30px;
+  bottom:60px;
+  .right_l{
+    width:70px;
+    height:30px;
+    background: url(https://wx.minsusuan.com/leyu/zan_1.png) 0 0 no-repeat;
+    background-size:32px 30px;
+    text-align:left;
+    padding-left:39px;
+    line-height:30px;
+    font-size:22px;
+    float:right;
+    color:rgba(0,0,0,0.5);
+  }
+  .nav{background-image: url(https://wx.minsusuan.com/leyu/zan.png);}
+  .right_r{
+    width:30px;
+    height:30px;
+    float:right;
+    background: url(https://wx.minsusuan.com/leyu/share.png) 0 0 no-repeat;
+    background-size:30px 30px;
+    font-size:20px;
+    color:rgba(0,0,0,0.5);
+  }
+}  
+      

@@ -1,15 +1,42 @@
 @import '../../styles/mixin';
-
+.swiper_con{
+  padding-left:31px;
+}
 .swiper-container {
-  width: 100%;
-  min-height: 320px;
+  width: 688px;
+  padding-left:31px;
+  min-height: 500px;
   height: 100%;
 }
 
 .swiper {
-  width: 100vw;
-  height: 320px;
-  image,img {
-    height: 320px!important;
+  width: 688px;
+  height: 450px;
+  .swiper-pagination{
+    bottom:20px;
+    color:#e9e9e9;
+    border-radius: 15px;
   }
+  image,img {
+    border-radius: 15px;
+    height: 386px!important;
+  }
+  
+
 }
+
+  .wx-swiper-dot {
+    width:40px;
+    height:10px;
+    margin-left:20px;
+    display: flex;}
+    .wx-swiper-dot::before{
+      content: '';
+      flex-grow: 1;
+      background:rgba(255,255,255,0.8);
+      border-radius: 8px
+    
+    }
+    .wx-swiper-dot-active::before{
+     background:rgba(244,0,0,0.8);  
+    }

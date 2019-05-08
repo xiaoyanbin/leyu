@@ -61,7 +61,6 @@ class Login extends Component {
     return (
        <View>
          <Button className='user_info' open-type='getUserInfo' onGetUserInfo={this.getUserInfo} > 点击登录 </Button>
-
       </View> 
     )
   }

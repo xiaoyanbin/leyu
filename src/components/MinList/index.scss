@@ -1,10 +1,10 @@
 
-.goods-list-container {
+.min-list-container {
   padding: 0 31px;
   background-color: #fff;
   .index_text{
     width:100%;
-    font-size:32px;
+    font-size:30px;
     height:80px;
     line-height: 80px;
   }
@@ -14,22 +14,53 @@
     flex-wrap: wrap;
     .goods-li {
       width: 100%;
-      margin-bottom: 13px;
+      padding-top: 25px;
+      padding-bottom:27px;
       box-sizing: border-box;
-      .title{
-        text-align: center;
-        display: block;
+      .list_right{
+        padding-left:34px;
+        width:300px;
+        float:left;
+          .title{
+            text-align: left;
+            display: block;
+            color:#3a3a3a;
+            font-size:32px;
+            line-height:44px;
+          }
+          .text{
+            line-height:44px;
+            font-size:22px;
+            color:#7e7e7e
+          }
       }
       .pos {
         position: relative;
         padding-bottom: 8px;
         .image-container {
-          height:177px;
-          border-radius:6px;
+          height:188px;
+          width:334px;
+          float:left;
+          border-radius:5px;
           overflow: hidden;
+          position: relative;
+          .time{
+             width:80px;
+             height:30px;
+             line-height: 30px;
+             position: absolute;
+             right:20px;
+             bottom:20px;
+             font-size:16px;
+             color:#fff;
+             text-align: center;
+             background-color: #545154;
+             border-radius: 10px;
+
+          }
           image {
-            border-radius: 6px;
-            height:177px;
+            border-radius: 5px;
+            height:189px;
           }   
 
         }
@@ -62,7 +93,6 @@
       top: 50%;
       transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.7);
-      border-radius: 100%;
       text-align: center;
       line-height: 180px;
       color: #fff;

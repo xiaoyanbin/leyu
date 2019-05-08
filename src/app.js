@@ -27,28 +27,11 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/treasure/index',
       'pages/user/index',
-      'pages/poetrypk/index',
-      'pages/movable/index',
-      'pages/card/index',
-      'pages/english/index',
-      'pages/poetrylist/index',
-      'pages/answerlist/index',
-      'pages/answer/index',
       'pages/detail/index',
-      'pages/poetry/index',
-      'pages/plist/index',
-      'pages/idiom/index',
-      'pages/result/index',
-      'pages/radio/index',
-      'pages/en/index',
-      'pages/words/index',
-      'pages/home/index',
-      'pages/wordslist/index',
-      'pages/word/index',
-      'pages/wordcard/index',
-      'pages/wordsenglish/index',
+      'pages/list/index',
+      'pages/about/index',
+      'pages/collect/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -60,16 +43,23 @@ class App extends Component {
     },
     
     tabBar: {
+      "color": "#aaa",
+      "selectedColor":"#030303",
       list: [{
         pagePath: 'pages/index/index',
         text: '首页',
-        iconPath: './images/tab/home.png',
-        selectedIconPath: './images/tab/home-active.png'
+        iconPath: './images/tab/1_1.png',
+        selectedIconPath: './images/tab/1.png'
+      },{
+        pagePath: 'pages/about/index',
+        text: '关于',
+        iconPath: './images/tab/2_1.png',
+        selectedIconPath: './images/tab/2.png'
       },{
         pagePath: 'pages/user/index',
         text: '我的',
-        iconPath: './images/tab/user.png',
-        selectedIconPath: './images/tab/user-active.png'
+        iconPath: './images/tab/3_1.png',
+        selectedIconPath: './images/tab/3.png'
       }],
       color: '#333',
       selectedColor: '#333',
