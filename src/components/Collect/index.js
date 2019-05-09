@@ -6,7 +6,7 @@ import './index.scss'
 
 class Collect extends Component {
   static propTypes ={
-    record: PropTypes.array,
+    record: PropTypes.object,
     onShare:PropTypes.func,
 
   }
@@ -30,11 +30,10 @@ class Collect extends Component {
   }
   componentWillReceiveProps(e){
     const { record } = this.props
-    console.log(record,1234)
     if(record!==e.record){
         this.setState({
-          isCollect:record.isCollect,
-          collectnum:record.collectnum,
+          isCollect:e.record.isCollect,
+          collectnum:e.record.collectnum,
         })
     }
   }
@@ -91,8 +90,6 @@ class Collect extends Component {
        Taro.setStorageSync('dataList', dataList)
      }
 
-     console.log(dataList)
-
    // Taro.setStorageSync('user_id', 'abcdef')
   }
   render() {
@@ -100,10 +97,12 @@ class Collect extends Component {
     const { record } = this.props
     return (
             <View className="right">
-                <View className="right_r" onClick={this.onShares.bind(this,record)}></View>
+                
                 <View onClick={this.onCollect.bind(this,record)} className={"right_l " +(isCollect ? 'nav' : '')}>
-                   {collectnum}
-                </View>
+                </View>  
+                 <View className='num'>{collectnum}</View>    
+                <View className="right_r" onClick={this.onShares.bind(this,record)}></View>
+
             </View> 
             )
   }

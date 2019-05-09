@@ -1,0 +1,56 @@
+.share_top{
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.5);
+  display: block;
+  position: fixed;
+  z-index:10;
+  top:0;
+  left:0;
+  .share_ionc{
+    width:70%;
+    padding:44px 15% 0 15%;
+    height:156px;
+    position: fixed;
+    bottom:0;
+    left:0px;
+    background-color: rgba(246,246,246,1);
+    display: flex;
+    justify-content: space-between;
+    button{
+      font-size:22px;
+      padding:0px;
+    }
+    button::after {
+          border: none;
+          color:#000;
+    } 
+    .share_ionc_l{
+      width:180px;
+      height:156px;
+      color:#373737;
+      font-size:24px;
+      vertical-align:bottom; 
+      line-height:40px; 
+      text-align: center;
+      .ionc_l{
+          width:54px;
+          height:48px;
+          margin:0 auto;
+          background: url(https://wx.minsusuan.com/leyu/tp.png) no-repeat 0 0;
+          background-size: 50px 44px;
+          align-content:center;
+      }
+      .ionc_r{
+        width:59px;
+        height:48px;
+        margin:0 auto;
+        background: url(https://wx.minsusuan.com/leyu/wx.png) no-repeat 0 0;
+        background-size: 54px 44px;
+      }
+      .text{line-height:100px;}
+
+    }
+  }
+
+}

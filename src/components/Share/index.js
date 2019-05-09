@@ -6,27 +6,26 @@ import './index.scss'
 
 class Share extends Component {
   static propTypes ={
-    list: PropTypes.object,
+    detail: PropTypes.object,
     ontoEnglish:PropTypes.func,
     pid:PropTypes.string,
   }
-  onShareAppMessage (res) {
-    if (res.from === 'button') {
-      console.log(res.target)
-    }
-    return {
-      title: res.target.dataset.title,
-      path: res.target.dataset.url
-    }
-  }
   static defaultProps = {
-    list: {},
+    detail:{}
   }
-  
+  constructor() {
+    super(...arguments)
+    this.state = {
+      details:{},
+    }
+  } 
   gotoDetail (e,f) {
     Taro.navigateTo({
       url: `/pages/list/index?pid=${e}&name=${f}`,
     })
+  }
+  componentDidMount(){
+   
   }
   onList(){
     
@@ -35,15 +34,27 @@ class Share extends Component {
   onShare(){
     
   }
+  componentWillReceiveProps(e){
+    const { detail } = this.props
+
+    if(detail!==e.detail){
+        this.setState({
+          details:e.detail,
+        },()=>{
+          console.log(111,this.state.details)
+        })
+    }
+  }
   render() {
-    const { list, loading,pid } = this.props
+    const { detail, loading,pid } = this.props
+    const { details } = this.state
     return (
       <View className='share-list-container'>
       <View className="left">
-        <View className="title">{list.title} </View>  
-        <View className="text">{list.description}/{list.keywords}</View>  
+        <View className="title">{detail.title} </View>  
+        <View className="text">{detail.description}/{detail.keywords}</View>  
       </View>  
-      <Collect record={ list } onShare={this.onShare} />
+      <Collect record={ details } onShare={this.onShare} />
             {/* <Button open-type='share' className='share' data-title={list.title} data-url={'/pages/detail/index?id='+list.id+'&pid='+pid}>分享</Button>
         */}
     

@@ -2,9 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as articleApi from './service'
-import GoodsList from '../../components/GoodsList'
 import IndexList from '../../components/IndexList'
-import MinList from '../../components/MinList'
+import ShareBtn from '../../components/BtnShare'
 import './index.scss'
 
 @connect(({ home ,detail}) => ({
@@ -27,6 +26,7 @@ class List extends Component {
       pid:'',
       name:'',
       res:{},
+      isShare:false,
     }
   }
   handleClick (value) {
@@ -60,6 +60,7 @@ class List extends Component {
      
 
   }
+
   async getArticleCate (cateId,page) {
     //获取文章详情
       const { list } = this.state
@@ -110,13 +111,25 @@ class List extends Component {
       url: `/pages/detail/index?id=${id}&pid=${pid}`,
     })
   }
+  onShareFun(){
+    const { isShare } =this.state
+    let share = isShare
+    this.setState({
+      isShare:!share,
+    })
+  }
   componentDidHide () { }
   render () {
     const { banner } = this.props
-    const { poetryList,answerList,list,name,pid,res } = this.state
+    const { poetryList,answerList,list,name,pid,res,isShare } = this.state
     return (
       <View className='home-page'>
-        <IndexList list={ list } res={res} title ={res.title} pid={pid}  loading='' ontoEnglish={this.toEnglish}/>
+        <IndexList list={ list } res={res}  title ={res.title} pid={pid}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
+       {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } onShareFun={this.onShareFun} shareUrl={ '/pages/index/index' }/> }
+    
+
+      
+     
       </View>
     )
   }

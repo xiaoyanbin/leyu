@@ -31,25 +31,16 @@ class IndexList extends Component {
   onCollect(){
     const { collect } = this.state
     let collects = collect;
-    console.log(collects)
       // this.setState({
       //    share:456
       //  })
   }
   onShare(d){
-    this.props.ontoEnglish(d)
-    console.log(d,123)
-      //this.onCollect()
-
-      // const { share } = this.state
-      // let shares = share
-      // this.setState({
-      //   share:!shares
-      // })
+       this.props.onShareFun(d)
   }
   render() {
     const { share } = this.state
-    const { list, loading,res,title } = this.props
+    const { list, loading,res,title ,show} = this.props
     return (
       <View className='list-container'>
       {title && <View className='index_text'>{ title }</View>}
@@ -69,7 +60,7 @@ class IndexList extends Component {
                       <View className='title'>{item.title}  </View>
                       <View className='text'>{res.title} / #{item.description}</View>
                   </View>
-                  <Collect record={ item } onShare={this.onShare} />
+                 {show &&<Collect record={ item } onShare={this.onShare} />}
                   {/* <View className="right">
                       <View className="right_r">
                       </View>

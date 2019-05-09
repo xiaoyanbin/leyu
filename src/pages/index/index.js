@@ -5,8 +5,8 @@ import * as articleApi from './service'
 import MySwiper from '../../components/MySwiper'
 import GoodsList from '../../components/GoodsList'
 import IndexList from '../../components/IndexList'
-import { videoUrl,imgUrl,publicUrl } from '../../config'
-import MinList from '../../components/MinList'
+import ShareBtn from '../../components/BtnShare'
+import { publicUrl } from '../../config'
 import './index.scss'
 
 @connect(({ home ,detail}) => ({
@@ -16,6 +16,15 @@ import './index.scss'
 class Index extends Component {
   config = {
     navigationBarTitleText: '乐愚传播'
+  }
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      console.log(res.target)
+    }
+    return {
+      title: res.target.dataset.title,
+      path: res.target.dataset.url
+    }
   }
   constructor() {
     super(...arguments)
@@ -27,6 +36,7 @@ class Index extends Component {
       cateList:[{'id':'5ccffe50a9c9c854cc758926','url':publicUrl+'/leyu/2.png','name':'动态视觉'},{'id':'5ccffe64a9c9c854cc758927','url':publicUrl+'/leyu/3.png','name':'TVC'},{'id':'5ccffe92a9c9c854cc758928','url':publicUrl+'/leyu/4.png','name':'产品宣传'},{'id':'5ccffec0a9c9c854cc758929','url':publicUrl+'/leyu/5.png','name':'原创影视'}],
       answerList:[],
       res:{},
+      isShare:false,
     }
   }
   handleClick (value) {
@@ -42,6 +52,13 @@ class Index extends Component {
   toUrl () {
     Taro.navigateTo({
       url: `/pages/plist/index?pid=5bcee18b3263442e3419080e`,
+    })
+  }
+  onShareFun(){
+    const { isShare } =this.state
+    let share = isShare
+    this.setState({
+      isShare:!share,
     })
   }
   componentWillReceiveProps (nextProps) {
@@ -116,15 +133,15 @@ class Index extends Component {
   }
   componentDidHide () { }
   render () {
-    const { list } = this.props
-    const { answerList,cateList,banner,res } = this.state
+    const { answerList,cateList,banner,res,isShare } = this.state
     return (
       <View className='home-page'>
       <View className='swiper_con'>
         <MySwiper banner={banner} home />
       </View>
         <GoodsList list={cateList} loading='' ontoEnglish={this.toEnglish}/>
-        <IndexList list={answerList} res ={res} title={''} loading='' ontoEnglish={this.toEnglish}/>
+        <IndexList list={answerList} res ={res} show={true} title={''} loading='' onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>
+       {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } shareUrl={ '/pages/index/index' } onShareFun={this.onShareFun} /> }
       </View>
     )
   }

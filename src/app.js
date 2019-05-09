@@ -6,7 +6,7 @@ import Index from './pages/index'
 import models from './models'
 import configStore from './store'
 
-import 'taro-ui/dist/style/index.scss' 
+//import 'taro-ui/dist/style/index.scss' 
 import './styles/base.scss'
 
 
@@ -27,11 +27,11 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/collect/index',
+      'pages/list/index',
       'pages/user/index',
       'pages/detail/index',
-      'pages/list/index',
       'pages/about/index',
-      'pages/collect/index',
     ],
     window: {
       backgroundTextStyle: 'light',

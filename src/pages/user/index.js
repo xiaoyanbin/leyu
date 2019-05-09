@@ -28,14 +28,14 @@ class User extends Component {
     this.state = {
       info:[],
       imgUrl:touxiang,
-      userInfo:{'nickName':'登录','avatarUrl':touxiang,'country':''},
+      userInfo:{'nickName':'登录','avatarUrl':touxiang},
       share:{title:'用户中心',url:'/pages/user/index'}
       
     }
   } 
   componentDidMount() {
     try {
-      let user = Taro.getStorageSync('userInfo')
+      let user = Taro.getStorageSync('userInfo') || {'nickName':'登录','avatarUrl':touxiang}
       this.setState({
         userInfo:user
       })

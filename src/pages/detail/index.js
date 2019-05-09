@@ -50,6 +50,17 @@ class Detail extends Component {
     if (res.status == 'ok') {
           let d = res.data.list
               d.img = `https://weixue.minsusuan.com${res.data.list.article_img}`
+          
+              let dataList = Taro.getStorageSync('dataList') || [] 
+                  
+              if(dataList.indexOf(d._id)==-1){
+                d.isCollect =false
+              }  else {
+                d.isCollect =true
+              }
+              
+
+
       this.setState({
           details: d,
       },()=>{
@@ -94,7 +105,7 @@ class Detail extends Component {
           muted={false}
         />
        
-     <Share list={details} pid={pid}/>
+     <Share detail = {details} pid={pid}/>
      <MinList list={answerList} title={''} res={res}  loading='' ontoEnglish={this.toEnglish}/>
     </View>
     )

@@ -3,8 +3,9 @@ import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as articleApi from './service'
 import IndexList from '../../components/IndexList'
+import ShareBtn from '../../components/BtnShare'
 import './index.scss'
-import { arrayOfDeffered } from 'redux-saga/utils';
+import { arrayOfDeffered } from 'redux-saga/utils'
 
 @connect(({ home ,detail}) => ({
   ...home,
@@ -24,12 +25,20 @@ class Collect extends Component {
       answerList:[],
       list:[],
       res:{},
+      isShare:false,
     }
   }
   handleClick (value) {
     this.setState({
       current: value
     })
+  }
+  onShareFun(){
+        const { isShare } =this.state
+        let share = isShare
+        this.setState({
+          isShare:!share,
+        })
   }
   gotoDetail (e) {
     Taro.navigateTo({
@@ -52,7 +61,6 @@ class Collect extends Component {
   componentDidMount () {
     let dataList = Taro.getStorageSync('dataList') || []
     let data = []
-    console.log(dataList)
     dataList.forEach((d,i) => {
       data[i] = {}
       data[i]._id = d
@@ -72,6 +80,7 @@ class Collect extends Component {
       })
       if (res.status == 'ok' && res.data.length) {
             let result = res.data
+         
             result.forEach((d,i)=>{
                     result[i].isCollect =true
             }) 
@@ -100,10 +109,12 @@ class Collect extends Component {
   componentDidHide () { }
   render () {
     const { banner } = this.props
-    const { poetryList,answerList,list,res } = this.state
+    const { poetryList,answerList,list,res ,isShare} = this.state
     return (
       <View className='home-page'>
-        <IndexList list={ list } res={res} title={'我的收藏'}  loading='' ontoEnglish={this.toEnglish}/>
+        <IndexList list={ list } res={res} title={'我的收藏'}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
+       {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } onShareFun={this.onShareFun} shareUrl={ '/pages/index/index' }/> }
+    
       </View>
     )
   }
