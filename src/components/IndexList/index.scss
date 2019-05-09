@@ -4,9 +4,18 @@
   background-color: #fff;
   .index_text{
     width:100%;
-    font-size:32px;
+    font-size:40px;
     height:80px;
     line-height: 80px;
+    font-weight: bold;
+    margin-bottom:20px;
+  }
+  .index_n{
+    width:100%; 
+    height:40px;
+    border-top:1px solid rgba(112,112,112,0.1);
+    margin-top:20px;
+
   }
   .goods-ul {
     display: flex;
@@ -14,8 +23,8 @@
     flex-wrap: wrap;
     .goods-li {
       width: 100%;
-      margin-bottom: 30px;
-      height:526px;
+      margin-bottom: 40px;
+      height:524px;
       box-sizing: border-box;
       border-bottom: 1px solid #f3f3f3;
       position: relative;
@@ -27,10 +36,11 @@
           display: block;
           color:#3a3a3a;
           font-size:36px;
-          line-height:60px;
+          line-height:48px;
+          font-weight: bold;
         }
         .text{
-          line-height:30px;
+          line-height:44px;
           font-size:22px;
           color:#7e7e7e
         }
@@ -38,7 +48,7 @@
       .right{
         width:150px;
         position: absolute;
-        right:24px;
+        right:22px;
         height:30px;
         bottom:60px;
         .right_l{
@@ -66,7 +76,7 @@
       }  
       .pos {
         position: relative;
-        padding-bottom: 20px;
+        padding-bottom: 24px;
         .image-container {
           height:386px;
           overflow: hidden;
@@ -76,7 +86,7 @@
              height:30px;
              line-height: 30px;
              position: absolute;
-             right:20px;
+             right:22px;
              bottom:20px;
              font-size:18px;
              color:#fff;

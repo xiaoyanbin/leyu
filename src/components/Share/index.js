@@ -31,8 +31,8 @@ class Share extends Component {
     
     this.props.ontoEnglish(123)
   }
-  onShare(){
-    
+  onShare(d){
+    this.props.onShareFun(d)
   }
   componentWillReceiveProps(e){
     const { detail } = this.props
@@ -46,18 +46,15 @@ class Share extends Component {
     }
   }
   render() {
-    const { detail, loading,pid } = this.props
+    const { detail } = this.props
     const { details } = this.state
     return (
       <View className='share-list-container'>
-      <View className="left">
-        <View className="title">{detail.title} </View>  
-        <View className="text">{detail.description}/{detail.keywords}</View>  
-      </View>  
-      <Collect record={ details } onShare={this.onShare} />
-            {/* <Button open-type='share' className='share' data-title={list.title} data-url={'/pages/detail/index?id='+list.id+'&pid='+pid}>分享</Button>
-        */}
-    
+        <View className="left">
+          <View className="title">{detail.title} </View>  
+          <View className="text">{detail.description}/{detail.keywords}</View>  
+        </View>  
+        <Collect record={ details } onShare={this.onShare} />
       </View>
     )
   }

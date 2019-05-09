@@ -37,6 +37,11 @@ class Index extends Component {
       answerList:[],
       res:{},
       isShare:false,
+      shareTitle:'',
+      shareUrl:'',
+      pid:'',
+      page:1,
+      list:[],
     }
   }
   handleClick (value) {
@@ -54,7 +59,14 @@ class Index extends Component {
       url: `/pages/plist/index?pid=5bcee18b3263442e3419080e`,
     })
   }
-  onShareFun(){
+  onShareFun(data){
+    if(data){
+      this.setState({
+        shareTitle:data.title,
+        shareUrl: `/pages/detail/index?id=${data._id}&pid=${data.cate_id}`
+      })
+    }
+
     const { isShare } =this.state
     let share = isShare
     this.setState({
@@ -71,15 +83,34 @@ class Index extends Component {
 
   }
   componentDidMount = () => {
-    this.props.dispatch({
-      type: 'home/article',
-    })
-    this.props.dispatch({
-      type: 'home/focus',
-    })
+
+
     this.getArticleCate('5ca1f4820363bd0218de37bd',1)
-    this.getArticle('5cd12400a9c9c854cc758931',1)
+    this.setState({
+      pid:'5ccffe50a9c9c854cc758926'
+    },()=>{
+      this.getArticle('5ccffe50a9c9c854cc758926',1)
+    })
+
     this.Article('5ccfff40a9c9c854cc75892b',1)
+  }
+  onPullDownRefresh(){
+    this.setState({
+      pid:'5ccffe50a9c9c854cc758926'
+    },()=>{
+      this.getArticle('5ccffe50a9c9c854cc758926',1)
+    })
+    setTimeout(()=>{
+      Taro.stopPullDownRefresh()
+    },200)
+  
+  }
+  onReachBottom(){
+    this.nextPage()
+  }
+  nextPage(){
+    const { pid,page } = this.state
+    this.getArticle(pid,page)
   }
   async getArticleCate (cateId,page) {
       const res = await articleApi.article({
@@ -111,20 +142,57 @@ class Index extends Component {
     }
   }  
   async getArticle (cateId,page) {
+      const { list,pid } = this.state
       const res = await articleApi.article({
         pid: cateId,
         page:page,
+        pageSize:5,
       })
-      if (res.status == 'ok') {
-              this.setState({
-                answerList: res.data.list,
-                res: res.data.res,
-               // page: page+1,
-              })
-           
-      } else{
-          console.log('没有更多数据了')
-      }
+
+      if (res.status == 'ok' && res.data.list.length) {
+                  let dataList = Taro.getStorageSync('dataList') || []
+                  let result = res.data.list
+                  if(dataList.length>0){
+                      result.forEach((d,i)=>{
+                        if(dataList.indexOf(d._id)!=-1){
+                          result[i].isCollect =true
+                        } else {
+                          result[i].isCollect =false
+                        } 
+                      }) 
+                  }
+
+                if(page==1&&pid=='5ccffe50a9c9c854cc758926'){
+                  this.setState({
+                    list: result,
+                    page: page+1,
+                    res: res.data.res,
+                  })
+                }else{
+                  let val = list.concat(result)
+                  this.setState({
+                    list: val,
+                    page: page+1,
+                    res: res.data.res,
+                  })   
+                }
+
+            } else{
+                const { cateList,pid } = this.state
+                let cate = cateList
+
+                let index = cate.findIndex((d,i) =>pid == d.id)
+                if(index!=-1&&index<3){
+                  this.setState({
+                    pid:cate[index+1].id,
+                    page:1,
+                  },()=>{
+                     this.nextPage()
+                  })
+                }
+
+                console.log('没有更多数据了')
+            }
   } 
   toEnglish (a,pid) {
     Taro.navigateTo({
@@ -133,15 +201,15 @@ class Index extends Component {
   }
   componentDidHide () { }
   render () {
-    const { answerList,cateList,banner,res,isShare } = this.state
+    const { list,cateList,banner,res,isShare,shareTitle,shareUrl } = this.state
     return (
       <View className='home-page'>
       <View className='swiper_con'>
         <MySwiper banner={banner} home />
       </View>
         <GoodsList list={cateList} loading='' ontoEnglish={this.toEnglish}/>
-        <IndexList list={answerList} res ={res} show={true} title={''} loading='' onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>
-       {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } shareUrl={ '/pages/index/index' } onShareFun={this.onShareFun} /> }
+        <IndexList list={list} res ={res} show={true} title={''} loading='' onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>
+        {isShare &&<ShareBtn  shareTitle ={ shareTitle } shareUrl={ shareUrl } onShareFun={this.onShareFun} /> }
       </View>
     )
   }

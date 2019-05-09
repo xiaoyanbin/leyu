@@ -48,7 +48,7 @@ class Collect extends Component {
     const user_id = Taro.getStorageSync('user_id')
   
     if(!user_id){
-      Taro.showToast({title:"请先到(我的)页面登录",icon:"none"})
+      Taro.showToast({title:"请先到 我的 页面登录",icon:"none"})
       return
     }
      

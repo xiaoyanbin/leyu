@@ -28,6 +28,7 @@ class Login extends Component {
       code: data.code,
       userInfo:data.userInfo,
     }) 
+    
     if (res.status == 'ok') {
 
       Taro.setStorage({key:'userInfo',data:res.data }).then(rst => {  //将用户信息存入缓存中

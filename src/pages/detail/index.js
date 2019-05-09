@@ -2,10 +2,12 @@ import Taro, { Component } from '@tarojs/taro'
 import { View , Video ,Button} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
-import './index.scss'
 import MinList from '../../components/MinList'
+import { videoUrl,imgUrl } from '../../config'
 import Share from '../../components/Share'
-
+import ShareBtn from '../../components/BtnShare'
+import InImg from '../../components/InImg'
+import './index.scss'
 class Detail extends Component {
   config = {
     navigationBarTitleText: '详情'
@@ -22,12 +24,15 @@ class Detail extends Component {
     super(...arguments)
     this.state = {
       articleId: '',
-      details: [],
+      details: {},
       cateList:[],
       id:'',
       pid:'',
       collect:false,
       res:{},
+      isShare:false,
+      shareTitle:'',
+      shareUrl:'',
     }
 
   }
@@ -42,6 +47,20 @@ class Detail extends Component {
      
     })
     
+  }
+  onShareFun(data){
+    console.log(data,1234)
+    if(data){
+      this.setState({
+        shareTitle:data.title,
+        shareUrl: `/pages/detail/index?id=${data._id}&pid=${data.cate_id}`
+      })
+    }
+    const { isShare } =this.state
+    let share = isShare
+    this.setState({
+      isShare:!share,
+    })
   }
   async getArticleInfo(articleId) {
     const res = await detailApi.getDetail({
@@ -92,21 +111,14 @@ class Detail extends Component {
       
   }
   render () {
-    const { answerList , details,pid,res} = this.state
+    const { answerList , details,pid,res,isShare,shareTitle, shareUrl} = this.state
     return ( 
     <View className='home-page'>
-    <Video className = 'video_info'
-          src='http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
-          controls={true}
-          autoplay={false}
-          poster={details.img}
-          initialTime='0'
-          loop={false}
-          muted={false}
-        />
-       
-     <Share detail = {details} pid={pid}/>
-     <MinList list={answerList} title={''} res={res}  loading='' ontoEnglish={this.toEnglish}/>
+     <InImg link={videoUrl+details.link} img={details.img} />  
+
+    {details && <Share detail = {details} pid={pid} onShareFun={this.onShareFun}/> }
+     <MinList list={answerList} title={''} res={res}  loading=''  ontoEnglish={this.toEnglish}/>
+     {isShare &&<ShareBtn  shareTitle ={ shareTitle } shareUrl={ shareUrl } onShareFun={this.onShareFun} /> }
     </View>
     )
   }

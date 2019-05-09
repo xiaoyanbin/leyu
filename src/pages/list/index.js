@@ -24,7 +24,6 @@ class List extends Component {
       answerList:[],
       list:[],
       pid:'',
-      name:'',
       res:{},
       isShare:false,
     }
@@ -54,19 +53,24 @@ class List extends Component {
     
   }
   componentDidMount () {
-    this.setState({'pid':this.$router.params.pid,'name':this.$router.params.name},()=>{
+    this.setState({'pid':this.$router.params.pid},()=>{
       this.getArticleCate(this.state.pid,1)
     })
-     
-
   }
-
+  onReachBottom(){
+    this.nextPage()
+  }
+  nextPage(){
+    const { pid,page } = this.state
+    this.getArticleCate(pid,page)
+  }
   async getArticleCate (cateId,page) {
     //获取文章详情
       const { list } = this.state
       const res = await articleApi.article({
         pid: cateId,
         page:page,
+        pageSize:5,
       })
       if (res.status == 'ok' && res.data.list.length) {
             let dataList = Taro.getStorageSync('dataList') || []
@@ -121,7 +125,7 @@ class List extends Component {
   componentDidHide () { }
   render () {
     const { banner } = this.props
-    const { poetryList,answerList,list,name,pid,res,isShare } = this.state
+    const { poetryList,answerList,list,pid,res,isShare } = this.state
     return (
       <View className='home-page'>
         <IndexList list={ list } res={res}  title ={res.title} pid={pid}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
