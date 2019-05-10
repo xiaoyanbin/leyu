@@ -57,6 +57,17 @@ class List extends Component {
       this.getArticleCate(this.state.pid,1)
     })
   }
+  onPullDownRefresh(){
+    this.setState({
+      pid:this.$router.params.pid
+    },()=>{
+      this.getArticleCate(this.state.pid,1)
+    })
+    setTimeout(()=>{
+      Taro.stopPullDownRefresh()
+    },200)
+  
+  }
   onReachBottom(){
     this.nextPage()
   }
@@ -75,6 +86,11 @@ class List extends Component {
       if (res.status == 'ok' && res.data.list.length) {
             let dataList = Taro.getStorageSync('dataList') || []
             let result = res.data.list
+          
+            result.forEach((d,i)=>{
+                result[i].cate_name =  res.data.res.title
+            })
+            
             if(dataList.length>0){
                 result.forEach((d,i)=>{
                   if(dataList.indexOf(d._id)!=-1){

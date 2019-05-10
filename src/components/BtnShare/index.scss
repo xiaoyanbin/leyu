@@ -21,6 +21,9 @@
       font-size:22px;
       padding:0px;
     }
+    button:hover{
+           background-color: none;
+    }
     button::after {
           border: none;
           color:#000;

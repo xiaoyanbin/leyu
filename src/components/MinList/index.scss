@@ -14,11 +14,12 @@
     flex-wrap: wrap;
     .goods-li {
       width: 100%;
-      padding-top: 25px;
-      padding-bottom:27px;
+      padding-top: 30px;
+      padding-bottom:20px;
       box-sizing: border-box;
       .list_right{
-        padding-left:34px;
+        padding-left:32px;
+        padding-top:10px;
         width:300px;
         float:left;
           .title{
@@ -60,7 +61,7 @@
           }
           image {
             border-radius: 5px;
-            height:189px;
+            height:188px;
           }   
 
         }

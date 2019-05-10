@@ -85,7 +85,7 @@ class Poster extends Component {
         fail: function (res) {
           console.log('绘制临时路径失败')
         }
-      })
+      },this)
     }, 100) // 延时100做为点击缓冲，可以不用
   }
   // 绘画Canvas-分享图标题
@@ -260,11 +260,17 @@ class Poster extends Component {
     cvsCtx.font = 'normal lighter 12px sans-serif'
     cvsCtx.setFillStyle('#941D11')
   }
+  onSave(){
+    this.save()
+  }
   render() {
     const { shareTitle,shareUrl} = this.props;
     return (
     <View>
-        <Canvas className='poster' canvasId='poster' style='width:355px;height:635px;'></Canvas>
+        <View onClick={this.onSave.bind(this)}>下载图片</View> 
+        <Canvas className='poster' canvasId='poster'  style='width:355px;height:635px;'>
+        The <abbr title="People's Republic of China">PRC</abbr> was founded in 1949.
+        </Canvas>
     </View> 
     );
   }

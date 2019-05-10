@@ -7,6 +7,8 @@ class BtnShare extends Component {
   static propTypes ={
     shareTitle: PropTypes.string,
     shareUrl:PropTypes.string,
+    onDraw:PropTypes.func,
+    draw:PropTypes.object,
   }
 
   static defaultProps = {
@@ -29,12 +31,16 @@ class BtnShare extends Component {
   onclose(){
       this.props.onShareFun()
   }
+  onDraws(d){
+    this.props.onDraw(d)
+    
+  }
   render() {
-    const {shareTitle, shareUrl } = this.props
+    const {shareTitle, shareUrl,draw } = this.props
     return (
       <View className="share_top" onClick={this.onclose.bind(this)}>
         <View className="share_ionc">
-          <View className="share_ionc_l">
+          <View className="share_ionc_l" onClick={this.onDraws.bind(this,draw)}>
               <View className="ionc_l"></View>
               <View className="text">生成分享海报</View>
           </View>

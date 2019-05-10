@@ -57,10 +57,6 @@ class Index extends Component {
     this.props.dispatch({
       type: 'home/focus',
     })
-    // this.props.dispatch({
-    //   type: 'home/poetrylist',
-    //   payload: { pid:this.props.pid },
-    // })
     this.getArticleCate('5ca1f4820363bd0218de37bd',1)
     this.getArticle('5ca1d91c0363bd0218de37bb',1)
   }

@@ -41,7 +41,6 @@ class Share extends Component {
         this.setState({
           details:e.detail,
         },()=>{
-          console.log(111,this.state.details)
         })
     }
   }
