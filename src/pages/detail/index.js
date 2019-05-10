@@ -24,7 +24,7 @@ class Detail extends Component {
     super(...arguments)
     this.state = {
       articleId: '',
-      details: {'content':[]},
+      details: {'listdata':[]},
       cateList:[],
       id:'',
       pid:'',
@@ -64,12 +64,13 @@ class Detail extends Component {
               }  else {
                 d.isCollect =true
               }
-              let content = d.content
-              if(content){
-                 d.content =  content.replace(/<p>/g,'').replace(/<\/p>/g,'').replace(/[\n\r]/g,'').split('-')
+              let listdata = d.listdata
+              if(listdata){
+                 d.listdata =  JSON.parse(listdata)
               }else{
-                 d.content =[]
+                 d.listdata =[]
               }
+              console.log(d)
 
       this.setState({
           details: d,
@@ -158,37 +159,32 @@ class Detail extends Component {
     cvsCtx.fillStyle = grd; // 赋值给到canvas
     cvsCtx.fillRect(0, 0, width, height); // 绘制canvas大小的举行
     cvsCtx.font = 'normal bold 15px sans-serif' // 设置绘制文字样式lighter
-    this.ImageInfo('https://wx.minsusuan.com/leyu/hb.jpg').then(res => { // 绘制网络图片
-       // 获取画布
-        const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
-        // 绘制背景底图
-        cvsCtx.drawImage(res.path, 0, 0, width, height)
-        let title = datas.name
-        cvsCtx.setFontSize(18*size)
-        cvsCtx.setFillStyle('#292929')
-        var d = cvsCtx.measureText(datas.name)
-        var dd = parseInt(width/2-d.width/2)
-        cvsCtx.fillText(title, dd, 249*size, d)
-        cvsCtx.font = 'normal lighter 11px sans-serif'
-        cvsCtx.setFontSize(11*size)
-        cvsCtx.setFillStyle('#9c9c9c')
-        var c = cvsCtx.measureText(datas.desc)
-        var cc = parseInt(width/2-c.width/2)
-        cvsCtx.fillText(datas.desc, cc, 272*size, c)
-        cvsCtx.draw(true) // 进行绘画
-    })  
-    this.ImageInfo(datas.img).then(res => { // 绘制网络图片
-        const context = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
-        
-        context.drawImage(res.path, 16, 27, 343, 194)
-        context.draw(true) // 进行绘画
-        setTimeout(()=>{
-          this.save()
-          Taro.hideLoading()
-        },500)
+    let that = this
 
-    })
-    cvsCtx.draw(true)
+    Promise.all([this.ImageInfo('https://wx.minsusuan.com/leyu/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
+          const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
+          // 绘制背景底图
+          cvsCtx.drawImage(values[0].path, 0, 0, width, height)
+          let title = datas.name
+          cvsCtx.setFontSize(18*size)
+          cvsCtx.setFillStyle('#292929')
+          var d = cvsCtx.measureText(datas.name)
+          var dd = parseInt(width/2-d.width/2)
+          cvsCtx.fillText(title, dd, 249*size, d)
+          cvsCtx.font = 'normal lighter 11px sans-serif'
+          cvsCtx.setFontSize(11*size)
+          cvsCtx.setFillStyle('#9c9c9c')
+          var c = cvsCtx.measureText(datas.desc)
+          var cc = parseInt(width/2-c.width/2)
+          cvsCtx.fillText(datas.desc, cc, 272*size, c)
+          //绘制图片
+          cvsCtx.drawImage(values[1].path, 16, 27, 343, 194)
+          cvsCtx.draw(true) // 进行绘画
+          setTimeout(()=>{
+            that.save()
+            Taro.hideLoading()
+          },500)
+    });
    
   }
   ImageInfo(path) {
@@ -244,9 +240,9 @@ class Detail extends Component {
       
     {details && <Share detail = {details} pid={pid} onShareFun={this.onShareFun}/> }
    <View className='box_img'>
-   {details.content.map((item, index) => (
-                <View key={index} className='detail_img' >
-                <Image src={imgUrl+item} />
+   {details.listdata.map((item, index) => (
+                <View key={item.img} className='detail_img' >
+                <Image src={imgUrl+item.img} style={{height:item.height+'px'}} />
                 </View>
               ))
       }

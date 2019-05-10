@@ -3,8 +3,7 @@ import { View , Video ,Button} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as detailApi from './service'
 import './index.scss'
-import MinList from '../../components/MinList'
-import Share from '../../components/Share'
+import { videoUrl,imgUrl } from '../../config'
 
 class About extends Component {
   config = {
@@ -69,8 +68,8 @@ class About extends Component {
     const { answerList , details,pid} = this.state
     return ( 
     <View className='home-gy'>
-     <View className='title'>{answerList.title}</View> 
-     <View className='des'>{answerList.description}</View>
+      <Image className='img_top' src={imgUrl+answerList.article_img}/>
+     {/* <View className='des'>{answerList.description}</View> */}
     </View>
     )
   }
