@@ -43,6 +43,7 @@ class Index extends Component {
       page:1,
       list:[],
       draw:{},
+      dataList:[],
     }
   }
   handleClick (value) {
@@ -79,12 +80,13 @@ class Index extends Component {
 
   }
   componentDidMount = () => {
-      
+    let dataList = Taro.getStorageSync('dataList') || []
    // 
 
     this.getArticleCate('5ca1f4820363bd0218de37bd',1)
     this.setState({
-      pid:'5ccffe50a9c9c854cc758926'
+      pid:'5ccffe50a9c9c854cc758926',
+      dataList:dataList,
     },()=>{
       this.getArticle('5ccffe50a9c9c854cc758926',1)
     })
@@ -139,7 +141,7 @@ class Index extends Component {
     }
   }  
   async getArticle (cateId,page) {
-      const { list,pid } = this.state
+      const { list,pid,dataList } = this.state
       const res = await articleApi.article({
         pid: cateId,
         page:page,
@@ -147,7 +149,7 @@ class Index extends Component {
       })
 
       if (res.status == 'ok' && res.data.list.length) {
-                  let dataList = Taro.getStorageSync('dataList') || []
+                  
                   let result = res.data.list
                   result.forEach((d,i)=>{
                     result[i].cate_name =  res.data.res.title
@@ -258,8 +260,9 @@ class Index extends Component {
     cvsCtx.fillStyle = grd; // 赋值给到canvas
     cvsCtx.fillRect(0, 0, width, height); // 绘制canvas大小的举行
     cvsCtx.font = 'normal bold 15px sans-serif' // 设置绘制文字样式lighter
-
-    Promise.all([this.ImageInfo('https://wx.minsusuan.com/leyu/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
+    cvsCtx.draw(true)
+    console.log(1)
+    Promise.all([this.ImageInfo('https://weixue.minsusuan.com/public/admin/upload/20190507/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
           const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
           // 绘制背景底图
           cvsCtx.drawImage(values[0].path, 0, 0, width, height)
@@ -275,15 +278,18 @@ class Index extends Component {
           var c = cvsCtx.measureText(datas.desc)
           var cc = parseInt(width/2-c.width/2)
           cvsCtx.fillText(datas.desc, cc, 272*size, c)
+          console.log(3)
+          cvsCtx.draw(true)
           //绘制图片
           cvsCtx.drawImage(values[1].path, 16, 27, 343, 194)
           cvsCtx.draw(true) // 进行绘画
           setTimeout(()=>{
             this.save()
+            console.log(4)
             Taro.hideLoading()
-          },500)
+          },1200)
     })
-   
+   console.log(2)
   }
   ImageInfo(path) {
     return new Promise((resolve, reject) => { // 采用异步Promise保证先获取到图片信息才进行渲染避免报错
@@ -338,7 +344,7 @@ class Index extends Component {
         <MySwiper banner={banner} home />
       </View>
         <GoodsList list={cateList} loading='' ontoEnglish={this.toEnglish}/>
-        <IndexList list={list} res ={res} show={true} title={''} loading='' onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>
+        <IndexList list={list} res ={res}  show={true} title={''} loading='' onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>
         {isShare &&<ShareBtn draw={ draw }  shareTitle ={ shareTitle } shareUrl={ shareUrl } onDraw={this.onDraw} onShareFun={this.onShareFun} /> }
 
        <Canvas className='poster' canvasId='poster' style='width:375px;height:557px;'></Canvas>

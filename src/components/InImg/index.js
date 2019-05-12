@@ -8,13 +8,26 @@ class InImg extends Component {
   }
   constructor() {
     super(...arguments)
+    this.state={
+      links:'',
+    }
   }
+  componentWillReceiveProps(e){
+    const { link } = this.props
 
+    if(link!==e.link){
+        this.setState({
+          links:e.link,
+        },()=>{
+        })
+    }
+  }
   componentDidMount = () =>   {
 
   }
   render () {
     const { img, link } = this.props
+    const { links } = this.state
     return ( 
       <View>
    {link &&<Video className = 'video_info'

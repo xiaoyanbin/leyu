@@ -33,6 +33,7 @@ class Detail extends Component {
       isShare:false,
       shareTitle:'',
       shareUrl:'',
+      dataList:[],
       draw:{},
     }
 
@@ -40,16 +41,18 @@ class Detail extends Component {
 
 
   componentDidMount = () =>   {
+    let dataList = Taro.getStorageSync('dataList') || [] 
     this.setState({
       id: this.$router.params.id,
       pid:this.$router.params.pid,
+      dataList:dataList,
     },()=>{       
       this.getArticleInfo(this.state.id)
-     
     })
     
   }
   async getArticleInfo(articleId) {
+    const { dataList }  = this.state
     const res = await detailApi.getDetail({
       id: articleId
     })
@@ -57,7 +60,7 @@ class Detail extends Component {
           let d = res.data.list
               d.img = imgUrl + res.data.list.article_img
               d.cate_name =  res.data.res.title
-              let dataList = Taro.getStorageSync('dataList') || [] 
+              
                   
               if(dataList.indexOf(d._id)==-1){
                 d.isCollect =false
@@ -70,7 +73,6 @@ class Detail extends Component {
               }else{
                  d.listdata =[]
               }
-              console.log(d)
 
       this.setState({
           details: d,
@@ -160,8 +162,8 @@ class Detail extends Component {
     cvsCtx.fillRect(0, 0, width, height); // 绘制canvas大小的举行
     cvsCtx.font = 'normal bold 15px sans-serif' // 设置绘制文字样式lighter
     let that = this
-
-    Promise.all([this.ImageInfo('https://wx.minsusuan.com/leyu/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
+    cvsCtx.draw(true)
+    Promise.all([this.ImageInfo('https://weixue.minsusuan.com/public/admin/upload/20190507/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
           const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
           // 绘制背景底图
           cvsCtx.drawImage(values[0].path, 0, 0, width, height)
@@ -177,13 +179,14 @@ class Detail extends Component {
           var c = cvsCtx.measureText(datas.desc)
           var cc = parseInt(width/2-c.width/2)
           cvsCtx.fillText(datas.desc, cc, 272*size, c)
+          cvsCtx.draw(true)
           //绘制图片
           cvsCtx.drawImage(values[1].path, 16, 27, 343, 194)
           cvsCtx.draw(true) // 进行绘画
           setTimeout(()=>{
             that.save()
             Taro.hideLoading()
-          },500)
+          },1200)
     });
    
   }
@@ -236,9 +239,9 @@ class Detail extends Component {
     const { answerList , details,pid,res,isShare,shareTitle, shareUrl} = this.state
     return ( 
     <View className='home-page'>
-     <InImg link={videoUrl+details.link} img={details.img} />  
+   <InImg link={videoUrl+details.link} img={details.img} />   
       
-    {details && <Share detail = {details} pid={pid} onShareFun={this.onShareFun}/> }
+    {details && <Share detail ={details} pid={pid} onShareFun={this.onShareFun}/> }
    <View className='box_img'>
    {details.listdata.map((item, index) => (
                 <View key={item.img} className='detail_img' >

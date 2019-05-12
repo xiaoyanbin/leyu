@@ -32,9 +32,6 @@ class IndexList extends Component {
   onCollect(){
     const { collect } = this.state
     let collects = collect;
-      // this.setState({
-      //    share:456
-      //  })
   }
   onShare(d){
        this.props.onShareFun(d)
@@ -52,13 +49,13 @@ class IndexList extends Component {
               list.map((item, index) => (
                 <View key={item._id} className='goods-li' >
                   <View className='pos'>
-                      {/* {show ? <View className='image-container'>
+                  {show ? <View className='image-container'>
                           <InImg img={imgUrl+item.article_img} link={videoUrl+item.link} />
-                          </View> : */}
+                          </View>  : 
                             <View className='image-container' onClick={this.gotoDetail.bind(this,item._id,item.cate_id)}>
                                 <Image  src={item.article_img ? imgUrl+item.article_img : ''} alt='' />
                                 <View className="time">{item.keywords}</View>
-                            </View>
+                            </View> }
                   </View> 
                   <View className="left" onClick={this.gotoDetail.bind(this,item._id,res._id)}>
                       <View className='title'>{item.title}  </View>

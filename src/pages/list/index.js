@@ -26,6 +26,7 @@ class List extends Component {
       pid:'',
       res:{},
       isShare:false,
+      dataList:[],
     }
   }
   handleClick (value) {
@@ -53,7 +54,11 @@ class List extends Component {
     
   }
   componentDidMount () {
-    this.setState({'pid':this.$router.params.pid},()=>{
+    let dataList = Taro.getStorageSync('dataList') || []
+    this.setState({
+      pid:this.$router.params.pid,
+      dataList: dataList,
+  },()=>{
       this.getArticleCate(this.state.pid,1)
     })
   }
@@ -77,14 +82,14 @@ class List extends Component {
   }
   async getArticleCate (cateId,page) {
     //获取文章详情
-      const { list } = this.state
+      const { list,dataList } = this.state
       const res = await articleApi.article({
         pid: cateId,
         page:page,
         pageSize:5,
       })
       if (res.status == 'ok' && res.data.list.length) {
-            let dataList = Taro.getStorageSync('dataList') || []
+            
             let result = res.data.list
           
             result.forEach((d,i)=>{

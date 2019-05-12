@@ -158,7 +158,8 @@ class Collect extends Component {
     cvsCtx.fillStyle = grd; // 赋值给到canvas
     cvsCtx.fillRect(0, 0, width, height); // 绘制canvas大小的举行
     cvsCtx.font = 'normal bold 15px sans-serif' // 设置绘制文字样式lighter
-    Promise.all([this.ImageInfo('https://wx.minsusuan.com/leyu/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
+    cvsCtx.draw(true)
+    Promise.all([this.ImageInfo('https://weixue.minsusuan.com/public/admin/upload/20190507/hb.jpg'), this.ImageInfo(datas.img)]).then((values) => {
             const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
             // 绘制背景底图
             cvsCtx.drawImage(values[0].path, 0, 0, width, height)
@@ -174,6 +175,7 @@ class Collect extends Component {
             var c = cvsCtx.measureText(datas.desc)
             var cc = parseInt(width/2-c.width/2)
             cvsCtx.fillText(datas.desc, cc, 272*size, c)
+            cvsCtx.draw(true)
             //绘制图片
             cvsCtx.drawImage(values[1].path, 16, 27, 343, 194)
             cvsCtx.draw(true) // 进行绘画
