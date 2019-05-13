@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View , Video } from '@tarojs/components'
 import './index.scss'
-
 class InImg extends Component {
   config = {
     navigationBarTitleText: ''
@@ -25,6 +24,12 @@ class InImg extends Component {
   componentDidMount = () =>   {
 
   }
+  onPlay(){
+    const videoContext = Taro.createVideoContext('video')    
+  }
+  onEnded(){
+
+  }
   render () {
     const { img, link } = this.props
     const { links } = this.state
@@ -38,6 +43,8 @@ class InImg extends Component {
           initialTime='0'
           loop={false}
           muted={false}
+          onPlay={this.onPlay}
+          onEnded={this.onEnded}
     /> }</View>
     )
   }
