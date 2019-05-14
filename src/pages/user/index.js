@@ -11,7 +11,7 @@ import './index.scss'
 
 class User extends Component {
   config = {
-    navigationBarTitleText: '用户中心'
+    navigationBarTitleText: '我的'
   }
   onShareAppMessage (res) {
     if (res.from === 'button') {
@@ -55,6 +55,11 @@ class User extends Component {
           userInfo:data
        })
   }
+  makePhoneCall(){
+      Taro.makePhoneCall({
+        phoneNumber: '010-64747181' // 仅为示例，并非真实的电话号码
+      })
+  }
   getUserInfo(userInfo)  {
       
     
@@ -86,7 +91,7 @@ class User extends Component {
        </View>
         <View className='content'>
           <View onClick={this.toUrl.bind(this,'/pages/collect/index')}>我的收藏</View> 
-          <View>联系咨询</View> 
+          <View onClick={this.makePhoneCall.bind(this)}>联系咨询</View> 
         </View>
       </View>
     )

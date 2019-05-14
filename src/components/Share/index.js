@@ -17,6 +17,7 @@ class Share extends Component {
     super(...arguments)
     this.state = {
       details:{},
+
     }
   } 
   gotoDetail (e,f) {
@@ -51,7 +52,7 @@ class Share extends Component {
       <View className='share-list-container'>
         <View className="left">
           <View className="title">{detail.title} </View>  
-          <View className="text">{detail.description}/{detail.keywords}</View>  
+          <View className="text">{detail.description} {detail.description && '/'} {detail.keywords}</View>  
         </View>  
         <Collect record={ details } onShare={this.onShare} />
       </View>

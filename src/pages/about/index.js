@@ -68,8 +68,7 @@ class About extends Component {
     const { answerList , details,pid} = this.state
     return ( 
     <View className='home-gy'>
-      <Image className='img_top' src={imgUrl+answerList.article_img}/>
-     {/* <View className='des'>{answerList.description}</View> */}
+      {answerList.article_img &&<Image className='img_top' src={imgUrl+answerList.article_img}/> }
     </View>
     )
   }

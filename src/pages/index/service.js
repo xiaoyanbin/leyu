@@ -33,3 +33,9 @@ export const focus = data => Request({
   method: 'POST',
   data,
 })
+
+export const getSetting = data => Request({
+  url: '/api/wx/setting',
+  method: 'GET',
+  data,
+})

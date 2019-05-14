@@ -29,6 +29,9 @@ class IndexList extends Component {
     
     this.props.ontoEnglish(123)
   }
+  onPlay(d){
+    this.props.onPlay(d)
+  }
   onCollect(){
     const { collect } = this.state
     let collects = collect;
@@ -42,16 +45,21 @@ class IndexList extends Component {
     return (
       <View className='list-container'>
       {title ? <View className='index_text'>{ title }</View> : <View className='index_n'>&nbsp;</View> }
+      
         {
         list.length > 0 ? (
           <View className='goods-ul'>
+           { title && <View className='index_copy'></View> }
             {
               list.map((item, index) => (
                 <View key={item._id} className='goods-li' >
                   <View className='pos'>
-                  {show ? <View className='image-container'>
+                  {show ?  item.play ? <View className='image-container1'>
                           <InImg img={imgUrl+item.article_img} link={videoUrl+item.link} />
-                          </View>  : 
+                          </View> : <View className='image-container' onClick={this.onPlay.bind(this,item._id,item.cate_id)}>
+                                <Image  src={item.article_img ? imgUrl+item.article_img : ''} alt='' />
+                                <View className="play-s"></View>
+                            </View> : 
                             <View className='image-container' onClick={this.gotoDetail.bind(this,item._id,item.cate_id)}>
                                 <Image  src={item.article_img ? imgUrl+item.article_img : ''} alt='' />
                                 <View className="time">{item.keywords}</View>

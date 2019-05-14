@@ -18,7 +18,7 @@ class Collect extends Component {
     super(...arguments)
     this.state = {
        isCollect:false,
-       collectnum:null,
+       collectnum:0,
     }
   }  
   componentDidMount(){
@@ -55,12 +55,10 @@ class Collect extends Component {
 
     if(!this.state.isCollect){
       this.getCollectnum(a._id,1)
+      Taro.showToast({title:"请到我的收藏里查看",icon:"none"})
     }else{
       this.getCollectnum(a._id,0)
     }
-
-
-
     
   }
   async getCollectnum(id,num)   {
@@ -75,6 +73,8 @@ class Collect extends Component {
         collectnum:res.data,
         isCollect:isTrue,
       })
+      
+
       this.dataList()
     }
   } 

@@ -20,19 +20,28 @@
     button{
       font-size:22px;
       padding:0px;
+      color:#373737;
+      background-color: rgba(246,246,246,1);
     }
     button:hover{
            background-color: none;
+           background-color: rgba(246,246,246,1);
     }
     button::after {
           border: none;
-          color:#000;
+          color:#373737;
+         
     } 
+    input{
+      outline:none;
+      border:none;
+      list-style: none;
+    }
     .share_ionc_l{
       width:180px;
       height:156px;
       color:#373737;
-      font-size:24px;
+      font-size:22px;
       vertical-align:bottom; 
       line-height:40px; 
       text-align: center;

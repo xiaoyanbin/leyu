@@ -13,14 +13,12 @@ class GoodsList extends Component {
     list: [],
   }
 
-  gotoDetail (e,f) {
-    Taro.navigateTo({
-      url: `/pages/list/index?pid=${e}`,
-    })
+  onGotoDetail (e,f) {
+    this.props.ontoEnglish(e)
   }
-  onList(){
+  onList(d){
     
-    this.props.ontoEnglish(123)
+    this.props.ontoEnglish(d)
   }
   render() {
     const { list, loading } = this.props
@@ -32,7 +30,7 @@ class GoodsList extends Component {
           <View className='goods-ul'>
             {
               list.map((item, index) => (
-                <View key={item.id} className='goods-li' onClick={this.gotoDetail.bind(this,item.id,item.name)}>
+                <View key={item.id} className='goods-li' onClick={this.onGotoDetail.bind(this,item.id)}>
                   <View className='pos'>
                     <View className='image-container'>
                       <Image  src={item.url ? item.url : ''} alt='' />

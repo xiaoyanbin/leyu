@@ -12,7 +12,7 @@ import './index.scss'
 }))
 class List extends Component {
   config = {
-    navigationBarTitleText: '乐愚传播'
+    navigationBarTitleText: ''
   }
   constructor() {
     super(...arguments)
@@ -27,6 +27,8 @@ class List extends Component {
       res:{},
       isShare:false,
       dataList:[],
+      icon1:false,
+      isVideo:1,
     }
   }
   handleClick (value) {
@@ -39,11 +41,6 @@ class List extends Component {
       url: `/pages/detail/index?id=${e.currentTarget.dataset.id}`,
     })
   }
-  toUrl () {
-    Taro.navigateTo({
-      url: `/pages/plist/index?pid=5bcee18b3263442e3419080e`,
-    })
-  }
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
   }
@@ -53,12 +50,16 @@ class List extends Component {
   componentDidShow () { 
     
   }
+  componentWillmount () {
+  
+  }
   componentDidMount () {
     let dataList = Taro.getStorageSync('dataList') || []
     this.setState({
       pid:this.$router.params.pid,
       dataList: dataList,
-  },()=>{
+      icon1:false,
+    },()=>{
       this.getArticleCate(this.state.pid,1)
     })
   }
@@ -113,9 +114,6 @@ class List extends Component {
                 page: page+1,
                 res: res.data.res,
               },()=>{
-                   
-
-
               })
             }else{
               let val = list.concat(result)
@@ -127,6 +125,9 @@ class List extends Component {
             }
 
       } else{
+          this.setState({
+            icon1:true,
+          })
           console.log('没有更多数据了')
       }
   }   
@@ -151,10 +152,7 @@ class List extends Component {
       <View className='home-page'>
         <IndexList list={ list } res={res}  title ={res.title} pid={pid}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
        {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } onShareFun={this.onShareFun} shareUrl={ '/pages/index/index' }/> }
-    
-
-      
-     
+       {icon1 &&<View className='to_end'>到底了</View>} 
       </View>
     )
   }

@@ -20,14 +20,14 @@
     position: relative;
     font-size:34px;
     .user_div{
-        width:686px;
-        height:213px;
+        width:716px;
+        height:242px;
         position: absolute;
-        bottom:-20px;
+        bottom:-38px;
         left:50%;
-        margin-left:-343px;
-        background-color: #fff;
-        box-shadow: 2px 5px 2px #f7f7f7;
+        margin-left:-358px;
+        background: url(https://wx.minsusuan.com/leyu/bj.png) 0 0 no-repeat;
+        background-size:716px 242px;
         .user_text{
               margin-top:130px;
               width:100%;
@@ -43,6 +43,8 @@
               }  
               button{
                 background-color: #fff; 
+                font-size:32px;
+                width:620px;
               }
               button::after {
                     border: none;
@@ -68,7 +70,7 @@
 }
 .content{
     width:100%;
-    margin-top:30px;
+    padding-top:50px;
     line-height:120px;
     text-align:center;
     

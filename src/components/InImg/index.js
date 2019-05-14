@@ -25,7 +25,6 @@ class InImg extends Component {
 
   }
   onPlay(){
-    const videoContext = Taro.createVideoContext('video')    
   }
   onEnded(){
 
@@ -38,8 +37,7 @@ class InImg extends Component {
    {link &&<Video className = 'video_info'
           src={link}
           controls={true}
-          autoplay={false}
-          poster={img}
+          autoplay={true}
           initialTime='0'
           loop={false}
           muted={false}
