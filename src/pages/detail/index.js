@@ -6,7 +6,7 @@ import MinList from '../../components/MinList'
 import { videoUrl,imgUrl } from '../../config'
 import Share from '../../components/Share'
 import ShareBtn from '../../components/BtnShare'
-import InImg from '../../components/InImg'
+import InImg from '../../components/InImgs'
 import './index.scss'
 class Detail extends Component {
   config = {
@@ -256,11 +256,15 @@ class Detail extends Component {
     const { answerList , details,pid,res,isShare,shareTitle, shareUrl,isVideo} = this.state
     return ( 
     <View className='home-page'>
-    <View className="detail_top">
-     {isVideo=='1' &&<InImg link={videoUrl+details.link} img={details.img} /> }   
-      {details && <Share detail ={details} pid={pid} onShareFun={this.onShareFun}/> }
-    </View>
-   <View className="detail_copy"></View>
+   {isVideo=='1' && <View className="detail_top">
+     <InImg link={videoUrl+details.link} img={details.img} />  
+    </View> }
+
+    
+    {isVideo=='1' ? <View className="detail_copy"></View> : <Image  src={details.img} />}
+    
+    {details && <Share detail ={details} pid={pid} onShareFun={this.onShareFun}/> }
+
    <View className='box_img'>
    {details.listdata.map((item, index) => (
                 <View key={item.img} className='detail_img' >

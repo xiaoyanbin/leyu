@@ -65,9 +65,9 @@ class IndexList extends Component {
                                 <View className="time">{item.keywords}</View>
                             </View> }
                   </View> 
-                  <View className="left" onClick={this.gotoDetail.bind(this,item._id,res._id)}>
+                  <View className="left" onClick={this.gotoDetail.bind(this,item._id,item.res[0]._id)}>
                       <View className='title'>{item.title}  </View>
-                      <View className='text'>{res.title} {res.title &&'/'} #{item.description}</View>
+                      <View className='text'>{item.res[0].title} {res.title &&'/'} #{item.description}</View>
                   </View>
 
                   {show &&<Collect record={ item }  onShare={this.onShare} />}

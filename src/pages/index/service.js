@@ -23,16 +23,17 @@ export const poetrylist = data => Request({
   data,
 })
 
-export const baidu = data => Request({
-  url: '/api/baidu',
-  method: 'POST',
+export const findCateIdMoreArticle = data => Request({
+  url: '/api/article/findCateIdMoreArticle',
+  method: 'GET',
   data,
 })
-export const focus = data => Request({
-  url: '/api/focus',
-  method: 'POST',
+export const getCode = data => Request({
+  url: '/api/article/getCode',
+  method: 'GET',
   data,
 })
+
 
 export const getSetting = data => Request({
   url: '/api/wx/setting',

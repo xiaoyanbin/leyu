@@ -57,6 +57,7 @@ class List extends Component {
     let dataList = Taro.getStorageSync('dataList') || []
     this.setState({
       pid:this.$router.params.pid,
+      isVideo:this.$router.params.isVideo,
       dataList: dataList,
       icon1:false,
     },()=>{
@@ -150,7 +151,7 @@ class List extends Component {
     const { poetryList,answerList,list,pid,res,isShare } = this.state
     return (
       <View className='home-page'>
-        <IndexList list={ list } res={res}  title ={res.title} pid={pid}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
+        <IndexList list={ list } res={res} isVideo={isVideo}  title ={res.title} pid={pid}  loading='' onShareFun={this.onShareFun} ontoEnglish={this.toEnglish}/>
        {isShare &&<ShareBtn  shareTitle ={ '乐愚传播' } onShareFun={this.onShareFun} shareUrl={ '/pages/index/index' }/> }
        {icon1 &&<View className='to_end'>到底了</View>} 
       </View>

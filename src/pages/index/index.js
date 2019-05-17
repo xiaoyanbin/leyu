@@ -48,6 +48,7 @@ class Index extends Component {
       tempFilePath:'',
       isTemp:false,
       isVideo:0,
+      pidList:[{'cate_id': '5ccffe50a9c9c854cc758926'},{'cate_id': '5ccffe64a9c9c854cc758927'},{'cate_id': '5ccffe92a9c9c854cc758928'},{'cate_id': '5ccffec0a9c9c854cc758929'}]
     }
   }
   handleClick (value) {
@@ -95,17 +96,19 @@ class Index extends Component {
       pid:'5ccffe50a9c9c854cc758926',
       dataList:dataList,
     },()=>{
-      this.getArticle('5ccffe50a9c9c854cc758926',1)
+      this.getArticle(1)
     })
 
     this.Article('5ccfff40a9c9c854cc75892b',1)
   }
   onPullDownRefresh(){
+    let pidlists = JSON.stringify(this.state.pidList)
     this.setState({
       pid:'5ccffe50a9c9c854cc758926',
       icon1:false,
     },()=>{
-      this.getArticle('5ccffe50a9c9c854cc758926',1)
+      
+      this.getArticle(1)
     })
     setTimeout(()=>{
       Taro.stopPullDownRefresh()
@@ -117,9 +120,10 @@ class Index extends Component {
   }
   nextPage(){
     const { pid,page } = this.state
-    this.getArticle(pid,page)
+    this.getArticle(page)
   }
   async getArticleCate (cateId,page) {
+     
       const res = await articleApi.article({
         pid: cateId,
         page:page,
@@ -149,8 +153,10 @@ class Index extends Component {
     }
   }  
   async getSetting (){
+    
+    const resl = await articleApi.getCode({'id':1,'pid':2})
+    console.log(resl)
     const res = await articleApi.getSetting()
-    console.log(res)
     if (res.status=='ok') {
       this.setState({
         isVideo: res.data.is_video,
@@ -158,10 +164,11 @@ class Index extends Component {
   
     }
   }
-  async getArticle (cateId,page) {
+  async getArticle (page) {
+      let pidlists = JSON.stringify(this.state.pidList)
       const { list,pid,dataList } = this.state
-      const res = await articleApi.article({
-        pid: cateId,
+      const res = await articleApi.findCateIdMoreArticle({
+        pid: pidlists,
         page:page,
         pageSize:5,
       })
@@ -170,7 +177,7 @@ class Index extends Component {
                   
                   let result = res.data.list
                   result.forEach((d,i)=>{
-                    result[i].cate_name =  res.data.res.title
+                    result[i].cate_name =  d.res[0].title
                     result[i].play =  false
                   }) 
                   if(dataList.length>0){
@@ -183,38 +190,22 @@ class Index extends Component {
                       }) 
                   }
 
-                if(page==1&&pid=='5ccffe50a9c9c854cc758926'){
+                if(page==1){
                   this.setState({
                     list: result,
                     page: page+1,
-                    res: res.data.res,
                   })
                 }else{
                   let val = list.concat(result)
                   this.setState({
                     list: val,
                     page: page+1,
-                    res: res.data.res,
                   })   
                 }
-
-            } else{
-                const { cateList,pid } = this.state
-                let cate = cateList
-
-                let index = cate.findIndex((d,i) =>pid == d.id)
-                if(index!=-1&&index<3){
-                  this.setState({
-                    pid:cate[index+1].id,
-                    page:1,
-                  },()=>{
-                     this.nextPage()
-                  })
-                }else{
+            } else{      
                   this.setState({
                     icon1:true
                   })
-                }
                 
             }
   } 
@@ -400,11 +391,9 @@ class Index extends Component {
   }
   onToEnglish(pid){
     const { isVideo } = this.state
-    if(isVideo==0){
-      return
-    }
+
     Taro.navigateTo({
-      url: `/pages/list/index?pid=${pid}`,
+      url: `/pages/list/index?pid=${pid}&isVideo=${isVideo}`,
     })
   }
   render () {

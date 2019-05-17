@@ -9,7 +9,7 @@ class InImg extends Component {
     super(...arguments)
     this.state={
       links:'',
-      autoplay:true,
+      autoplay:false,
     }
   }
   componentWillReceiveProps(e){
@@ -19,7 +19,6 @@ class InImg extends Component {
         this.setState({
           links:e.link,
         },()=>{
-           console.log(e.link)
         })
     }
   }
