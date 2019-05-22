@@ -51,6 +51,7 @@ class Index extends Component {
       pidList:[{'cate_id': '5ccffe50a9c9c854cc758926'},{'cate_id': '5ccffe64a9c9c854cc758927'},{'cate_id': '5ccffe92a9c9c854cc758928'},{'cate_id': '5ccffec0a9c9c854cc758929'}]
     }
   }
+  
   handleClick (value) {
     this.setState({
       current: value
@@ -75,6 +76,9 @@ class Index extends Component {
   componentWillMount (){
       let id = this.$router.params.id
       let pid = this.$router.params.pid
+     // const scene = decodeURIComponent(query.scene)
+ 
+
       if(pid){
         Taro.navigateTo({
           url: `/pages/detail/index?id=${id}&pid=${pid}`,
@@ -100,6 +104,12 @@ class Index extends Component {
     })
 
     this.Article('5ccfff40a9c9c854cc75892b',1)
+   setTimeout(()=>{
+    wx.pageScrollTo({
+      scrollTop: 500
+    })
+   },1000)
+
   }
   onPullDownRefresh(){
     let pidlists = JSON.stringify(this.state.pidList)
@@ -143,6 +153,7 @@ class Index extends Component {
       pid: cateId,
       page:page,
     })
+
     if (res.status == 'ok') {
             this.setState({
               banner: res.data.list,
@@ -154,8 +165,8 @@ class Index extends Component {
   }  
   async getSetting (){
     
-    const resl = await articleApi.getCode({'id':1,'pid':2})
-    console.log(resl)
+    // const resl = await articleApi.getCode({'id':1,'pid':2})
+    // console.log(resl)
     const res = await articleApi.getSetting()
     if (res.status=='ok') {
       this.setState({
@@ -174,7 +185,6 @@ class Index extends Component {
       })
 
       if (res.status == 'ok' && res.data.list.length) {
-                  
                   let result = res.data.list
                   result.forEach((d,i)=>{
                     result[i].cate_name =  d.res[0].title
@@ -219,8 +229,6 @@ class Index extends Component {
           data[i].play = false
         }
     })
-
-    console.log(data)
   
     this.setState({
       list:data

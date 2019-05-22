@@ -51,7 +51,12 @@ class Detail extends Component {
     },()=>{       
       this.getArticleInfo(this.state.id)
     })
-    
+    // var query = Taro.createSelectorQuery();
+    //   query.select('#dome').boundingClientRect();
+
+    //   query.exec(function(res){
+    //       console.log(res)
+    //   })
   }
   async getArticleInfo(articleId) {
     const { dataList }  = this.state
@@ -87,6 +92,7 @@ class Detail extends Component {
     const res = await detailApi.article({
       pid: cateId,
       page:page,
+      pageSize:40,
     })
     if (res.status == 'ok') {
             let data = res.data.list;
@@ -133,7 +139,6 @@ class Detail extends Component {
    }
    async getSetting (){
     const res = await detailApi.getSetting()
-    console.log(res)
     if (res.status=='ok') {
       this.setState({
         isVideo: res.data.is_video,
@@ -257,23 +262,19 @@ class Detail extends Component {
     return ( 
     <View className='home-page'>
    {isVideo=='1' && <View className="detail_top">
-     <InImg link={videoUrl+details.link} img={details.img} />  
+     <InImg id='dome' link={videoUrl+details.link} img={details.img} />  
     </View> }
-
-    
     {isVideo=='1' ? <View className="detail_copy"></View> : <Image  src={details.img} />}
-    
+
     {details && <Share detail ={details} pid={pid} onShareFun={this.onShareFun}/> }
-
-   <View className='box_img'>
-   {details.listdata.map((item, index) => (
-                <View key={item.img} className='detail_img' >
-                <Image src={imgUrl+item.img} style={{height:item.height+'px'}} />
-                </View>
-              ))
-      }
-   </View>
-
+    {details.listdata.length ? <View className='box_img'>
+        {details.listdata.map((item, index) => (
+                    <View key={item.img} className='detail_img' >
+                    <Image src={imgUrl+item.img} style={{height:item.height+'px'}} />
+                    </View>
+                  ))
+          } 
+   </View> :'' }
      <MinList list={answerList} title={''} res={res}  loading=''  ontoEnglish={this.toEnglish}/>
      {isShare &&<ShareBtn draw={ draw } shareTitle ={ shareTitle } onDraw={this.onDraw} shareUrl={ shareUrl } onShareFun={this.onShareFun} /> }
        <Canvas className='poster' canvasId='poster' style='width:750px;height:1114px;'></Canvas>

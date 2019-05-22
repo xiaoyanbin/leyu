@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image,Button } from '@tarojs/components'
 import PropTypes from 'prop-types'
-import Collect from '../../components/Collect'
+import Collect from '../../components/Collects'
 import './index.scss'
 
 class Share extends Component {
@@ -50,9 +50,9 @@ class Share extends Component {
     const { details } = this.state
     return (
       <View className='share-list-container'>
-        <View className="left">
+        <View className="left_l">
           <View className="title">{detail.title} </View>  
-          <View className="text">{detail.description} {detail.description && '/'} {detail.keywords}</View>  
+          <View className="text_l">{detail.description} {detail.description && '/'} {detail.keywords}</View>  
         </View>  
         <Collect record={ details } onShare={this.onShare} />
       </View>

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { Swiper, SwiperItem, Image } from '@tarojs/components'
+import { Swiper, SwiperItem, Image,View } from '@tarojs/components'
 import { webUrl,imgUrl } from '../../config'
 import PropTypes from 'prop-types'
 
