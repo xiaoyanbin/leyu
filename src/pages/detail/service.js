@@ -17,3 +17,8 @@ export const getSetting = data => Request({
   method: 'GET',
   data,
 })
+export const getCode = data => Request({
+  url: '/api/article/getCode',
+  method: 'GET',
+  data,
+})

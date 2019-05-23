@@ -48,10 +48,18 @@ class Index extends Component {
       tempFilePath:'',
       isTemp:false,
       isVideo:0,
-      pidList:[{'cate_id': '5ccffe50a9c9c854cc758926'},{'cate_id': '5ccffe64a9c9c854cc758927'},{'cate_id': '5ccffe92a9c9c854cc758928'},{'cate_id': '5ccffec0a9c9c854cc758929'}]
+      pidList:[{'cate_id': '5ccffe50a9c9c854cc758926'},{'cate_id': '5ccffe64a9c9c854cc758927'},{'cate_id': '5ccffe92a9c9c854cc758928'},{'cate_id': '5ccffec0a9c9c854cc758929'}],
     }
   }
-  
+  componentWillPreload (query) {
+    // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+
+    // if(scene.id){
+    //   Taro.navigateTo({
+    //     url: `/pages/detail/index?id=${scene.id}`,
+    //   })
+    // }
+  }
   handleClick (value) {
     this.setState({
       current: value
@@ -78,8 +86,17 @@ class Index extends Component {
       let pid = this.$router.params.pid
      // const scene = decodeURIComponent(query.scene)
  
-
-      if(pid){
+     let Option = Taro.getLaunchOptionsSync()
+     if(Option.query.scene){
+        const scene = decodeURIComponent(Option.query.scene)
+        if(scene){
+          Taro.navigateTo({
+            url: `/pages/detail/index${scene}`,
+          })
+        }
+     }
+     
+     if(id){
         Taro.navigateTo({
           url: `/pages/detail/index?id=${id}&pid=${pid}`,
         })
@@ -90,6 +107,7 @@ class Index extends Component {
   }
   componentDidMount = () => {
     let dataList = Taro.getStorageSync('dataList') || []
+
    // 
    this.getSetting()
    if(!Taro.getStorageSync('user_id')){
@@ -104,11 +122,11 @@ class Index extends Component {
     })
 
     this.Article('5ccfff40a9c9c854cc75892b',1)
-   setTimeout(()=>{
-    wx.pageScrollTo({
-      scrollTop: 500
-    })
-   },1000)
+  //  setTimeout(()=>{
+  //   wx.pageScrollTo({
+  //     scrollTop: 500
+  //   })
+  //  },1000)
 
   }
   onPullDownRefresh(){
@@ -164,9 +182,6 @@ class Index extends Component {
     }
   }  
   async getSetting (){
-    
-    // const resl = await articleApi.getCode({'id':1,'pid':2})
-    // console.log(resl)
     const res = await articleApi.getSetting()
     if (res.status=='ok') {
       this.setState({
@@ -262,10 +277,16 @@ class Index extends Component {
    onSave(){
     this.save()
    }
-   onDraw(d){
+   async onDraw(d){
     console.log(d) 
+    const resl = await articleApi.getCode({'id':d._id,'pid':2})
+    let getCode = ''
+    console.log(resl)
+    if(resl){
+       getCode = imgUrl+resl.data
+    }
     //imgUrl+d.article_img
-    this.drawTitle({img:imgUrl+d.article_img,desc:d.cate_name+'/'+d.keywords,name:d.title})
+    this.drawTitle({img:imgUrl+d.article_img,desc:d.cate_name+'/'+d.keywords,name:d.title,getCode:getCode})
     Taro.showLoading({
       title: 'loading'
     }).then(res => console.log(res))
@@ -312,7 +333,8 @@ class Index extends Component {
     cvsCtx.draw(true)
     let img1 = 'https://weixue.minsusuan.com/public/admin/upload/20190507/hb_2.jpg'
     let img3 = 'https://weixue.minsusuan.com/public/admin/upload/20190507/play_2.png'
-    Promise.all([this.ImageInfo(img1), this.ImageInfo(datas.img), this.ImageInfo(img3)]).then((values) => {
+    let img4 = datas.getCode;
+    Promise.all([this.ImageInfo(img1), this.ImageInfo(datas.img), this.ImageInfo(img3), this.ImageInfo(img4)]).then((values) => {
           const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
           // 绘制背景底图
           cvsCtx.drawImage(values[0].path, 0, 0, width*size, height*size)
@@ -333,6 +355,8 @@ class Index extends Component {
           cvsCtx.drawImage(values[1].path, 16*size, 27*size, 343*size, 194*size)
           cvsCtx.draw(true) // 进行绘画
           cvsCtx.drawImage(values[2].path, width*size/2-20*size, 194*size/2+7*size, 40*size, 40*size)
+          cvsCtx.draw(true) // 进行绘画
+          cvsCtx.drawImage(values[3].path, 206, 692, 170*size, 170*size)
           cvsCtx.draw(true) // 进行绘画
           setTimeout(()=>{
             this.save()
@@ -411,9 +435,9 @@ class Index extends Component {
       <View className='swiper_con'>
         <MySwiper banner={banner} home />
       </View>
-      <GoodsList list={cateList} loading='' ontoEnglish={this.onToEnglish}/> 
-        {isVideo=='1' && <IndexList list={list} res ={res}  show={true} title={''} loading='' onPlay={this.upDataList} onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish}/>}
-        {isShare &&<ShareBtn draw={ draw }  shareTitle ={ shareTitle } shareUrl={ shareUrl } onDraw={this.onDraw} onShareFun={this.onShareFun} /> }
+      <GoodsList list={cateList} loading='' ontoEnglish={this.onToEnglish} /> 
+        {isVideo=='1' && <IndexList list={list} res={res}  show title='' loading='' onPlay={this.upDataList} onShareFun={this.onShareFun}  ontoEnglish={this.toEnglish} />}
+        {isShare &&<ShareBtn draw={draw}  shareTitle={shareTitle} shareUrl={shareUrl} onDraw={this.onDraw} onShareFun={this.onShareFun} /> }
         {icon1 &&<View className='to_end'>到底了</View>} 
         <Canvas className='poster' canvasId='poster' style='width:750px;height:1114px;'></Canvas>
       </View>

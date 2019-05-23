@@ -8,6 +8,7 @@ import Share from '../../components/Share'
 import ShareBtn from '../../components/BtnShare'
 import InImg from '../../components/InImgs'
 import './index.scss'
+
 class Detail extends Component {
   config = {
     navigationBarTitleText: ''
@@ -84,7 +85,7 @@ class Detail extends Component {
       this.setState({
           details: d,
       },()=>{
-        this.getArticle(this.state.pid,1,res.data.list.description)
+        this.getArticle(res.data.list.cate_id,1,res.data.list.description)
       })
     }
   }  
@@ -129,13 +130,18 @@ class Detail extends Component {
    onSave(){
     this.save()
    }
-   onDraw(d){
-    console.log(d) 
-    //imgUrl+d.article_img
-    this.drawTitle({img:imgUrl+d.article_img,desc:d.cate_name+'/'+d.keywords,name:d.title})
-    Taro.showLoading({
-      title: 'loading'
-    }).then(res => console.log(res))
+   async onDraw(d){
+      const resl = await detailApi.getCode({'id':d._id,'pid':2})
+      let getCode = ''
+      console.log(resl)
+      if(resl){
+        getCode = imgUrl+resl.data
+      }
+      //imgUrl+d.article_img
+      this.drawTitle({img:imgUrl+d.article_img,desc:d.cate_name+'/'+d.keywords,name:d.title,getCode:getCode})
+      Taro.showLoading({
+        title: 'loading'
+      }).then(res => console.log(res))
    }
    async getSetting (){
     const res = await detailApi.getSetting()
@@ -184,7 +190,8 @@ class Detail extends Component {
     cvsCtx.draw(true)
     let img1 = 'https://weixue.minsusuan.com/public/admin/upload/20190507/hb_2.jpg'
     let img3 = 'https://weixue.minsusuan.com/public/admin/upload/20190507/play_2.png'
-    Promise.all([this.ImageInfo(img1), this.ImageInfo(datas.img), this.ImageInfo(img3)]).then((values) => {
+    let img4 = datas.getCode;
+    Promise.all([this.ImageInfo(img1), this.ImageInfo(datas.img), this.ImageInfo(img3), this.ImageInfo(img4)]).then((values) => {
           const cvsCtx = Taro.createCanvasContext('poster', this) // 重新定位canvas对象，双重保险
           // 绘制背景底图
           cvsCtx.drawImage(values[0].path, 0, 0, width*size, height*size)
@@ -205,6 +212,8 @@ class Detail extends Component {
           cvsCtx.drawImage(values[1].path, 16*size, 27*size, 343*size, 194*size)
           cvsCtx.draw(true) // 进行绘画
           cvsCtx.drawImage(values[2].path, width*size/2-20*size, 194*size/2+7*size, 40*size, 40*size)
+          cvsCtx.draw(true) // 进行绘画
+          cvsCtx.drawImage(values[3].path, 206, 692, 170*size, 170*size)
           cvsCtx.draw(true) // 进行绘画
           setTimeout(()=>{
             this.save()
@@ -261,12 +270,12 @@ class Detail extends Component {
     const { answerList , details,pid,res,isShare,shareTitle, shareUrl,isVideo} = this.state
     return ( 
     <View className='home-page'>
-   {isVideo=='1' && <View className="detail_top">
+   {isVideo=='1' && <View className='detail_top'>
      <InImg id='dome' link={videoUrl+details.link} img={details.img} />  
     </View> }
-    {isVideo=='1' ? <View className="detail_copy"></View> : <Image  src={details.img} />}
+    {isVideo=='1' ? <View className='detail_copy'></View> : <Image  src={details.img} />}
 
-    {details && <Share detail ={details} pid={pid} onShareFun={this.onShareFun}/> }
+    {details && <Share detail={details} pid={pid} onShareFun={this.onShareFun} /> }
     {details.listdata.length ? <View className='box_img'>
         {details.listdata.map((item, index) => (
                     <View key={item.img} className='detail_img' >
@@ -275,8 +284,8 @@ class Detail extends Component {
                   ))
           } 
    </View> :'' }
-     <MinList list={answerList} title={''} res={res}  loading=''  ontoEnglish={this.toEnglish}/>
-     {isShare &&<ShareBtn draw={ draw } shareTitle ={ shareTitle } onDraw={this.onDraw} shareUrl={ shareUrl } onShareFun={this.onShareFun} /> }
+     <MinList list={answerList} title='' res={res}  loading=''  ontoEnglish={this.toEnglish} />
+     {isShare &&<ShareBtn draw={draw} shareTitle={shareTitle} onDraw={this.onDraw} shareUrl={shareUrl} onShareFun={this.onShareFun} /> }
        <Canvas className='poster' canvasId='poster' style='width:750px;height:1114px;'></Canvas>
     </View>
     )
