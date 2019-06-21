@@ -11,6 +11,7 @@ $npm install
 
 $npm run dev:weapp
 
+![](./ma.jpg)
 
 #主要实现功能
 
