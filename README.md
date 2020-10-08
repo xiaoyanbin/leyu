@@ -5,11 +5,11 @@
 
 使用 cnpm 安装 CLI，已安装跳过 
 
-$ cnpm install -g @tarojs/cli@1.2.1
+cnpm install -g @tarojs/cli@1.2.1
 
-$npm install
+cnpm install
 
-$npm run dev:weapp
+npm run dev:weapp
 
 ![](./ma.jpg)
 
