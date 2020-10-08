@@ -5,7 +5,7 @@
 
 使用 cnpm 安装 CLI，已安装跳过 
 
-$ cnpm install -g @tarojs/cli
+$ cnpm install -g @tarojs/cli@1.2.1
 
 $npm install
 
